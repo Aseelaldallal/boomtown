@@ -8,10 +8,16 @@ import {
   CardText,
   CardActions
 } from 'material-ui/Card';
+import Button from '../UI/Button/Button';
 import { Link } from 'react-router-dom';
-import Button from '../../components/UI/Button/Button';
 
-const Item = props => {
+const ItemCard = props => {
+  const styles = {
+    itemCard: {
+      width: '30%',
+      margin: '1rem'
+    }
+  };
   let cardOverlay = null;
   if (props.data.available) {
     cardOverlay = <CardTitle subtitle="UNAVAILABLE" />;
@@ -25,7 +31,7 @@ const Item = props => {
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
 
   return (
-    <div className="item">
+    <div style={styles.itemCard}>
       <Card>
         <CardMedia overlay={cardOverlay}>
           <img src={props.data.imageurl} alt="" />
@@ -51,4 +57,4 @@ const Item = props => {
   );
 };
 
-export default Item;
+export default ItemCard;

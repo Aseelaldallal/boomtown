@@ -3,11 +3,6 @@
   padding: 0.5rem;
 }
 
-.item {
-  width: 30%;
-  margin: 1rem;
-}
-
 .userInfo {
   display: flex;
   padding-left: 20px;

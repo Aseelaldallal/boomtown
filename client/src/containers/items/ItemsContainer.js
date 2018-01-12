@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import './styles.css';
-import Masonry from 'react-masonry-component';
+import ItemCardList from '../../components/ItemCardList/ItemCardList';
 
 class ItemsContainer extends Component {
   state = {
@@ -37,10 +37,10 @@ class ItemsContainer extends Component {
   }
 
   render() {
-    const itemsList = this.state.items.map(item => {
-      return <Item key={item.id} data={item} />;
-    });
-    return <Masonry className="itemsContainer">{itemsList}</Masonry>;
+    // const itemsList = this.state.items.map(item => {
+    //   return <Item key={item.id} data={item} />;
+    // });
+    return <ItemCardList items={this.state.items} />;
   }
 }
 
