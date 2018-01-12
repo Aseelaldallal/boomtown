@@ -9,7 +9,7 @@ import muiTheme from './config/theme';
 import Layout from './components/Layout';
 import Login from './containers/Login';
 import Items from './containers/items';
-
+import UserProfile from './components/UserProfile/UserProfile';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const Boomtown = () => (
@@ -19,6 +19,7 @@ const Boomtown = () => (
         <Layout>
           <Route path="/login" component={Login} />
           <Route exact path="/items" component={Items} />
+          <Route exact path="/profile" component={UserProfile} />
         </Layout>
       </MuiThemeProvider>
     </Switch>
