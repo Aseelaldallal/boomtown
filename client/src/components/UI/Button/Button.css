@@ -1,0 +1,18 @@
+.button {
+  text-transform: uppercase;
+  margin-right: 1rem;
+  height: 40px;
+  min-width: 100px;
+  padding: 10px;
+  border: 0px;
+}
+
+.buttonBlack {
+  color: white;
+  background-color: black;
+}
+
+.buttonBlue {
+  color: white;
+  background-color: rgb(72, 198, 239);
+}

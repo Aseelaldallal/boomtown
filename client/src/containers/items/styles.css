@@ -7,3 +7,13 @@
   width: 30%;
   margin: 1rem;
 }
+
+.userInfo {
+  display: flex;
+  padding-left: 20px;
+}
+
+.GravatarImg {
+  border-radius: 25px;
+  margin-top: 1rem;
+}

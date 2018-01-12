@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Item from './Item';
 import './styles.css';
 import Masonry from 'react-masonry-component';
+import Gravator from 'react-gravatar';
 
 class ItemsContainer extends Component {
   state = {
