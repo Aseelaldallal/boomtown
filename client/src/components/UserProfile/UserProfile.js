@@ -9,15 +9,21 @@ import './UserProfile.css';
 class UserProfile extends Component {
   state = {
     user: null,
-    items: []
+    items: [],
+    numItemsBorrowed: 0
   };
 
   componentDidMount = () => {
     axios.get('http://localhost:3001/users').then(response => {
-      this.setState({ user: this.getUser(response.data) });
+      this.setState({
+        user: this.getUser(response.data)
+      });
     });
     axios.get('http://localhost:3001/items').then(response => {
-      this.setState({ items: this.getUserItems(response.data) });
+      this.setState({
+        items: this.getUserItems(response.data),
+        numItemsBorrowed: this.getNumberItemsBorrowed(response.data)
+      });
     });
   };
 
@@ -31,6 +37,13 @@ class UserProfile extends Component {
     return items.filter(item => {
       return this.props.match.params.userid === item.itemowner;
     });
+  };
+
+  getNumberItemsBorrowed = items => {
+    let itemsBorrowed = items.filter(item => {
+      return this.props.match.params.userid === item.borrower;
+    });
+    return itemsBorrowed.length;
   };
 
   render() {
