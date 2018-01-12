@@ -24,26 +24,29 @@ const Item = props => {
   }
 
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
-  console.log('doooooo');
+
   return (
     <div className="item">
       <Card>
         <CardMedia overlay={cardOverlay}>
           <img src={props.data.imageurl} alt="" />
         </CardMedia>
-        <Link to={itemOwnerProfileURL}>
-          <CardHeader
-            className="cardHeader"
-            title={props.data.itemowner.fullname}
-            subtitle="3 Months Ago"
-            avatar={
-              <Gravatar
-                email={props.data.itemowner.email}
-                className="GravatarImg"
-              />
-            }
-          />
-        </Link>
+        {/* <Link to={itemOwnerProfileURL}> */}
+        <CardHeader
+          className="cardHeader"
+          title={props.data.itemowner.fullname}
+          subtitle="3 Months Ago"
+          onClick={() =>
+            props.history.push(`/profile/${props.data.itemowner.id}`)
+          }
+          avatar={
+            <Gravatar
+              email={props.data.itemowner.email}
+              className="GravatarImg"
+            />
+          }
+        />
+        {/* </Link> */}
         <CardTitle title={props.data.title} subtitle="Household Items" />
         <CardText>{props.data.description}</CardText>
         <CardActions>{cardButton}</CardActions>
