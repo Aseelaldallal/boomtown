@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardMedia,
   CardTitle,
-  CardText
+  CardText,
+  CardActions
 } from 'material-ui/Card';
 import Button from '../../components/UI/Button/Button';
 
@@ -36,7 +37,7 @@ const Item = ({ data }) => {
         </div>
         <CardTitle title={data.title} subtitle="Household Items" />
         <CardText>{data.description}</CardText>
-        {cardButton}
+        <CardActions>{cardButton}</CardActions>
       </Card>
     </div>
   );
