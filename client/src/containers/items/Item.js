@@ -24,7 +24,7 @@ const Item = props => {
   }
 
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
-
+  console.log('doooooo');
   return (
     <div className="item">
       <Card>
