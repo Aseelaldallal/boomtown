@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Items from './items';
+import Item from './Item';
+import './styles.css';
+import Masonry from 'react-masonry-component';
 
 class ItemsContainer extends Component {
   state = {
@@ -24,6 +26,10 @@ class ItemsContainer extends Component {
       const user = users.find(user => {
         return user.id === item.itemowner;
       });
+      const borrower = users.find(user => {
+        return item.borrower === user.id;
+      });
+      if (borrower) item.borrower = borrower;
       item.itemowner = user;
       return item;
     });
@@ -32,7 +38,10 @@ class ItemsContainer extends Component {
   }
 
   render() {
-    return <Items date={this.state.items} />;
+    const itemsList = this.state.items.map(item => {
+      return <Item key={item.id} data={item} />;
+    });
+    return <Masonry className="itemsContainer">{itemsList}</Masonry>;
   }
 }
 

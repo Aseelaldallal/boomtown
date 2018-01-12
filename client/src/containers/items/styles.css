@@ -1,0 +1,9 @@
+.itemsContainer {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.item {
+  width: 30%;
+  margin: 1rem;
+}
