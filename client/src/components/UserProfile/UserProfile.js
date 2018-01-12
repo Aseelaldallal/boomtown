@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Gravatar from 'react-gravatar';
 import axios from 'axios';
+import ItemCardList from '../ItemCardList/ItemCardList';
+import Auxillary from '../../hoc/Auxillary/Auxillary';
 import './UserProfile.css';
 
 class UserProfile extends Component {
@@ -41,9 +43,12 @@ class UserProfile extends Component {
     };
 
     return (
-      <Paper style={styles.paper} zDepth={2}>
-        <Gravatar email="aseelaldallal@gmail.com" className="GravatarImg" />
-      </Paper>
+      <Auxillary>
+        <Paper style={styles.paper} zDepth={2}>
+          <Gravatar email="aseelaldallal@gmail.com" className="GravatarImg" />
+        </Paper>
+        <ItemCardList items={this.state.items} />
+      </Auxillary>
     );
   }
 }

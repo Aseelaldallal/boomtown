@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './styles.css';
 import ItemCardList from '../../components/ItemCardList/ItemCardList';
 
 class ItemsContainer extends Component {
