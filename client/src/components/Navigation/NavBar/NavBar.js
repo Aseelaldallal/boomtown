@@ -2,8 +2,9 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
 import DropDownMenu from 'material-ui/DropDownMenu';
+// import DropDownMenu from '../../UI/DropDownMenu/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Button from '../Button/Button';
+import Button from '../../UI/Button/Button';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
 
 import './NavBar.css';
@@ -38,7 +39,7 @@ const NavBar = () => {
       style={styles.dropDownMenu}
       autoWidth={false}
     >
-      <MenuItem value={1} primaryText="Hard Coded" />
+      <MenuItem value={1} primaryText="Morning" />
       <MenuItem value={2} primaryText="Hard Coded" />
       <MenuItem value={3} primaryText="Hard Coded" />
       <MenuItem value={4} primaryText="Hard Coded" />
@@ -57,7 +58,6 @@ const NavBar = () => {
     <AppBar
       style={styles.appBar}
       title={dropDownMenu}
-      className="NavBar"
       iconElementLeft={<img style={styles.logoHeight} src={Logo} />}
       iconElementRight={buttons}
     />

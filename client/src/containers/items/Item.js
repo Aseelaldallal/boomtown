@@ -27,14 +27,16 @@ const Item = ({ data }) => {
         <CardMedia overlay={cardOverlay}>
           <img src={data.imageurl} alt="" />
         </CardMedia>
-        <div className="userInfo">
-          <Gravatar email={data.itemowner.email} className="GravatarImg" />
-          <CardHeader
-            className="cardHeader"
-            title={data.itemowner.fullname}
-            subtitle="3 Months Ago"
-          />
-        </div>
+
+        <CardHeader
+          className="cardHeader"
+          title={data.itemowner.fullname}
+          subtitle="3 Months Ago"
+          avatar={
+            <Gravatar email={data.itemowner.email} className="GravatarImg" />
+          }
+        />
+
         <CardTitle title={data.title} subtitle="Household Items" />
         <CardText>{data.description}</CardText>
         <CardActions>{cardButton}</CardActions>
