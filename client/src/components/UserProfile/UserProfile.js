@@ -39,7 +39,7 @@ class UserProfile extends Component {
         margin: 20
       }
     };
-
+    console.log(this.state.items);
     return (
       <Paper style={styles.paper} zDepth={2}>
         <Gravatar email="aseelaldallal@gmail.com" className="GravatarImg" />
