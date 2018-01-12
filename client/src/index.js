@@ -8,7 +8,7 @@ import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
 import Login from './containers/Login';
-import Items from './containers/items';
+import ItemsContainer from './containers/ItemsContainer/ItemsContainer';
 import UserProfile from './components/UserProfile/UserProfile';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Boomtown = () => (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
           <Route path="/login" component={Login} />
-          <Route exact path="/items" component={Items} />
+          <Route exact path="/items" component={ItemsContainer} />
           <Route exact path="/profile/:userid" component={UserProfile} />
         </Layout>
       </MuiThemeProvider>

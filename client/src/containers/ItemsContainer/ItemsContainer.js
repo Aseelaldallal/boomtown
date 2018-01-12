@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Item from './Item';
 import './styles.css';
 import ItemCardList from '../../components/ItemCardList/ItemCardList';
 
@@ -37,9 +36,6 @@ class ItemsContainer extends Component {
   }
 
   render() {
-    // const itemsList = this.state.items.map(item => {
-    //   return <Item key={item.id} data={item} />;
-    // });
     return <ItemCardList items={this.state.items} />;
   }
 }
