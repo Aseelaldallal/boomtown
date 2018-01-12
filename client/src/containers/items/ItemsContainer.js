@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Item from './Item';
 import './styles.css';
 import Masonry from 'react-masonry-component';
-import Gravator from 'react-gravatar';
 
 class ItemsContainer extends Component {
   state = {
@@ -35,7 +34,6 @@ class ItemsContainer extends Component {
       return item;
     });
     this.setState({ items: updatedItems });
-    console.log(this.state.items);
   }
 
   render() {

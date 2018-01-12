@@ -11,7 +11,7 @@ const UserProfile = props => {
       margin: 20
     }
   };
-
+  console.log(props.match.params.userid);
   return (
     <Paper style={styles.paper} zDepth={2}>
       <Gravatar email="aseelaldallal@gmail.com" className="GravatarImg" />

@@ -58,7 +58,7 @@ const NavBar = () => {
     <AppBar
       style={styles.appBar}
       title={dropDownMenu}
-      iconElementLeft={<img style={styles.logoHeight} src={Logo} />}
+      iconElementLeft={<img style={styles.logoHeight} src={Logo} alt="logo" />}
       iconElementRight={buttons}
     />
   );

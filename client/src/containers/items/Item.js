@@ -9,40 +9,47 @@ import {
   CardActions
 } from 'material-ui/Card';
 import Button from '../../components/UI/Button/Button';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
-const Item = ({ data }) => {
+const Item = props => {
   let cardOverlay = null;
-  if (data.available) {
+  if (props.data.available) {
     cardOverlay = <CardTitle subtitle="UNAVAILABLE" />;
   }
 
   let cardButton = null;
-  if (data.available) {
+  if (props.data.available) {
     cardButton = <Button type="buttonBlack"> BORROW </Button>;
   }
+
+  let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
 
   return (
     <div className="item">
       <Card>
         <CardMedia overlay={cardOverlay}>
-          <img src={data.imageurl} alt="" />
+          <img src={props.data.imageurl} alt="" />
         </CardMedia>
-
-        <CardHeader
-          className="cardHeader"
-          title={data.itemowner.fullname}
-          subtitle="3 Months Ago"
-          avatar={
-            <Gravatar email={data.itemowner.email} className="GravatarImg" />
-          }
-        />
-
-        <CardTitle title={data.title} subtitle="Household Items" />
-        <CardText>{data.description}</CardText>
+        <Link to={itemOwnerProfileURL}>
+          <CardHeader
+            className="cardHeader"
+            title={props.data.itemowner.fullname}
+            subtitle="3 Months Ago"
+            avatar={
+              <Gravatar
+                email={props.data.itemowner.email}
+                className="GravatarImg"
+              />
+            }
+          />
+        </Link>
+        <CardTitle title={props.data.title} subtitle="Household Items" />
+        <CardText>{props.data.description}</CardText>
         <CardActions>{cardButton}</CardActions>
       </Card>
     </div>
   );
 };
 
-export default Item;
+export default withRouter(Item);
