@@ -3,11 +3,13 @@ import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
 import Button from '../../UI/Button/Button';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
+import ItemsContainer from '../../../containers/ItemsContainer/ItemsContainer';
 
 import './NavBar.css';
 
-class NavBar extends Component {
+class NavBar extends ItemsContainer {
   render() {
+    console.log('hi', this.state);
     const styles = {
       logoHeight: {
         height: 40
