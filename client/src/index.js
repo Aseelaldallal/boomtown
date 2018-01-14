@@ -8,7 +8,7 @@ import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
 import Login from './containers/Login';
-import ItemsContainer from './containers/ItemsContainer/ItemsContainer';
+import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
 import UserProfile from './components/UserProfile/UserProfile';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 

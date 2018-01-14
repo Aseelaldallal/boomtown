@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ItemCardList from '../../components/Items/ItemCardList/ItemCardList';
+import ItemCardList from '../../../components/Items/ItemCardList/ItemCardList';
+
 import _ from 'underscore';
 
 class ItemsContainer extends Component {
