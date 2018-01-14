@@ -4,8 +4,7 @@ import _ from 'underscore';
 
 class ItemsContainer extends Component {
   state = {
-    items: [],
-    values: []
+    items: []
   };
 
   componentDidMount = () => {
@@ -17,8 +16,6 @@ class ItemsContainer extends Component {
     Promise.all(urls.map(curr => fetch(curr).then(resp => resp.json()))).then(
       data => {
         this.linkItemsToUsers(data[0], data[1]);
-        // console.log("---- [ItemsContainer: componentDidMount] ----");
-        // console.log("State: " , this.state);
       }
     );
   };
@@ -38,25 +35,17 @@ class ItemsContainer extends Component {
     this.setState({ items: updatedItems });
   }
 
-
-  // componentWillMount = () => {
-  //   console.log("---- [ItemsContainer: componentWillMount] ----");
-  //   console.log("State: " , this.state);
-  // }
-
-
   render() {
-    console.log("itemscontainer props: ", this.props);
     let items = this.state.items;
-    // if(this.state.values.length !== 0) {
-    //   items = items.filter(item=> {
-    //     console.log("ITEM: ", item);
-    //     console.log(_.intersection(item.tags, this.state.values));
-    //     return _.intersection(item.tags, this.state.values).length !== 0;
-    //   })
-    // }
-    // console.log("---- [ItemsContainer: render] ----");
-    // console.log("State: " , this.state);
+    console.log('[RENDER]: ItemsContainer');
+    if (this.props.location.search) {
+      const query = new URLSearchParams(this.props.location.search);
+      const selectedTags = query.entries().next().value;
+      items = items.filter(item => {
+        return _.intersection(selectedTags, item.tags).length > 0;
+      });
+      console.log(items);
+    }
     return <ItemCardList items={items} />;
   }
 }

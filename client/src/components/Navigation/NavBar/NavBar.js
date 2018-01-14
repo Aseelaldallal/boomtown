@@ -5,6 +5,9 @@ import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
 import Button from '../../UI/Button/Button';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
+import ItemSelectField from '../../Items/ItemSelectField/ItemSelectField';
+
+
 
 const styles = {
   logoHeight: {
@@ -30,7 +33,7 @@ const NavBar = () => {
   return (
     <AppBar
       style={styles.appBar}
-      title="SELECT FIELD GOES HERE"
+      title={<ItemSelectField />}
       iconElementLeft={
         <img style={styles.logoHeight} src={Logo} alt="logo" />
       }
