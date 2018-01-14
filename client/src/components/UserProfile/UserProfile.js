@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Gravatar from 'react-gravatar';
 import axios from 'axios';
-import ItemCardList from '../ItemCardList/ItemCardList';
+import ItemCardList from '../Items/ItemCardList/ItemCardList';
 import Auxillary from '../../hoc/Auxillary/Auxillary';
 import './UserProfile.css';
 

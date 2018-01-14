@@ -8,14 +8,14 @@ import {
   CardText,
   CardActions
 } from 'material-ui/Card';
-import Button from '../UI/Button/Button';
+import Button from '../../UI/Button/Button';
 import { Link } from 'react-router-dom';
 
 const ItemCard = props => {
   const styles = {
     itemCard: {
       width: '30%',
-      margin: '1rem'
+      margin: '0.6rem'
     }
   };
   let cardOverlay = null;
