@@ -38,14 +38,12 @@ class ItemsContainer extends Component {
 
   render() {
     let items = this.state.items;
-    console.log('[RENDER]: ItemsContainer');
     if (this.props.location.search) {
       const query = new URLSearchParams(this.props.location.search);
       const selectedTags = query.entries().next().value;
       items = items.filter(item => {
         return _.intersection(selectedTags, item.tags).length > 0;
       });
-      console.log(items);
     }
     return <ItemCardList items={items} />;
   }

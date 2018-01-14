@@ -3,9 +3,10 @@ import React from 'react';
 // Containers and Components
 import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
-import Button from '../../UI/Button/Button';
+import RaisedButton from 'material-ui/RaisedButton';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
 import ItemSelectField from '../../../containers/Items/ItemSelectField/ItemSelectField';
+import { grey900, grey50 } from 'material-ui/styles/colors.js';
 
 const styles = {
   logoHeight: {
@@ -15,13 +16,21 @@ const styles = {
     backgroundColor: 'white',
     height: 75,
     padding: '10px 40px'
+  },
+  button: {
+    marginRight: '0.5rem'
   }
 };
 
 const buttons = (
   <Auxillary>
-    <Button type="buttonBlue">My Profile</Button>
-    <Button type="buttonBlack">Logout </Button>
+    <RaisedButton label="MY PROFILE" primary={true} style={styles.button} />
+    <RaisedButton
+      backgroundColor={grey900}
+      label="LOGOUT"
+      labelColor={grey50}
+      style={styles.button}
+    />
   </Auxillary>
 );
 

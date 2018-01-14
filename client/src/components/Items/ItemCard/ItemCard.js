@@ -1,5 +1,8 @@
+// React
 import React from 'react';
+// Gravatar
 import Gravatar from 'react-gravatar';
+// Material UI
 import {
   Card,
   CardHeader,
@@ -8,7 +11,9 @@ import {
   CardText,
   CardActions
 } from 'material-ui/Card';
-import Button from '../../UI/Button/Button';
+import { grey900, grey50 } from 'material-ui/styles/colors.js';
+import RaisedButton from 'material-ui/RaisedButton';
+// React Router
 import { Link } from 'react-router-dom';
 
 const ItemCard = props => {
@@ -25,7 +30,13 @@ const ItemCard = props => {
 
   let cardButton = null;
   if (props.data.available) {
-    cardButton = <Button type="buttonBlack"> BORROW </Button>;
+    cardButton = (
+      <RaisedButton
+        backgroundColor={grey900}
+        label="BORROW"
+        labelColor={grey50}
+      />
+    );
   }
 
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
