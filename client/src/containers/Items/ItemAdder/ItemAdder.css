@@ -1,0 +1,17 @@
+.itemAdder {
+  border: 10px solid green;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-areas: 'imageUploader directions';
+  grid-column-gap: 5rem;
+}
+
+.imageUploadSection {
+  grid-area: 'imageUploader';
+}
+
+.imageDirections {
+  grid-area: 'directions';
+  background-color: pink;
+}

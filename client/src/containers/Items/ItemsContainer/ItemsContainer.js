@@ -44,6 +44,7 @@ class ItemsContainer extends Component {
         .entries()
         .next()
         .value[1].split(',');
+
       items = items.filter(item => {
         return this.intersect(item.tags, selectedTags);
       });

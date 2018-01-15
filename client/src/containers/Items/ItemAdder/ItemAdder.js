@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import ImageUploader from '../../ImageUploader/ImageUploader';
+import ImageUploader from './ImageUploader/ImageUploader';
+import UploadDirections from './UploadDirections/UploadDirections';
+import './ItemAdder.css';
 
 class ItemAdder extends Component {
   render() {
     return (
-      <div>
-        <ImageUploader />
+      <div className="itemAdder">
+        <ImageUploader className="imageUploadSection" />
+        <div className="imageDirections">
+          <UploadDirections />
+        </div>
       </div>
     );
   }
