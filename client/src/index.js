@@ -11,7 +11,7 @@ import './index.css';
 import Layout from './components/Layout';
 import Login from './containers/Login';
 import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
-import UserProfile from './components/UserProfile/UserProfile';
+import UserProfile from './containers/UserProfile/UserProfile';
 import ItemAdder from './containers/Items/ItemAdder/ItemAdder';
 // Register Service Worker
 import registerServiceWorker from './registerServiceWorker';

@@ -1,0 +1,55 @@
+.userProfileContainer {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.paperBox {
+  width: 50vw;
+  padding: 2rem;
+  margin: 0 auto 1rem auto;
+  background-color: white;
+  height: 250px;
+  display: grid;
+  grid-template-columns: 4fr 2fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'area1 area2 gravatar' 'area1 area3 gravatar';
+}
+
+.item-a {
+  grid-area: area1;
+  /* background-color: pink; */
+}
+
+.item-b {
+  grid-area: area2;
+  padding-top: 1.5rem;
+  /* background-color: blue; */
+}
+.item-c {
+  grid-area: area3;
+  /* background-color: green; */
+}
+.item-d {
+  grid-area: gravatar;
+  /* background-color: yellow; */
+  padding: 0 2rem 0 2rem;
+}
+
+.paperBox h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.paperBox h3 {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+.paperBox p {
+  color: rgba(38, 50, 56, 0.54);
+}
+
+.paperGravatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}

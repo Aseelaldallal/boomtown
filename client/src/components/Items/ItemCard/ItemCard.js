@@ -20,8 +20,8 @@ import Moment from 'react-moment';
 const ItemCard = props => {
   const styles = {
     itemCard: {
-      width: '30%',
-      margin: '0.6rem'
+      width: 311,
+      margin: 10
     }
   };
   let cardOverlay = null;

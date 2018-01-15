@@ -4,14 +4,17 @@ import ItemCard from '../ItemCard/ItemCard';
 
 const ItemCardList = ({ items }) => {
   const styles = {
-    container: { width: '100%' }
+    masonry: {
+      width: '90%',
+      margin: '0 auto'
+    }
   };
 
   const itemsList = items.map(item => {
     return <ItemCard key={item.id} data={item} />;
   });
 
-  return <Masonry style={styles.container}>{itemsList}</Masonry>;
+  return <Masonry style={styles.masonry}>{itemsList}</Masonry>;
 };
 
 export default ItemCardList;
