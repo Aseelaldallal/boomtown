@@ -1,5 +1,6 @@
-// React
+// React, React Router
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Gravatar
 import Gravatar from 'react-gravatar';
 // Material UI
@@ -13,8 +14,8 @@ import {
 } from 'material-ui/Card';
 import { grey900, grey50 } from 'material-ui/styles/colors.js';
 import RaisedButton from 'material-ui/RaisedButton';
-// React Router
-import { Link } from 'react-router-dom';
+// Moment
+import Moment from 'react-moment';
 
 const ItemCard = props => {
   const styles = {
@@ -51,7 +52,7 @@ const ItemCard = props => {
           <CardHeader
             className="cardHeader"
             title={props.data.itemowner.fullname}
-            subtitle="3 Months Ago"
+            subtitle={<Moment fromNow>{props.data.created}</Moment>}
             avatar={
               <Gravatar
                 email={props.data.itemowner.email}
@@ -60,7 +61,10 @@ const ItemCard = props => {
             }
           />
         </Link>
-        <CardTitle title={props.data.title} subtitle="Household Items" />
+        <CardTitle
+          title={props.data.title}
+          subtitle={props.data.tags.join(', ')}
+        />
         <CardText>{props.data.description}</CardText>
         <CardActions>{cardButton}</CardActions>
       </Card>

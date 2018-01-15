@@ -11,9 +11,7 @@ class ItemsContainer extends Component {
   componentDidMount = () => {
     let itemsAPI = 'http://localhost:3001/items';
     let usersAPI = 'http://localhost:3001/users';
-
     const urls = [itemsAPI, usersAPI];
-
     Promise.all(urls.map(curr => fetch(curr).then(resp => resp.json()))).then(
       data => {
         this.linkItemsToUsers(data[0], data[1]);
@@ -23,14 +21,9 @@ class ItemsContainer extends Component {
 
   linkItemsToUsers(items, users) {
     const updatedItems = items.map(item => {
-      const user = users.find(user => {
-        return user.id === item.itemowner;
-      });
-      const borrower = users.find(user => {
-        return item.borrower === user.id;
-      });
+      const borrower = users.find(user => item.borrower === user.id);
       if (borrower) item.borrower = borrower;
-      item.itemowner = user;
+      item.itemowner = users.find(user => user.id === item.itemowner);
       return item;
     });
     this.setState({ items: updatedItems });
