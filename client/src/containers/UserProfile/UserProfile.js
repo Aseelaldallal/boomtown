@@ -55,14 +55,6 @@ class UserProfile extends Component {
   };
 
   render() {
-    const styles = {
-      gravatar: {
-        width: '100%',
-        height: '100%',
-        borderRadius: '50%'
-      }
-    };
-
     let profile = null;
     if (this.state.user) {
       profile = (
@@ -81,7 +73,10 @@ class UserProfile extends Component {
               <p>Items borrowed</p>
             </div>
             <div className="item-d">
-              <Gravatar style={styles.gravatar} email={this.state.user.email} />
+              <Gravatar
+                className="paperGravatar"
+                email={this.state.user.email}
+              />
             </div>
           </div>
           <ItemCardList items={this.state.items} />

@@ -1,26 +1,25 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {tags} from '../../../constants/constants';
-import {withRouter} from 'react-router-dom';
+import { tags } from '../../../constants/constants';
+import { withRouter } from 'react-router-dom';
 
 class ItemSelectField extends Component {
-
   state = {
-    values: [],
+    values: []
   };
 
   handleChange = (event, index, values) => {
-      this.setState({values});
-      const queryString = '?selectedTags=' + encodeURIComponent(values); 
-      this.props.history.push({
-        pathname: '/items',
-        search: queryString
-      });
-  }
+    this.setState({ values });
+    const queryString = '?selectedTags=' + encodeURIComponent(values);
+    this.props.history.push({
+      pathname: '/items',
+      search: queryString
+    });
+  };
 
   menuItems(values) {
-    return tags.map((name) => (
+    return tags.map(name => (
       <MenuItem
         key={name}
         insetChildren={true}
@@ -33,7 +32,7 @@ class ItemSelectField extends Component {
 
   render() {
     //   console.log("MY PROPS: ", this.props);
-    const {values} = this.state;
+    const { values } = this.state;
     return (
       <SelectField
         multiple={true}
@@ -46,6 +45,5 @@ class ItemSelectField extends Component {
     );
   }
 }
-
 
 export default withRouter(ItemSelectField);
