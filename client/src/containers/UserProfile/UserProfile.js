@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import Gravatar from 'react-gravatar';
 import axios from 'axios';
 import ItemCardList from '../../components/Items/ItemCardList/ItemCardList';
@@ -56,6 +55,14 @@ class UserProfile extends Component {
   };
 
   render() {
+    const styles = {
+      gravatar: {
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%'
+      }
+    };
+
     let profile = null;
     if (this.state.user) {
       profile = (
@@ -71,13 +78,10 @@ class UserProfile extends Component {
             </div>
             <div className="item-c">
               <h3>{this.state.numItemsBorrowed}</h3>
-              <p>Items borrowed</p>{' '}
+              <p>Items borrowed</p>
             </div>
             <div className="item-d">
-              <Gravatar
-                className="paperGravatar"
-                email={this.state.user.email}
-              />
+              <Gravatar style={styles.gravatar} email={this.state.user.email} />
             </div>
           </div>
           <ItemCardList items={this.state.items} />
