@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ItemCardList from '../../../components/Items/ItemCardList/ItemCardList';
 
-import _ from 'underscore';
-
 class ItemsContainer extends Component {
   state = {
     items: []
@@ -29,13 +27,25 @@ class ItemsContainer extends Component {
     this.setState({ items: updatedItems });
   }
 
+  intersect = (array1, array2) => {
+    for (let i = 0; i < array1.length; i++) {
+      if (array2.includes(array1[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   render() {
     let items = this.state.items;
     if (this.props.location.search) {
       const query = new URLSearchParams(this.props.location.search);
-      const selectedTags = query.entries().next().value;
+      const selectedTags = query
+        .entries()
+        .next()
+        .value[1].split(',');
       items = items.filter(item => {
-        return _.intersection(selectedTags, item.tags).length > 0;
+        return this.intersect(item.tags, selectedTags);
       });
     }
     return <ItemCardList items={items} />;
