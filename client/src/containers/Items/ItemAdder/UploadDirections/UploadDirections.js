@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper';
+import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
@@ -12,22 +12,16 @@ import ExpandTransition from 'material-ui/internal/ExpandTransition';
 class UploadDirections extends Component {
   numSteps = 4;
   state = {
+    finished: false,
     stepIndex: 0
-    // loading: false,
-    // finished: false
   };
-
-  // dummyAsync = (cb) => {
-  //   this.setState({loading: true}, () => {
-  //     this.asyncTimer = setTimeout(cb, 500);
-  //   });
-  // };
 
   handleNext = () => {
     const { stepIndex } = this.state;
-    if (stepIndex < this.numSteps - 1) {
-      this.setState({ stepIndex: stepIndex + 1 });
-    }
+    this.setState({
+      stepIndex: stepIndex + 1,
+      finished: stepIndex >= this.numSteps - 1
+    });
   };
 
   handlePrev = () => {
@@ -38,14 +32,11 @@ class UploadDirections extends Component {
   };
 
   renderStepActions(step) {
-    let buttonLabel = 'Next';
-    if (this.state.stepIndex === this.numSteps - 1) {
-      buttonLabel = 'Confirm';
-    }
+    const { stepIndex } = this.state;
     return (
       <div style={{ margin: '12px 0' }}>
         <RaisedButton
-          label={buttonLabel}
+          label={stepIndex === this.numSteps - 1 ? 'Confirm' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           backgroundColor={grey100}
@@ -55,6 +46,7 @@ class UploadDirections extends Component {
         {step > 0 && (
           <FlatButton
             label="Back"
+            disabled={stepIndex === 0}
             disableTouchRipple={true}
             disableFocusRipple={true}
             backgroundColor={grey900}
@@ -67,7 +59,7 @@ class UploadDirections extends Component {
   }
 
   render() {
-    const { stepIndex } = this.state;
+    const { finished, stepIndex } = this.state;
     const styles = {
       imageUploader: {
         marginTop: 12
@@ -77,12 +69,10 @@ class UploadDirections extends Component {
       }
     };
     return (
-      <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
-        <Stepper activeStep={stepIndex} linear={false} orientation="vertical">
+      <div style={{ maxWidth: 500, maxHeight: 400, margin: 'auto' }}>
+        <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
-            <StepButton onClick={() => this.setState({ stepIndex: 0 })}>
-              Add an Image
-            </StepButton>
+            <StepLabel>Add an Image</StepLabel>
             <StepContent>
               <p style={styles.white}>
                 We live in a visual culture. Upload an image of the item you're
@@ -97,9 +87,7 @@ class UploadDirections extends Component {
           </Step>
 
           <Step>
-            <StepButton onClick={() => this.setState({ stepIndex: 1 })}>
-              Add a Title & Description
-            </StepButton>
+            <StepLabel>Add a Title & Description</StepLabel>
             <StepContent>
               <p style={styles.white}>
                 Folks need to know what you're sharing. Give them a clue by
@@ -117,9 +105,7 @@ class UploadDirections extends Component {
             </StepContent>
           </Step>
           <Step>
-            <StepButton onClick={() => this.setState({ stepIndex: 2 })}>
-              Categorize your Item
-            </StepButton>
+            <StepLabel>Categorize your Item</StepLabel>
             <StepContent>
               <p style={styles.white}>
                 To share an item, you'll add it to our list of categories. You
@@ -129,9 +115,7 @@ class UploadDirections extends Component {
             </StepContent>
           </Step>
           <Step>
-            <StepButton onClick={() => this.setState({ stepIndex: 2 })}>
-              Confirm Things!
-            </StepButton>
+            <StepLabel>Confirm Things!</StepLabel>
             <StepContent>
               <p style={styles.white}>
                 Great! If you're happy with everything, tap the button.
@@ -140,6 +124,15 @@ class UploadDirections extends Component {
             </StepContent>
           </Step>
         </Stepper>
+        {finished && (
+          <a
+            href="#"
+            onClick={event => {
+              event.preventDefault();
+              this.setState({ stepIndex: 0, finished: false });
+            }}
+          />
+        )}
       </div>
     );
   }
