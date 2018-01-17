@@ -3,7 +3,8 @@ import ItemCardList from '../../../components/Items/ItemCardList/ItemCardList';
 
 class ItemsContainer extends Component {
   state = {
-    items: []
+    items: [],
+    borrowing: false
   };
 
   componentDidMount = () => {
@@ -36,6 +37,16 @@ class ItemsContainer extends Component {
     return false;
   };
 
+  borrowItem = itemID => {
+    this.setState({ borrowing: true });
+    console.log('Burrow Button Clicked');
+    console.log('Borrowing Item: ', itemID);
+  };
+
+  borrowingComplete = () => {
+    this.setState({ borrowing: false });
+  };
+
   render() {
     let items = this.state.items;
     if (this.props.location.search) {
@@ -49,7 +60,7 @@ class ItemsContainer extends Component {
         return this.intersect(item.tags, selectedTags);
       });
     }
-    return <ItemCardList items={items} />;
+    return <ItemCardList items={items} clicked={this.borrowItem} />;
   }
 }
 

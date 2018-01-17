@@ -4,7 +4,6 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
 import TextField from 'material-ui/TextField';
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
 
 /**
  * A basic vertical non-linear implementation
