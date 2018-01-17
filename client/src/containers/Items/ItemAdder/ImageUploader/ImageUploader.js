@@ -15,6 +15,9 @@ class ImageUploader extends Component {
     const styles = {
       card: {
         height: 425
+      },
+      gravatar: {
+        borderRadius: '50%'
       }
     };
 
@@ -28,7 +31,9 @@ class ImageUploader extends Component {
         <CardHeader
           className="cardHeader"
           subtitle="A few seconds ago"
-          avatar={<Gravatar email="aseelaldallal@gmail.com" />}
+          avatar={
+            <Gravatar style={styles.gravatar} email="aseelaldallal@gmail.com" />
+          }
         />
 
         <CardTitle title="Amazing Item Title" />
