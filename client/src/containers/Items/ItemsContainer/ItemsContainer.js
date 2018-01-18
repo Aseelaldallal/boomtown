@@ -98,7 +98,7 @@ class ItemsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items.items
+    items: state.items.filteredItems
   };
 };
 
