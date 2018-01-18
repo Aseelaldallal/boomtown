@@ -4,6 +4,11 @@ const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items });
 const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
 const getItemsError = error => ({ type: actionTypes.GET_ITEMS_ERROR });
 
+export const filterItemsByTagName = tagNames => ({
+  type: actionTypes.FILTER_ITEMS_BY_TAG_NAME,
+  tags: tagNames
+});
+
 export const fetchItemsAndUsers = () => dispatch => {
   dispatch(getItemsLoading());
   let itemsAPI = 'http://localhost:3001/items';
@@ -16,6 +21,7 @@ export const fetchItemsAndUsers = () => dispatch => {
     .catch(error => dispatch(getItemsError(error)));
 };
 
+// HELPER METHODS
 function linkItemsToUsers(dispatch, items, users) {
   const updatedItems = items.map(item => {
     const borrower = users.find(user => item.borrower === user.id);

@@ -63,7 +63,6 @@ class ItemsContainer extends Component {
     // ];
 
     let items = this.props.items;
-    console.log('PROPS: ', this.props);
 
     // if (this.props.location.search) {
     //   const query = new URLSearchParams(this.props.location.search);

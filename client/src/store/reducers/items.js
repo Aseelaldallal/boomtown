@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
+import _ from 'lodash';
 
 const initialState = {
   unfilteredItems: [],
@@ -20,9 +21,20 @@ const reducer = (state = initialState, action) => {
       });
     case actionTypes.GET_ITEMS_ERROR:
       return updateObject(state, { loading: false, error: action.error });
+    case actionTypes.FILTER_ITEMS_BY_TAG_NAME:
+      return updateObject(state, {
+        filteredItems: getFilteredItems(state, action.tags)
+      });
     default:
       return state;
   }
+};
+
+const getFilteredItems = (state, tags) => {
+  if (tags.length === 0) return state.unfilteredItems;
+  return state.unfilteredItems.filter(item => {
+    return _.without(tags, ...item.tags).length < tags.length;
+  });
 };
 
 export default reducer;

@@ -1,1 +1,1 @@
-export { fetchItemsAndUsers } from './items.js';
+export { fetchItemsAndUsers, filterItemsByTagName } from './items.js';
