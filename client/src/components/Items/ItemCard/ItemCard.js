@@ -36,7 +36,7 @@ const ItemCard = props => {
         backgroundColor={grey900}
         label="BORROW"
         labelColor={grey50}
-        onClick={() => props.clicked(props.data.id)}
+        onClick={() => props.clicked(props.data)}
       />
     );
   }
