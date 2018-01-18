@@ -1,8 +1,14 @@
+// React
 import React, { Component } from 'react';
+// Redux
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/';
+// Gravatar
 import Gravatar from 'react-gravatar';
-import axios from 'axios';
+// Components and Containers
 import ItemCardList from '../../components/Items/ItemCardList/ItemCardList';
 import Auxillary from '../../hoc/Auxillary/Auxillary';
+// Styling
 import './UserProfile.css';
 
 class UserProfile extends Component {
@@ -14,18 +20,13 @@ class UserProfile extends Component {
   };
 
   componentDidMount = () => {
-    axios.get('http://localhost:3001/users').then(response => {
+    this.props.fetchItemsAndUsers();
+    if (this.props.users && this.props.items) {
       this.setState({
-        user: this.getUser(response.data)
+        user: this.getUser(this.props.users),
+        items: this.getUserItems(this.props.items)
       });
-    });
-    axios.get('http://localhost:3001/items').then(response => {
-      this.setState({
-        items: this.getUserItems(response.data),
-        numItemsBorrowed: this.getNumberItemsBorrowed(response.data),
-        numItemsShared: this.getNumberItemsShared(response.data)
-      });
-    });
+    }
   };
 
   getUser = users => {
@@ -87,4 +88,17 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+const mapStateToProps = state => {
+  return {
+    users: state.users.users,
+    items: state.items.unfilteredItems
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

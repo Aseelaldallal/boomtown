@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/';
-
 // Material-UI
 import ItemCardList from '../../../components/Items/ItemCardList/ItemCardList';
 import Dialog from 'material-ui/Dialog';
