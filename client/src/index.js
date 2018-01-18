@@ -8,6 +8,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import itemsReducer from './store/reducers/items';
+import usersReducer from './store/reducers/users';
 // Material UI, Styling
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from './config/theme';
@@ -22,7 +23,8 @@ import ItemAdder from './containers/Items/ItemAdder/ItemAdder';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
-  items: itemsReducer
+  items: itemsReducer,
+  users: usersReducer
 });
 
 const composeEnhancers =
