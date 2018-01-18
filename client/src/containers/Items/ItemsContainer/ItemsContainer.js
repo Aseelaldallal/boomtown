@@ -1,13 +1,19 @@
+// React
 import React, { Component } from 'react';
+// Redux
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/';
+
+// Material-UI
 import ItemCardList from '../../../components/Items/ItemCardList/ItemCardList';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Auxillary from '../../../hoc/Auxillary/Auxillary';
 import { grey900, grey600, grey50 } from 'material-ui/styles/colors.js';
+// Components and Containers
+import Auxillary from '../../../hoc/Auxillary/Auxillary';
 
 class ItemsContainer extends Component {
   state = {
-    items: [],
     open: false,
     borrowing: {
       status: false,
@@ -16,14 +22,7 @@ class ItemsContainer extends Component {
   };
 
   componentDidMount = () => {
-    let itemsAPI = 'http://localhost:3001/items';
-    let usersAPI = 'http://localhost:3001/users';
-    const urls = [itemsAPI, usersAPI];
-    Promise.all(urls.map(curr => fetch(curr).then(resp => resp.json()))).then(
-      data => {
-        this.linkItemsToUsers(data[0], data[1]);
-      }
-    );
+    this.props.fetchItemsAndUsers();
   };
 
   linkItemsToUsers(items, users) {
@@ -107,4 +106,15 @@ class ItemsContainer extends Component {
   }
 }
 
-export default ItemsContainer;
+const mapStateToProps = state => {
+  return {
+    items: state.items.items
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers)
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
