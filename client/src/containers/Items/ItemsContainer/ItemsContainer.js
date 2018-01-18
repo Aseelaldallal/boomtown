@@ -106,4 +106,5 @@ const mapDispatchToProps = dispatch => {
     fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
