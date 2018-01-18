@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
 
 const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items });
 const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });

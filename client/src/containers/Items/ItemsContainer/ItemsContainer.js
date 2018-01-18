@@ -25,34 +25,24 @@ class ItemsContainer extends Component {
     this.props.fetchItemsAndUsers();
   };
 
-  linkItemsToUsers(items, users) {
-    const updatedItems = items.map(item => {
-      const borrower = users.find(user => item.borrower === user.id);
-      if (borrower) item.borrower = borrower;
-      item.itemowner = users.find(user => user.id === item.itemowner);
-      return item;
-    });
-    this.setState({ items: updatedItems });
-  }
-
-  intersect = (array1, array2) => {
-    for (let i = 0; i < array1.length; i++) {
-      if (array2.includes(array1[i])) {
-        return true;
-      }
-    }
-    return false;
-  };
+  // intersect = (array1, array2) => {
+  //   for (let i = 0; i < array1.length; i++) {
+  //     if (array2.includes(array1[i])) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   borrowItem = () => {
-    const itemID = this.state.borrowing.item.id;
-    console.log('Burrow Button Clicked');
-    console.log('Borrowing Item: ', this.state.borrowing.item.id);
+    // const itemID = this.state.borrowing.item.id;
+    // console.log('Burrow Button Clicked');
+    // console.log('Borrowing Item: ', this.state.borrowing.item.id);
   };
 
   handleOpen = itemToBorrow => {
-    console.log('ITEM TO BORROW: ', itemToBorrow.id);
-    this.setState({ borrowing: { status: true, item: itemToBorrow } });
+    // console.log('ITEM TO BORROW: ', itemToBorrow.id);
+    // this.setState({ borrowing: { status: true, item: itemToBorrow } });
   };
 
   handleClose = () => {
@@ -60,48 +50,48 @@ class ItemsContainer extends Component {
   };
 
   render() {
-    const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
-      <FlatButton
-        label="Borrow"
-        primary={true}
-        onClick={this.borrowItem}
-        backgroundColor={grey900}
-        labelStyle={{ color: grey50 }}
-        hoverColor={grey600}
-      />
-    ];
+    // const actions = [
+    //   <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
+    //   <FlatButton
+    //     label="Borrow"
+    //     primary={true}
+    //     onClick={this.borrowItem}
+    //     backgroundColor={grey900}
+    //     labelStyle={{ color: grey50 }}
+    //     hoverColor={grey600}
+    //   />
+    // ];
 
-    let items = this.state.items;
-    if (this.props.location.search) {
-      const query = new URLSearchParams(this.props.location.search);
-      const selectedTags = query
-        .entries()
-        .next()
-        .value[1].split(',');
-      items = items.filter(item => {
-        return this.intersect(item.tags, selectedTags);
-      });
-    }
+    let items = this.props.items;
+    console.log('PROPS: ', this.props);
 
-    let itemTitle = null;
-    let itemOwner = null;
-    if (this.state.borrowing.item) {
-      itemTitle = this.state.borrowing.item.title;
-      itemOwner = this.state.borrowing.item.itemowner.fullname;
-    }
+    // if (this.props.location.search) {
+    //   const query = new URLSearchParams(this.props.location.search);
+    //   const selectedTags = query
+    //     .entries()
+    //     .next()
+    //     .value[1].split(',');
+    //   items = items.filter(item => {
+    //     return this.intersect(item.tags, selectedTags);
+    //   });
+    // }
+
+    // let itemTitle = null;
+    // let itemOwner = null;
+    // if (this.state.borrowing.item) {
+    //   itemTitle = this.state.borrowing.item.title;
+    //   itemOwner = this.state.borrowing.item.itemowner.fullname;
+    // }
     return (
-      <Auxillary>
-        <ItemCardList items={items} clicked={this.handleOpen} />
-        <Dialog
-          title="Borrow Item"
-          actions={actions}
-          modal={true}
-          open={this.state.borrowing.status}
-        >
-          Do you want to request to borrow {itemTitle} from {itemOwner}?
-        </Dialog>
-      </Auxillary>
+      <ItemCardList items={items} clicked={this.handleOpen} />
+      // {/* <Dialog
+      //   title="Borrow Item"
+      //   actions={actions}
+      //   modal={true}
+      //   open={this.state.borrowing.status}
+      // >
+      //   Do you want to request to borrow {itemTitle} from {itemOwner}?
+      // </Dialog> */}
     );
   }
 }
@@ -114,7 +104,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers)
+    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
