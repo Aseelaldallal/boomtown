@@ -2,3 +2,7 @@ export const GET_ITEMS = 'GET_ITEMS';
 export const GET_ITEMS_LOADING = 'GET_ITEMS_LOADING';
 export const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR';
 export const FILTER_ITEMS_BY_TAG_NAME = 'FILTER_ITEMS_BY_TAG_NAME';
+
+export const GET_USERS = 'GET_ITEMS';
+export const GET_USERS_LOADING = 'GET_ITEMS_LOADING';
+export const GET_USERS_ERROR = 'GET_ITEMS_ERROR';

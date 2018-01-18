@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 
+// ====================== ITEMS ACTIONS ====================== //
+
 const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items });
 const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
 const getItemsError = error => ({ type: actionTypes.GET_ITEMS_ERROR });
@@ -16,12 +18,20 @@ export const fetchItemsAndUsers = () => dispatch => {
   const urls = [itemsAPI, usersAPI];
   Promise.all(urls.map(curr => fetch(curr).then(resp => resp.json())))
     .then(data => {
-      linkItemsToUsers(dispatch, data[0], data[1]);
+      dispatch(getUsers(data[1]));
+      linkItemsToUsers(dispatch, data[0], data[1]); // 0 = items, 1 = users
     })
     .catch(error => dispatch(getItemsError(error)));
 };
 
-// HELPER METHODS
+// ======================= USER ACTIONS ======================= //
+
+const getUsers = users => ({ type: actionTypes.GET_USERS, users: users });
+const getUsersLoading = () => ({ type: actionTypes.GET_USERS_LOADING });
+const getUsersError = error => ({ type: actionTypes.GET_USERS_ERROR });
+
+// ====================== HELPER METHODS ====================== //
+
 function linkItemsToUsers(dispatch, items, users) {
   const updatedItems = items.map(item => {
     const borrower = users.find(user => item.borrower === user.id);
