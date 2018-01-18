@@ -80,17 +80,19 @@ class ItemsContainer extends Component {
     //   itemTitle = this.state.borrowing.item.title;
     //   itemOwner = this.state.borrowing.item.itemowner.fullname;
     // }
-    return (
-      <ItemCardList items={items} clicked={this.handleOpen} />
-      // {/* <Dialog
-      //   title="Borrow Item"
-      //   actions={actions}
-      //   modal={true}
-      //   open={this.state.borrowing.status}
-      // >
-      //   Do you want to request to borrow {itemTitle} from {itemOwner}?
-      // </Dialog> */}
-    );
+    let toRender = null;
+    if (this.props.items) {
+      toRender = <ItemCardList items={items} clicked={this.handleOpen} />;
+    }
+    return <Auxillary>{toRender}</Auxillary>;
+    // {/* <Dialog
+    //   title="Borrow Item"
+    //   actions={actions}
+    //   modal={true}
+    //   open={this.state.borrowing.status}
+    // >
+    //   Do you want to request to borrow {itemTitle} from {itemOwner}?
+    // </Dialog> */}
   }
 }
 
