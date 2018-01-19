@@ -21,13 +21,28 @@ class UserProfile extends Component {
 
   componentDidMount = () => {
     this.props.fetchItemsAndUsers();
-    if (this.props.users && this.props.items) {
+    if (this.props.users.length > 0 && this.props.items.length > 0) {
       this.setState({
         user: this.getUser(this.props.users),
         items: this.getUserItems(this.props.items)
       });
     }
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.users && this.props.items) {
+      if (this.props.users.length !== nextProps.users.length) {
+        this.setState({
+          user: this.getUser(nextProps.users)
+        });
+      }
+      if (this.props.items.length !== nextProps.items.length) {
+        this.setState({
+          items: this.getUserItems(nextProps.items)
+        });
+      }
+    }
+  }
 
   getUser = users => {
     return users.find(user => {
@@ -37,7 +52,7 @@ class UserProfile extends Component {
 
   getUserItems = items => {
     return items.filter(item => {
-      return this.props.match.params.userid === item.itemowner;
+      return this.props.match.params.userid === item.itemowner.id;
     });
   };
 

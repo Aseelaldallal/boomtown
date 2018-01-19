@@ -13,6 +13,7 @@ export const filterItemsByTagName = tagNames => ({
 
 export const fetchItemsAndUsers = () => dispatch => {
   dispatch(getItemsLoading());
+  dispatch(getUsersLoading());
   let itemsAPI = 'http://localhost:3001/items';
   let usersAPI = 'http://localhost:3001/users';
   const urls = [itemsAPI, usersAPI];
@@ -21,7 +22,10 @@ export const fetchItemsAndUsers = () => dispatch => {
       dispatch(getUsers(data[1]));
       linkItemsToUsers(dispatch, data[0], data[1]); // 0 = items, 1 = users
     })
-    .catch(error => dispatch(getItemsError(error)));
+    .catch(error => {
+      dispatch(getItemsError(error));
+      dispatch(getUsersError(error));
+    });
 };
 
 // ======================= USER ACTIONS ======================= //
