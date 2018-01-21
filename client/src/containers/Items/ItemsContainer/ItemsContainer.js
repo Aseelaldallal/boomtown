@@ -65,7 +65,6 @@ class ItemsContainer extends Component {
       toRender = <ItemCardList items={items} clicked={this.handleOpen} />;
     }
 
-    console.log('Render: ', this.state);
     return (
       <Auxillary>
         {toRender}
