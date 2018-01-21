@@ -1,5 +1,6 @@
 // React
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 // Containers and Components
 import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
@@ -34,15 +35,19 @@ const buttons = (
   </Auxillary>
 );
 
-const NavBar = () => {
+const NavBar = props => {
+  let itemSelectField = null;
+  if (props.location.pathname === '/items') {
+    itemSelectField = <ItemSelectField />;
+  }
   return (
     <AppBar
       style={styles.appBar}
-      title={<ItemSelectField />}
+      title={itemSelectField}
       iconElementLeft={<img style={styles.logoHeight} src={Logo} alt="logo" />}
       iconElementRight={buttons}
     />
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);
