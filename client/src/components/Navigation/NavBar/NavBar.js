@@ -40,14 +40,23 @@ const NavBar = props => {
   if (props.location.pathname === '/items') {
     itemSelectField = <ItemSelectField />;
   }
-  return (
-    <AppBar
-      style={styles.appBar}
-      title={itemSelectField}
-      iconElementLeft={<img style={styles.logoHeight} src={Logo} alt="logo" />}
-      iconElementRight={buttons}
-    />
-  );
+
+  let bar = null;
+
+  if (props.location.pathname !== '/login') {
+    bar = (
+      <AppBar
+        style={styles.appBar}
+        title={itemSelectField}
+        iconElementLeft={
+          <img style={styles.logoHeight} src={Logo} alt="logo" />
+        }
+        iconElementRight={buttons}
+      />
+    );
+  }
+
+  return <Auxillary>{bar} </Auxillary>;
 };
 
 export default withRouter(NavBar);

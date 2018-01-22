@@ -20,20 +20,27 @@ const styles = {
   }
 };
 
-const Layout = ({ children, history }) => {
+const Layout = props => {
+  let addItemButton = null;
+  if (props.location.pathname !== '/login') {
+    addItemButton = (
+      <FloatingActionButton
+        style={styles.floatingButton}
+        backgroundColor={grey900}
+        onClick={() => props.history.push('/share')}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+    );
+  }
+
   return (
     <div className="appContentWrapper">
       <div className="appHeader">
         <NavBar />
       </div>
-      <div className="appContent">{children}</div>
-      <FloatingActionButton
-        style={styles.floatingButton}
-        backgroundColor={grey900}
-        onClick={() => history.push('/share')}
-      >
-        <ContentAdd />
-      </FloatingActionButton>
+      <div className="appContent">{props.children}</div>
+      {addItemButton}
       {/* And a footer here, but not on the login route... */}
     </div>
   );
