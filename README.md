@@ -1,19 +1,13 @@
-# Boomtown Starter
+# Boomtown
 
-## Installation
+## Summary
 
-Download the repo, then run:
+The purpose of this app is to allow registered users to list items they own, and borrow items listed from others.
 
-```bash
-cd client && npm install
-```
+** Note: ** This app is still being developed!
 
-## Start-up
+## Technologies
 
-From inside the `client` directory, run:
-
-```bash
-npm run dev
-```
-
-Happy coding :)
+* React
+* Redux
+* Material UI
