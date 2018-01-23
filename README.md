@@ -1,19 +1,12 @@
-# Boomtown Starter
+# Boomtown
 
-## Installation
+## Summary
 
-Download the repo, then run:
+Web app that supports a local sharing economy by allowing registered users to list items they'd like to lend, and borrow items from others.
 
-```bash
-cd client && npm install
-```
+**Note:** This app is still a work in progress!
 
-## Start-up
+## Technology
 
-From inside the `client` directory, run:
-
-```bash
-npm run dev
-```
-
-Happy coding :)
+* React
+* Redux
