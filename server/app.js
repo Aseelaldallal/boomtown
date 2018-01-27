@@ -1,28 +1,41 @@
-// BASE SETUP
+// =============================================================================
+// BASIC SETUP
 // =============================================================================
 
-// Call the packages we need
-let express = require('express'); // call express
-let bodyParser = require('body-parser');
+// Get Packages
+const mongoose = require('./db/mongoose'),
+  express = require('express'),
+  bodyParser = require('body-parser');
 
-// define our app using express
-let app = express(); 
+// Get Express Instance
+const app = express();
 
-// Routes
-let itemRoutes = require('./routes/item');
+// Port
+const PORT = process.env.PORT || 3001;
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /
-app.use('/items', itemRoutes);
-
-// START THE SERVER
+// =============================================================================
+// LISTEN
 // =============================================================================
 
-app.listen(3001, function() {
-  console.log('Listening!');
+app.listen(PORT, function () {
+  console.log(`Server started on port ${PORT}`);
 });
+
+// // Routes
+// let itemRoutes = require('./routes/item');
+
+// // configure app to use bodyParser()
+// // this will let us get the data from a POST
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+
+// // REGISTER OUR ROUTES -------------------------------
+// // all of our routes will be prefixed with /
+// app.use('/items', itemRoutes);
+
+// // START THE SERVER
+// // =============================================================================
+
+// app.listen(3001, function() {
+//   console.log('Listening!');
+// });
