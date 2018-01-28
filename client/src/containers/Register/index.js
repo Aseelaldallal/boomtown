@@ -1,5 +1,5 @@
-import RegisterContainer from './RegisterContainer';
-import Register from './Register';
+// import RegisterContainer from './RegisterContainer';
+// import Register from './Register';
 
-export { Register };
-export default RegisterContainer;
+// export { Register };
+// export default RegisterContainer;

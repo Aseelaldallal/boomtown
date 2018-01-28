@@ -16,7 +16,7 @@ import './index.css';
 // Components and Containers
 import Layout from './components/Layout';
 import Login from './containers/Login'; // index.js
-import Register from './containers/Register'; // index.js
+import Register from './containers/Register/RegisterContainer';
 import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
 import UserProfile from './containers/UserProfile/UserProfile';
 import ItemAdder from './containers/Items/ItemAdder/ItemAdder';

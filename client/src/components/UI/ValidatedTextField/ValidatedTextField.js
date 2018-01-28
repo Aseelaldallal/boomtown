@@ -18,7 +18,7 @@ const styles = {
     }
 };
 
-const ValidatedTextField = ({ label }) => (
+const ValidatedTextField = ({ label, value }) => (
     <TextField
         style={styles.fieldStyle}
         hintText={label}
