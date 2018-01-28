@@ -38,9 +38,9 @@ const getUsersError = error => ({ type: actionTypes.GET_USERS_ERROR });
 
 function linkItemsToUsers(dispatch, items, users) {
   const updatedItems = items.map(item => {
-    const borrower = users.find(user => item.borrower === user.id);
+    const borrower = users.find(user => item.borrower === user._id);
     if (borrower) item.borrower = borrower;
-    item.itemowner = users.find(user => user.id === item.itemowner);
+    item.itemowner = users.find(user => user._id === item.itemowner);
     return item;
   });
   dispatch(getItems(updatedItems));

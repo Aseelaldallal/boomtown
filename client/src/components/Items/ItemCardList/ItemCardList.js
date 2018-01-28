@@ -16,13 +16,13 @@ class ItemCardList extends Component {
   };
 
   borrowItem = () => {
-    const itemID = this.state.borrowing.item.id;
+    const itemID = this.state.borrowing.item._id;
     console.log('Burrow Button Clicked');
-    console.log('Borrowing Item: ', this.state.borrowing.item.id);
+    console.log('Borrowing Item: ', itemID);
   };
 
   handleOpen = itemToBorrow => {
-    console.log('ITEM TO BORROW: ', itemToBorrow.id);
+    console.log('ITEM TO BORROW: ', itemToBorrow._id);
     this.setState({ borrowing: { status: true, item: itemToBorrow } });
   };
 
@@ -60,7 +60,7 @@ class ItemCardList extends Component {
     const itemsList = this.props.items.map(item => {
       return (
         <ItemCard
-          key={item.id}
+          key={item._id}
           data={item}
           clicked={() => this.handleOpen(item)}
         />
