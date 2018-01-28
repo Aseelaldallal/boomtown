@@ -278,19 +278,19 @@
   ],
   "users": [
     {
-      "id": "5a6b7ad6504b9712482b4959",
+      "_id": "5a6b7ad6504b9712482b4959",
       "email": "mandi@redacademy.com",
       "fullname": "Mandi Wise",
       "bio": "Learn 'em good."
     },
     {
-      "id": "5a6b7ad6504b9712482b495a",
+      "_id": "5a6b7ad6504b9712482b495a",
       "email": "mackenzie@redacademy.com",
       "fullname": "Mackenzie Kieran",
       "bio": "Thar she blows."
     },
     {
-      "id": "5a6b7ad6504b9712482b495b",
+      "_id": "5a6b7ad6504b9712482b495b",
       "email": "edivan@redacademy.com",
       "fullname": "Edivan Henrique",
       "bio": "I like dancing :)"
