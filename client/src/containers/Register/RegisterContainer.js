@@ -78,7 +78,7 @@ class RegisterContainer extends Component {
                 },
                 valid: false,
                 touched: false,
-                validationMessage: 'Your bio must be 100-500 characters long. No less, no more'
+                validationMessage: 'Your bio must be 50-200 characters long. No less, no more'
             }
         },
         formIsValid: false
@@ -89,7 +89,7 @@ class RegisterContainer extends Component {
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormElement = updateObject(this.state.registerForm[inputIdentifier], {
             value: event.target.value,
-            touched: true
+            touched: false
         });
         const updatedRegisterForm = updateObject(this.state.registerForm, {
             [inputIdentifier]: updatedFormElement

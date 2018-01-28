@@ -19,7 +19,7 @@ const input = (props) => {
                 onChange={props.changed}
                 errorText={validationError}
                 onBlur={props.blurred}
-
+                fullWidth={true}
             />
             break;
         case ('textarea'):
@@ -31,7 +31,8 @@ const input = (props) => {
                 onBlur={props.blurred}
                 errorText={validationError}
                 multiLine={true}
-                rows={8}
+                rows={5}
+                fullWidth={true}
             />
             break;
         default:

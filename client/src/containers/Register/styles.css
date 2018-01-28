@@ -5,7 +5,7 @@
 }
 
 .register .cardContainer {
-    width: 420px;
+    width: 600px;
     max-width: 95%;
     min-width: 320px;
     
@@ -13,12 +13,11 @@
 
 .register .formContainer {
     padding: 1rem 4rem 3.25rem 4rem;
-   
 }
 
 .register .logo {
     margin-bottom: 1rem;
-    margin-top: -197px;
+    margin-top: -127px;
     position: relative;
     z-index: 1000;
 }
