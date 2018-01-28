@@ -24,7 +24,9 @@ class UserProfile extends Component {
     if (this.props.users.length > 0 && this.props.items.length > 0) {
       this.setState({
         user: this.getUser(this.props.users),
-        items: this.getUserItems(this.props.items)
+        items: this.getUserItems(this.props.items),
+        numItemsBorrowed: this.getNumberItemsBorrowed(this.props.items),
+        numItemsShared: this.getNumberItemsShared(this.getUserItems(this.props.items))
       });
     }
   };
@@ -38,7 +40,9 @@ class UserProfile extends Component {
       }
       if (this.props.items.length !== nextProps.items.length) {
         this.setState({
-          items: this.getUserItems(nextProps.items)
+          items: this.getUserItems(nextProps.items),
+          numItemsBorrowed: this.getNumberItemsBorrowed(nextProps.items),
+          numItemsShared: this.getNumberItemsShared(this.getUserItems(nextProps.items))
         });
       }
     }
@@ -46,26 +50,26 @@ class UserProfile extends Component {
 
   getUser = users => {
     return users.find(user => {
-      return this.props.match.params.userid === user.id;
+      return this.props.match.params.userid === user._id;
     });
   };
 
   getUserItems = items => {
     return items.filter(item => {
-      return this.props.match.params.userid === item.itemowner.id;
+      return this.props.match.params.userid === item.itemowner._id;
     });
   };
 
   getNumberItemsBorrowed = items => {
     let itemsBorrowed = items.filter(item => {
-      return this.props.match.params.userid === item.borrower;
+      if (item.borrower) return this.props.match.params.userid === item.borrower._id;
     });
     return itemsBorrowed.length;
   };
 
   getNumberItemsShared = items => {
     let itemsShared = items.filter(item => {
-      return items.borrower != null;
+      return item.borrower !== null;
     });
     return itemsShared.length;
   };
