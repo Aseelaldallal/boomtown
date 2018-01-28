@@ -15,11 +15,14 @@ router.get('/', function (req, res) {
   Items.find({}).then(foundItems => {
     res.send(foundItems);
   }).catch(err => {
-    console.error(err);
+    res.status(400).send(err);
   })
 });
 
 
-/* ----------------- EXPORT  ----------------- */
+
+// ===============================================
+// Export
+// ===============================================
 
 module.exports = router;

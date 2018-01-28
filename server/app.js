@@ -15,6 +15,7 @@ const app = express();
 
 // Get Routes
 let itemRoutes = require('./routes/item');
+let userRoutes = require('./routes/user');
 
 // =============================================================================
 // MIDDLEWARE
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Register Routes
 app.use('/items', itemRoutes); // All routes inside itemRoutes are now prefixed with /items
-
+app.use('/users', userRoutes);
 // =============================================================================
 // LISTEN
 // =============================================================================
