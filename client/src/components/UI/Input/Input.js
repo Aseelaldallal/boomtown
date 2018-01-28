@@ -1,34 +1,38 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 
 const input = (props) => {
 
-    console.log("VALUE: ", props.value);
     let inputElement = null;
-    //const inputClasses = [classes.InputElement];
-
     let validationError = null;
     if (props.invalid && props.shouldValidate && props.touched) {
-        //inputClasses.push(classes.Invalid);
-        validationError = (
-            <p >
-                {props.validationMsg ? props.validationMsg : "Please enter a valid value!"}
-            </p>
-        );
+        validationError = props.validationMsg ? props.validationMsg : "Please enter a valid value!";
     }
 
     switch (props.elementType) {
         case ('input'):
-            inputElement = <input
-                {...props.elementConfig}
+            inputElement = <TextField
+                hintText={props.elementConfig.placeholder}
+                floatingLabelText={props.elementConfig.placeholder}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                errorText={validationError}
+                onBlur={props.blurred}
+
+            />
             break;
-        case ('texarea'):
-            inputElement = <input
-                {...props.elementConfig}
+        case ('textarea'):
+            inputElement = <TextField
+                hintText={props.elementConfig.placeholder}
+                floatingLabelText={props.elementConfig.placeholder}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                onBlur={props.blurred}
+                errorText={validationError}
+                multiLine={true}
+                rows={8}
+            />
             break;
         default:
             inputElement = <input />
@@ -38,7 +42,6 @@ const input = (props) => {
         <div>
             <label>{props.label}</label>
             {inputElement}
-            {validationError}
         </div>
     );
 }

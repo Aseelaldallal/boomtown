@@ -1,7 +1,17 @@
+// React
 import React, { Component } from 'react';
+// Axios
 import axios from 'axios';
+// Material UI
 import Input from '../../components/UI/Input/Input';
+import Paper from 'material-ui/Paper';
+// Utility
 import { updateObject, checkValidity } from '../../shared/utility';
+import './styles.css';
+// SVG Images
+import logo from '../../images/boomtown-logo.svg';
+import bottomLeft from '../../images/home-bl.svg';
+import topRight from '../../images/home-tr.svg';
 
 
 class RegisterContainer extends Component {
@@ -58,7 +68,7 @@ class RegisterContainer extends Component {
             bio: {
                 elementType: 'textarea',
                 elementConfig: {
-                    placeholder: 'Enter something interesting!'
+                    placeholder: 'Bio: Enter Something Interesting!'
                 },
                 value: '',
                 validation: {
@@ -79,6 +89,19 @@ class RegisterContainer extends Component {
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormElement = updateObject(this.state.registerForm[inputIdentifier], {
             value: event.target.value,
+            touched: true
+        });
+        const updatedRegisterForm = updateObject(this.state.registerForm, {
+            [inputIdentifier]: updatedFormElement
+        });
+        this.setState({
+            registerForm: updatedRegisterForm
+        })
+    }
+
+    inputBlurredHandler = (event, inputIdentifier) => {
+        const updatedFormElement = updateObject(this.state.registerForm[inputIdentifier], {
+            value: event.target.value,
             valid: checkValidity(event.target.value, this.state.registerForm[inputIdentifier].validation),
             touched: true
         });
@@ -94,6 +117,11 @@ class RegisterContainer extends Component {
             formIsValid: formIsValid
         })
     }
+
+
+
+
+
 
     registerHandler = (event) => {
         event.preventDefault();
@@ -115,15 +143,33 @@ class RegisterContainer extends Component {
                     shouldValidate={element[1].validation}
                     touched={element[1].touched}
                     changed={(event) => this.inputChangedHandler(event, element[0])}
-                    validationMsg={element[1].validationMessage} />
+                    blurred={(event) => this.inputBlurredHandler(event, element[0])}
+                    validationMsg={element[1].validationMessage}
+                />
             );
         });
         return (
-            <div>
-                <form onSubmit={this.registerationHandler}>
-                    {formElements}
-                    <button> Submit </button>
-                </form>
+            <div className="page register">
+                <div className="logo">
+                    <img src={logo} alt="Boomtown Logo" />
+                </div>
+                <div className="topRight">
+                    <img src={topRight} alt="Sky" />
+                </div>
+                <div className="bottomLeft">
+                    <img src={bottomLeft} alt="City" />
+                </div>
+                <div className="cardContainer">
+                    <Paper zDepth={5}>
+                        <div className="formContainer">
+                            <form onSubmit={this.registerationHandler}>
+                                {formElements}
+                                <button> Submit </button>
+                            </form>
+
+                        </div>
+                    </Paper>
+                </div>
             </div>
         );
     }
