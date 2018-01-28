@@ -2,36 +2,37 @@
 // SETUP
 
 // ===============================================
-var express = require('express'),
+const express = require('express'),
     passport = require('../config/passport'), // index.js
-    router = express.Router();
-
-
+    User = require('../models/user');
+router = express.Router();
 // ===============================================
 // Register
 // ===============================================
 
 router.post('/register', (req, res) => {
-    const { email, username, password } = req.body;
+    const { email, password } = req.body;
+    console.log("REACHED SERVER!");
     console.log("Email: ", email);
-    console.log("Username: ", username);
     console.log("Password: ", password);
     User.findOne({ 'local.email': email }).then(foundUser => {
         if (foundUser) {
-            return res.json({ error: `Sorry, the email address ${email} already exists. Try signing in instead.` })
+            res.send(`${email} already exists. Try signing in instead.`);
+        } else {
+            const newUser = new User({
+                'local.email': email,
+                'local.password': password
+            })
+            return newUser.save();
         }
-        const newUser = new User({
-            'local.username': username,
-            'local.email': email,
-            'local.password': password
-        })
-        return newUser.save();
     }).then(savedUser => {
-        return res.json('Registered User: ', savedUser)
-    }).
-        catch((err) => {
-            return res.json(err);
-        });
+        console.log("SAVED USER: ", savedUser);
+        res.send('Registered User');
+    }).catch((err) => {
+        res.send(err);
+    });
+
+
 });
 
 // ===============================================
