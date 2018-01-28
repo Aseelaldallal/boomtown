@@ -1,10 +1,5 @@
-
-
-
-
-
-
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class RegisterContainer extends Component {
 
@@ -25,6 +20,16 @@ class RegisterContainer extends Component {
         event.preventDefault();
         console.log("Email: ", this.state.email);
         console.log("Password: ", this.state.password);
+        axios.post('http://localhost:3001/register', {
+            email: this.state.email,
+            password: this.state.password
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
