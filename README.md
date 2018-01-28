@@ -11,3 +11,10 @@ The purpose of this app is to allow registered users to list items they own, and
 * React
 * Redux
 * Material UI
+
+
+
+
+
+## Challenges (Draft)
+-- App Structure: Need more experience in App Design
