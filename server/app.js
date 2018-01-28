@@ -13,10 +13,6 @@ const mongoose = require('./db/mongoose'),
 // Get Express Instance
 const app = express();
 
-// Get Routes
-let itemRoutes = require('./routes/item');
-let userRoutes = require('./routes/user');
-
 // =============================================================================
 // MIDDLEWARE
 // =============================================================================
@@ -25,9 +21,18 @@ let userRoutes = require('./routes/user');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// =============================================================================
+// ROUTE SETUP
+// =============================================================================
+
+// Get Routes
+let itemRoutes = require('./routes/item');
+let userRoutes = require('./routes/user');
+
 // Register Routes
 app.use('/items', itemRoutes); // All routes inside itemRoutes are now prefixed with /items
 app.use('/users', userRoutes);
+
 // =============================================================================
 // LISTEN
 // =============================================================================
