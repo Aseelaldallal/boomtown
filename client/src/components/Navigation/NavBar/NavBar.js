@@ -43,7 +43,7 @@ const NavBar = props => {
 
   let bar = null;
 
-  if (props.location.pathname !== '/login') {
+  if (props.location.pathname !== '/login' && props.location.pathname !== '/register') {
     bar = (
       <AppBar
         style={styles.appBar}
