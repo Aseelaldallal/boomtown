@@ -34,6 +34,7 @@ passport.deserializeUser((id, done) => {
 // REGISTER STRATEGIES
 // ====================================
 
-passport.use(LocalStrategy);
+passport.use('local-login', LocalStrategy.localLogin);
+passport.use('local-register', LocalStrategy.localRegister);
 
 module.exports = passport;
