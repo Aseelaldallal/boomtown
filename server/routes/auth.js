@@ -19,9 +19,8 @@ router = express.Router();
 router.post('/register', function(req, res, next) {
   passport.authenticate('local-register', function(err, user, info) {
     if (err) {
-      res.status(500).send(err); // WHAT ERROR GOES HERE
+      res.status(500).send(err);
     } else if (info) {
-      console.log('FUCK');
       res.status(400).json(info);
     } else {
       req.logIn(user, function(err) {
