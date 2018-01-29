@@ -39,8 +39,10 @@ const localRegister = new LocalStrategy(
                 newUser.local.password = newUser.generateHash(password);
                 newUser.fullname = req.body.fullname;
                 newUser.bio = req.body.bio;
-                console.log("new user: ", newUser);
-                newUser.save().then((savedUser) => console.log(savedUser)).catch(err => console.log(err));
+                newUser.save().then((savedUser) => {
+                    console.log(`[DB Save] Saved ${savedUser} to db`);
+                    return done(null, savedUser);
+                }).catch(err => console.log(err));
             }
 
         })
