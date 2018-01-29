@@ -5,6 +5,7 @@ import axios from 'axios';
 // Material UI
 import Input from '../../components/UI/Input/Input';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 // Utility
 import { updateObject, checkValidity } from '../../shared/utility';
 import './styles.css';
@@ -63,7 +64,7 @@ class RegisterContainer extends Component {
                 },
                 valid: false,
                 touched: false,
-                validationMessage: 'Your password must be at least 8 characters long'
+                validationMessage: 'Your password must be at least 7 characters long'
             },
             bio: {
                 elementType: 'textarea',
@@ -73,8 +74,8 @@ class RegisterContainer extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 100,
-                    maxLength: 500
+                    minLength: 50,
+                    maxLength: 200
                 },
                 valid: false,
                 touched: false,
@@ -142,6 +143,19 @@ class RegisterContainer extends Component {
             registerForm: updatedRegisterForm,
             formIsValid: formIsValid
         })
+        if (formIsValid) {
+            const formData = {
+                fullname: this.state.registerForm['fullname'].value,
+                email: this.state.registerForm['email'].value,
+                password: this.state.registerForm['password'].value,
+                bio: this.state.registerForm['bio'].value
+            }
+            axios.post('http://localhost:3001/register', formData).then(() => {
+                console.log("SUCCESS");
+            }).catch(err => {
+                console.error("FAIL");
+            })
+        }
     }
 
     render() {
@@ -177,7 +191,9 @@ class RegisterContainer extends Component {
                         <div className="formContainer">
                             <form onSubmit={this.registerHandler}>
                                 {formElements}
-                                <input type="submit" />
+                                <RaisedButton className="enterButton" primary fullWidth type="submit">
+                                    Register
+                        </RaisedButton>
                             </form>
                         </div>
                     </Paper>
