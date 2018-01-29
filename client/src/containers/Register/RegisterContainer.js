@@ -118,17 +118,30 @@ class RegisterContainer extends Component {
         })
     }
 
-
-
-
-
-
     registerHandler = (event) => {
         event.preventDefault();
-        const formData = {}
-        for (let formElement in this.state.registerForm) {
-            formData[formElement] = this.state.registerForm[formElement].value;
+        const identifiers = [];
+        const updatedFields = [];
+        for (let inputIdentifier in this.state.registerForm) {
+            const updatedFormElement = updateObject(this.state.registerForm[inputIdentifier], {
+                valid: checkValidity(this.state.registerForm[inputIdentifier].value, this.state.registerForm[inputIdentifier].validation),
+                touched: true
+            });
+            identifiers.push(inputIdentifier);
+            updatedFields.push(updatedFormElement);
         }
+        const updatedRegisterForm = {};
+        for (let i = 0; i < identifiers.length; i++) {
+            updatedRegisterForm[identifiers[i]] = updatedFields[i];
+        }
+        let formIsValid = true;
+        for (let inputIdentifier in updatedRegisterForm) {
+            formIsValid = updatedRegisterForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({
+            registerForm: updatedRegisterForm,
+            formIsValid: formIsValid
+        })
     }
 
     render() {
@@ -162,11 +175,10 @@ class RegisterContainer extends Component {
                 <div className="cardContainer">
                     <Paper zDepth={5}>
                         <div className="formContainer">
-                            <form onSubmit={this.registerationHandler}>
+                            <form onSubmit={this.registerHandler}>
                                 {formElements}
-                                <button> Submit </button>
+                                <input type="submit" />
                             </form>
-
                         </div>
                     </Paper>
                 </div>
