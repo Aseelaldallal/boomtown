@@ -32,7 +32,7 @@ const localRegister = new LocalStrategy(
             if (err) { return done(err); }
             if (user) {
                 console.log('user exists');
-                return done(null, false, { message: `${email} is already registered. Did you mean to login?` });
+                return done(null, false, { message: `${email} is already registered` });
             } else {
                 var newUser = new User({});
                 newUser.local.email = email;

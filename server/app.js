@@ -12,7 +12,8 @@ const mongoose = require('./db/mongoose'),
   passport = require('./config/passport'), // automatically requires index.js
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  flash = require('connect-flash');
 
 // Get Express Instance
 const app = express();
@@ -54,7 +55,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login session
-
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // =============================================================================
 // ROUTE SETUP

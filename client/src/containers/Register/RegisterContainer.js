@@ -150,11 +150,18 @@ class RegisterContainer extends Component {
                 password: this.state.registerForm['password'].value,
                 bio: this.state.registerForm['bio'].value
             }
-            axios.post('http://localhost:3001/register', formData).then(() => {
+            axios.post('http://localhost:3001/register', formData).then((response) => {
                 console.log("SUCCESS");
-            }).catch(err => {
-                console.error("FAIL");
+                console.log(response);
+            }).catch((err) => {
+                // err.response consists of error message: Email already exists
+                console.log("FAILED!!! ", err.response);
+
             })
+            // Now what you want to do is move this to redux. 
+            // Step 1: Move to redux. Store logged in user in redux?
+            // Step 2: On error, display error here in login form
+            // Step 2: Save logged in user in localStorage or whatever
         }
     }
 

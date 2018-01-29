@@ -10,26 +10,33 @@ router = express.Router();
 // Register
 // ===============================================
 
-// router.post('/register', passport.authenticate('local-register'), (err, req, res) => {
-//     console.log("ERR: ", err);
-//     console.log("here!");
-//     console.log("REQ USER: ", req.user);
+// process the signup form
+// router.post('/register', passport.authenticate('local-register', ()), function (req, res) {
+//     // Success
+//     res.send(req.user);
 // });
 
 
-
-router.post('/register',
+router.post('/register', function (req, res, next) {
     passport.authenticate('local-register', function (err, user, info) {
         if (err) {
-            res.status(400).send(err);  // What type of error handling goes here?
+            res.status(500).send(err); // WHAT ERROR GOES HERE
         } else if (info) {
-            res.send(info.message);
+            console.log("FUCK");
+            res.status(400).json(info);
         } else {
-            // Success
+            req.logIn(user, function (err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.send(user);
+                }
+            });
         }
-    }), (req, res) => {
-        // Nothing here
-    });
+    })(req, res, next);
+});
+
+
 
 
 // ===============================================
