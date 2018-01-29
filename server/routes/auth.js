@@ -3,8 +3,8 @@
 
 // ===============================================
 const express = require('express'),
-    passport = require('../config/passport'), // index.js
-    User = require('../models/user');
+  passport = require('../config/passport'), // index.js
+  User = require('../models/user');
 router = express.Router();
 // ===============================================
 // Register
@@ -16,28 +16,24 @@ router = express.Router();
 //     res.send(req.user);
 // });
 
-
-router.post('/register', function (req, res, next) {
-    passport.authenticate('local-register', function (err, user, info) {
+router.post('/register', function(req, res, next) {
+  passport.authenticate('local-register', function(err, user, info) {
+    if (err) {
+      res.status(500).send(err); // WHAT ERROR GOES HERE
+    } else if (info) {
+      console.log('FUCK');
+      res.status(400).json(info);
+    } else {
+      req.logIn(user, function(err) {
         if (err) {
-            res.status(500).send(err); // WHAT ERROR GOES HERE
-        } else if (info) {
-            console.log("FUCK");
-            res.status(400).json(info);
+          res.status(500).send(err);
         } else {
-            req.logIn(user, function (err) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.send(user);
-                }
-            });
+          res.send(req.user);
         }
-    })(req, res, next);
+      });
+    }
+  })(req, res, next);
 });
-
-
-
 
 // ===============================================
 // Login
@@ -48,7 +44,6 @@ router.post('/register', function (req, res, next) {
 //     console.log(req.user);
 //     console.log('Req: ', req);
 // }));
-
 
 // ===============================================
 // Logout
