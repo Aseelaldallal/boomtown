@@ -88,6 +88,7 @@ class RegisterContainer extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
+
     if (nextProps.auth_user) {
       this.props.history.push('./profile/' + nextProps.auth_user._id);
     }
