@@ -7,6 +7,7 @@
 const passport = require('passport');
 const User = require('../../models/user');
 const LocalStrategy = require('./localstrategy');
+const JWTStrategy = require('./jwtstrategy');
 
 // ====================================
 // SESSIONS
@@ -36,5 +37,6 @@ passport.deserializeUser((id, done) => {
 
 passport.use('local-login', LocalStrategy.localLogin);
 passport.use('local-register', LocalStrategy.localRegister);
+passport.use('jwt-register', JWTStrategy.strategy);
 
 module.exports = passport;

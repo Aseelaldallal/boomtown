@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 const UserSchema = new mongoose.Schema({
-  local: {
+  // local: {
+  //   email: String,
+  //   password: String
+  // },
+  jwt: {
     email: String,
     password: String
   },
@@ -17,7 +21,7 @@ UserSchema.methods.generateHash = function (password) {
 
 // checking if password is valid
 UserSchema.methods.validPassword = function (password) {
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.jwt.password);
 };
 
 module.exports = mongoose.model('user', UserSchema);

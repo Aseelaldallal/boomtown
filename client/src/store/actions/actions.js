@@ -54,6 +54,7 @@ export const registerUser = formData => dispatch => {
   axios
     .post('http://localhost:3001/register', formData)
     .then(response => {
+      console.log("in register user action, response.data: ", response.data);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
     .catch(err => {
@@ -65,9 +66,10 @@ export const registerUser = formData => dispatch => {
 // If error display to user
 
 const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
-const registerSuccess = user => ({
+const registerSuccess = data => ({
   type: actionTypes.REGISTER_SUCCESS,
-  user: user
+  id: data.id,
+  token: data.token
 });
 const registerFail = error => ({
   type: actionTypes.REGISTER_FAIL,
