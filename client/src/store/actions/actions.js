@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
 // ====================== ITEMS ACTIONS ====================== //
 
@@ -45,3 +46,30 @@ function linkItemsToUsers(dispatch, items, users) {
   });
   dispatch(getItems(updatedItems));
 }
+
+// ==================== REGISTER ACTIONS ==================== //
+
+export const registerUser = formData => dispatch => {
+  dispatch(registerRequest()); // Set Loading to true
+  axios
+    .post('http://localhost:3001/register', formData)
+    .then(response => {
+      dispatch(registerSuccess(response.data)); // response.data is user
+    })
+    .catch(err => {
+      dispatch(registerFail(err));
+    });
+};
+
+// Dont forget to add to local storage
+// If error display to user
+
+const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
+const registerSuccess = user => ({
+  type: actionTypes.REGISTER_SUCCESS,
+  user: user
+});
+const registerFail = error => ({
+  type: actionTypes.REGISTER_FAIL,
+  error: error
+});

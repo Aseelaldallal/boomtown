@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import itemsReducer from './store/reducers/items';
 import usersReducer from './store/reducers/users';
+import authReducer from './store/reducers/auth';
 // Material UI, Styling
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from './config/theme';
@@ -25,7 +26,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
-  users: usersReducer
+  users: usersReducer,
+  auth: authReducer
 });
 
 const composeEnhancers =

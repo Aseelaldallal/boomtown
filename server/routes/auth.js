@@ -25,9 +25,9 @@ router.post('/register', function(req, res, next) {
     } else {
       req.logIn(user, function(err) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else {
-          res.send(req.user);
+          res.json(req.user);
         }
       });
     }

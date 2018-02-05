@@ -1,1 +1,5 @@
-export { fetchItemsAndUsers, filterItemsByTagName } from './actions.js';
+export {
+  fetchItemsAndUsers,
+  filterItemsByTagName,
+  registerUser
+} from './actions.js';
