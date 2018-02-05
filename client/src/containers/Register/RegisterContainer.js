@@ -1,7 +1,8 @@
 // React
 import React, { Component } from 'react';
-// Axios
-import axios from 'axios';
+// Redux
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/';
 // Material UI
 import Input from '../../components/UI/Input/Input';
 import Paper from 'material-ui/Paper';
@@ -15,6 +16,8 @@ import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
 
 class RegisterContainer extends Component {
+
+
   state = {
     registerForm: {
       fullname: {
@@ -83,6 +86,12 @@ class RegisterContainer extends Component {
     },
     formIsValid: false
   };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.auth_user) {
+      this.props.history.push('./profile/' + nextProps.auth_user._id);
+    }
+  }
 
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(
@@ -162,7 +171,11 @@ class RegisterContainer extends Component {
         password: this.state.registerForm['password'].value,
         bio: this.state.registerForm['bio'].value
       };
+      alert("Will submit formData: ", formData);
+      this.props.registerUser(formData);
     }
+
+
   };
 
   render() {
@@ -217,4 +230,18 @@ class RegisterContainer extends Component {
   }
 }
 
-export default RegisterContainer;
+
+const mapStateToProps = state => {
+  return {
+    auth_user: state.auth.auth_user
+  };
+
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    registerUser: (userData) => dispatch(actions.registerUser(userData))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);

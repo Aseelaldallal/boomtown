@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   loading: false,
   auth_user: null,
-  error: ''
+  auth_error: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,14 +14,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REGISTER_SUCCESS:
       return updateObject(state, {
         loading: false,
-        error: '',
+        auth_error: '',
         auth_user: action.user
       });
     case actionTypes.REGISTER_FAIL:
       return updateObject(state, {
         loading: false,
         auth_user: null,
-        error: action.error
+        auth_error: action.error
       });
     default:
       return state;
