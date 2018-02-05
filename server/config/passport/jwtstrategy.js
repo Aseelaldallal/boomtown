@@ -8,7 +8,7 @@ let jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'blooper';
 
-console.log(jwtOptions);
+
 // for login?
 const strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
     console.log('payload recieved: ', jwt_payload);
