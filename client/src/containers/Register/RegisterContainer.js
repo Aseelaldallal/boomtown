@@ -62,10 +62,10 @@ class RegisterContainer extends Component {
         },
         value: '',
         validation: {
-          // required: true,
-          // isPassword: true,
-          // minLength: 7,
-          // maxLength: 120
+          required: true,
+          isPassword: true,
+          minLength: 7,
+          maxLength: 120
         },
         valid: false,
         touched: false,
@@ -78,9 +78,9 @@ class RegisterContainer extends Component {
         },
         value: '',
         validation: {
-          // required: true,
-          // minLength: 50,
-          // maxLength: 200
+          required: true,
+          minLength: 50,
+          maxLength: 200
         },
         valid: false,
         touched: false,
