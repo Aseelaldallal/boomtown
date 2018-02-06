@@ -54,16 +54,13 @@ export const registerUser = formData => dispatch => {
   axios
     .post('http://localhost:3001/register', formData)
     .then(response => {
-      console.log('in register user action, response.data: ', response.data);
+      saveInLocalStorage(response);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
     .catch(err => {
-      console.log('Will dispatch fail');
       if (err.response && err.response.data && err.response.data.messages) {
-        console.log('Dispatching with: ', err.response.data.messages);
         dispatch(registerFail(err.response.data.messages));
       } else {
-        console.log('Dispatching 2 with: ', err.message);
         dispatch(registerFail(err.message));
       }
     });
@@ -89,15 +86,13 @@ export const loginUser = formData => dispatch => {
   axios
     .post('http://localhost:3001/login', formData)
     .then(response => {
-      console.log('in login user action, response.data: ', response.data);
+      saveInLocalStorage(response);
       dispatch(loginSuccess(response.data)); // response.data is user
     })
     .catch(err => {
       if (err.response && err.response.data && err.response.data.messages) {
-        console.log('Dispatching with: ', err.response.data.messages);
         dispatch(loginFail(err.response.data.messages));
       } else {
-        console.log('Dispatching 2 with: ', err.message);
         dispatch(loginFail(err.message));
       }
     });
@@ -115,3 +110,13 @@ const loginFail = error => ({
   type: actionTypes.LOGIN_FAIL,
   error: error
 });
+
+// ====================== HELPER FUNCS ====================== //
+
+const saveInLocalStorage = response => {
+  const expirationDate = new Date(
+    new Date().getTime() + response.data.expiry * 1000
+  );
+  localStorage.setItem('token', response.data.token);
+  localStorage.setItem('expirationDate', expirationDate);
+};
