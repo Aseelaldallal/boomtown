@@ -20,6 +20,7 @@ The purpose of this app is to allow registered users to list items they own, and
 -- Bad code: RegisterForm and LoginForm -- Repetitive Code. Need cleaner structure
 -- Repetitive login and register code in auth reducer. Could clean it up.
 -- Didn't use axios interceptors. Should use them.
+-- Right now not dealing with token expiry. Should deal with it.
 
 ## Future
 
