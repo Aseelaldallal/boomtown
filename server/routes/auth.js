@@ -16,8 +16,10 @@ const middleware = require("../middleware");
 router.post('/register', middleware.sanitizeUserInput, middleware.validateRegisterationForm, (req, res) => {
   User.findOne({ 'jwt.email': req.body.email }, (err, foundUser) => {
     if (err) {
+      console.log("Fail Case 1");
       res.status(400).json({ messages: [err.message] });
     } else if (foundUser) {
+      console.log("Fail Case 2");
       res.status(400).json({ messages: [`${req.body.email} account already exists`] });
     } else {
       const newUser = new User({});
@@ -30,7 +32,10 @@ router.post('/register', middleware.sanitizeUserInput, middleware.validateRegist
         let token = jwt.sign(payload, 'blooper');
         let expiry = 3600;
         res.status(200).json({ id: savedUser._id, token: token, expiry: expiry });
-      }).catch(err => res.status(400).send({ messages: [err.message] }));
+      }).catch(err => {
+        console.log("Fail Case 3");
+        res.status(400).send({ messages: [err.message] })
+      });
     }
   })
 })

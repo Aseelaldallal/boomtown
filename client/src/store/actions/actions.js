@@ -57,8 +57,15 @@ export const registerUser = formData => dispatch => {
       console.log("in register user action, response.data: ", response.data);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
-    .catch(err => {
-      dispatch(registerFail(err));
+    .catch((err) => {
+      console.log("Will dispatch fail");
+      if (err.response && err.response.data && err.response.data.messages) {
+        console.log("Dispatching with: ", err.response.data.messages);
+        dispatch(registerFail(err.response.data.messages));
+      } else {
+        console.log("Dispatching 2 with: ", err.message);
+        dispatch(registerFail(err.message));
+      }
     });
 };
 

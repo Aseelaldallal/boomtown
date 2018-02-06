@@ -62,10 +62,10 @@ class RegisterContainer extends Component {
         },
         value: '',
         validation: {
-          required: true,
-          isPassword: true,
-          minLength: 7,
-          maxLength: 120
+          // required: true,
+          // isPassword: true,
+          // minLength: 7,
+          // maxLength: 120
         },
         valid: false,
         touched: false,
@@ -78,9 +78,9 @@ class RegisterContainer extends Component {
         },
         value: '',
         validation: {
-          required: true,
-          minLength: 50,
-          maxLength: 200
+          // required: true,
+          // minLength: 50,
+          // maxLength: 200
         },
         valid: false,
         touched: false,
@@ -202,6 +202,18 @@ class RegisterContainer extends Component {
       console.log(this.props.isAuthenticated);
       redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />
     }
+
+    let errors = null;
+    let i = 0;
+    if (this.props.auth_errors.length !== 0) {
+      errors = this.props.auth_errors.map(err => {
+        i++;
+        return <p key={i} className="error"> {err} </p>
+      })
+      console.log(errors);
+    }
+
+
     return (
       <Auxillary>
         {redirect}
@@ -218,7 +230,9 @@ class RegisterContainer extends Component {
           <div className="cardContainer">
             <Paper zDepth={5}>
               <div className="formContainer">
+
                 <form onSubmit={this.registerHandler}>
+                  {errors}
                   {formElements}
                   <RaisedButton
                     className="enterButton"
@@ -242,7 +256,8 @@ class RegisterContainer extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.auth_user_token !== null,
-    auth_user_id: state.auth.auth_user_id
+    auth_user_id: state.auth.auth_user_id,
+    auth_errors: state.auth.auth_error
   };
 
 }

@@ -1,3 +1,14 @@
+.register p.error {
+    color: red;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.register p.error:first-child {
+    margin-top: 2.25rem;
+}
+
+
 .register {
     align-items: center;
     justify-content: center;

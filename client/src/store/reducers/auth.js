@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   auth_user_id: null,
   auth_user_token: null,
-  auth_error: ''
+  auth_error: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,16 +15,18 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REGISTER_SUCCESS:
       return updateObject(state, {
         loading: false,
-        auth_error: '',
+        auth_error: [],
         auth_user_id: action.id,
         auth_user_token: action.token
       });
     case actionTypes.REGISTER_FAIL:
+      console.log("Reducer: Register Fail");
+      console.log("Error: ", action.error);
       return updateObject(state, {
         loading: false,
         auth_user_id: null,
         auth_user_token: null,
-        auth_error: action.error
+        auth_error: [...action.error]
       });
     default:
       return state;
