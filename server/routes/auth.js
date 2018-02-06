@@ -22,10 +22,8 @@ router.post(
   (req, res) => {
     User.findOne({ 'jwt.email': req.body.email }, (err, foundUser) => {
       if (err) {
-        console.log('Fail Case 1');
         res.status(400).json({ messages: [err.message] });
       } else if (foundUser) {
-        console.log('Fail Case 2');
         res
           .status(400)
           .json({ messages: [`${req.body.email} account already exists`] });
@@ -46,7 +44,6 @@ router.post(
               .json({ id: savedUser._id, token: token, expiry: expiry });
           })
           .catch(err => {
-            console.log('Fail Case 3');
             res.status(400).json({ messages: [err.message] });
           });
       }
@@ -83,7 +80,6 @@ router.post(
         }
       })
       .catch(err => {
-        console.log('Error', err);
         res.status(401).json({ messages: ['Woops, something went wrong'] });
       });
   }
