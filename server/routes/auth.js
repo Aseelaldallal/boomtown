@@ -39,10 +39,7 @@ router.post(
             .save()
             .then(savedUser => {
               let payload = { id: savedUser._id };
-              let token = jwt.sign(payload, jwt_secretOrKey, {
-                expiresIn: '1h'
-              });
-              let expiry = 3600; // 1hr
+              let token = jwt.sign(payload, jwt_secretOrKey);
               res
                 .status(200)
                 .json({ id: savedUser._id, token: token, expiry: expiry });
@@ -72,10 +69,7 @@ router.post(
             .status(401)
             .json({ messages: [`${req.body.email} is not registered`] });
         } else if (foundUser.validPassword(req.body.password)) {
-          let token = jwt.sign({ id: foundUser._id }, jwt_secretOrKey, {
-            expiresIn: '1h'
-          });
-          let expiry = 3600; // 1hr
+          let token = jwt.sign({ id: foundUser._id }, jwt_secretOrKey);
           res
             .status(200)
             .json({ id: foundUser._id, token: token, expiry: expiry });
