@@ -45,16 +45,13 @@ middlewareObj.validateRegisterationForm = function(req, res, next) {
 middlewareObj.validateRegisterationForm = function(req, res, next) {
   trim(req);
   const rules = {
-    email: 'required|email|max:120',
-    password: 'required|min:7|max:120'
+    email: 'required|email',
+    password: 'required'
   };
   const messages = {
     'email.required': 'You must enter an email address',
     'email.email': 'The email address you entered is invalid',
-    'email.max': 'Sorry, our db does not store emails longer than 120 chars',
-    'password.required': 'You must enter a password',
-    'password.min': 'Choose a password that is at least 7 characters long',
-    'password.max': 'Seriously? Choose a password that is less than 120 chars'
+    'password.required': 'You must enter a password'
   };
   const data = {
     email: req.body.email,
