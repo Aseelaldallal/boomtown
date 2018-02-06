@@ -54,23 +54,22 @@ export const registerUser = formData => dispatch => {
   axios
     .post('http://localhost:3001/register', formData)
     .then(response => {
-      console.log("in register user action, response.data: ", response.data);
+      console.log('in register user action, response.data: ', response.data);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
-    .catch((err) => {
-      console.log("Will dispatch fail");
+    .catch(err => {
+      console.log('Will dispatch fail');
       if (err.response && err.response.data && err.response.data.messages) {
-        console.log("Dispatching with: ", err.response.data.messages);
+        console.log('Dispatching with: ', err.response.data.messages);
         dispatch(registerFail(err.response.data.messages));
       } else {
-        console.log("Dispatching 2 with: ", err.message);
+        console.log('Dispatching 2 with: ', err.message);
         dispatch(registerFail(err.message));
       }
     });
 };
 
 // Dont forget to add to local storage
-// If error display to user
 
 const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
 const registerSuccess = data => ({
@@ -80,5 +79,39 @@ const registerSuccess = data => ({
 });
 const registerFail = error => ({
   type: actionTypes.REGISTER_FAIL,
+  error: error
+});
+
+// ====================== LOGIN ACTIONS ===================== //
+
+export const loginUser = formData => dispatch => {
+  dispatch(loginRequest()); // Set Loading to true
+  axios
+    .post('http://localhost:3001/login', formData)
+    .then(response => {
+      console.log('in login user action, response.data: ', response.data);
+      dispatch(loginSuccess(response.data)); // response.data is user
+    })
+    .catch(err => {
+      if (err.response && err.response.data && err.response.data.messages) {
+        console.log('Dispatching with: ', err.response.data.messages);
+        dispatch(loginFail(err.response.data.messages));
+      } else {
+        console.log('Dispatching 2 with: ', err.message);
+        dispatch(loginFail(err.message));
+      }
+    });
+};
+
+// Dont forget to add to local storage
+
+const loginRequest = () => ({ type: actionTypes.LOGIN_REQUEST });
+const loginSuccess = data => ({
+  type: actionTypes.LOGIN_SUCCESS,
+  id: data.id,
+  token: data.token
+});
+const loginFail = error => ({
+  type: actionTypes.LOGIN_FAIL,
   error: error
 });

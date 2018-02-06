@@ -1,5 +1,6 @@
 export {
   fetchItemsAndUsers,
   filterItemsByTagName,
-  registerUser
+  registerUser,
+  loginUser
 } from './actions.js';
