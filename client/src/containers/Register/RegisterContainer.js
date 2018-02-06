@@ -1,5 +1,7 @@
 // React
 import React, { Component } from 'react';
+// React Router
+import { Redirect } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
@@ -14,6 +16,8 @@ import './styles.css';
 import logo from '../../images/boomtown-logo.svg';
 import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
+// Components
+import Auxillary from '../../hoc/Auxillary/Auxillary';
 
 class RegisterContainer extends Component {
 
@@ -87,12 +91,6 @@ class RegisterContainer extends Component {
     formIsValid: false
   };
 
-  componentWillReceiveProps = nextProps => {
-
-    if (nextProps.auth_user) {
-      this.props.history.push('./profile/' + nextProps.auth_user._id);
-    }
-  }
 
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(
@@ -172,7 +170,6 @@ class RegisterContainer extends Component {
         password: this.state.registerForm['password'].value,
         bio: this.state.registerForm['bio'].value
       };
-      alert("Will submit formData: ", formData);
       this.props.registerUser(formData);
     }
 
@@ -180,6 +177,7 @@ class RegisterContainer extends Component {
   };
 
   render() {
+    console.log('[Render]: RegisterContainer');
     const formElements = Object.entries(this.state.registerForm).map(
       element => {
         return (
@@ -198,35 +196,44 @@ class RegisterContainer extends Component {
         );
       }
     );
+
+    let redirect = null;
+    if (this.props.isAuthenticated) {
+      console.log(this.props.isAuthenticated);
+      redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />
+    }
     return (
-      <div className="page register">
-        <div className="logo">
-          <img src={logo} alt="Boomtown Logo" />
-        </div>
-        <div className="topRight">
-          <img src={topRight} alt="Sky" />
-        </div>
-        <div className="bottomLeft">
-          <img src={bottomLeft} alt="City" />
-        </div>
-        <div className="cardContainer">
-          <Paper zDepth={5}>
-            <div className="formContainer">
-              <form onSubmit={this.registerHandler}>
-                {formElements}
-                <RaisedButton
-                  className="enterButton"
-                  primary
-                  fullWidth
-                  type="submit"
-                >
-                  Register
+      <Auxillary>
+        {redirect}
+        <div className="page register">
+          <div className="logo">
+            <img src={logo} alt="Boomtown Logo" />
+          </div>
+          <div className="topRight">
+            <img src={topRight} alt="Sky" />
+          </div>
+          <div className="bottomLeft">
+            <img src={bottomLeft} alt="City" />
+          </div>
+          <div className="cardContainer">
+            <Paper zDepth={5}>
+              <div className="formContainer">
+                <form onSubmit={this.registerHandler}>
+                  {formElements}
+                  <RaisedButton
+                    className="enterButton"
+                    primary
+                    fullWidth
+                    type="submit"
+                  >
+                    Register
                 </RaisedButton>
-              </form>
-            </div>
-          </Paper>
+                </form>
+              </div>
+            </Paper>
+          </div>
         </div>
-      </div>
+      </Auxillary>
     );
   }
 }
@@ -234,7 +241,8 @@ class RegisterContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth_user: state.auth.auth_user
+    isAuthenticated: state.auth.auth_user_token !== null,
+    auth_user_id: state.auth.auth_user_id
   };
 
 }
