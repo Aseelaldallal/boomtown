@@ -16,7 +16,7 @@ import muiTheme from './config/theme';
 import './index.css';
 // Components and Containers
 import Layout from './components/Layout';
-import Login from './containers/Login'; // index.js
+import LoginContainer from './containers/Login/LoginContainer';
 import RegisterContainer from './containers/Register/RegisterContainer';
 import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
 import UserProfile from './containers/UserProfile/UserProfile';
@@ -46,7 +46,7 @@ const Boomtown = () => (
       <Switch>
         <MuiThemeProvider muiTheme={muiTheme}>
           <Layout>
-            <Route path="/login" component={Login} />
+            <Route path="/login" component={LoginContainer} />
             <Route path="/register" component={RegisterContainer} />
             <Route exact path="/items" component={ItemsContainer} />
             <Route exact path="/profile/:userid" component={UserProfile} />
