@@ -134,7 +134,7 @@ class LoginContainer extends Component {
         password: this.state.loginForm['password'].value
       };
       console.log(formData);
-      //this.props.registerUser(formData);
+      this.props.loginUser(formData);
     }
   };
 
@@ -156,25 +156,30 @@ class LoginContainer extends Component {
       );
     });
 
-    // let redirect = null;
-    // if (this.props.isAuthenticated) {
-    //   console.log(this.props.isAuthenticated);
-    //   redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />
-    // }
+    let redirect = null;
+    if (this.props.isAuthenticated) {
+      console.log(this.props.isAuthenticated);
+      redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />;
+    }
 
-    // let errors = null;
-    // let i = 0;
-    // if (this.props.auth_errors.length !== 0) {
-    //   errors = this.props.auth_errors.map(err => {
-    //     i++;
-    //     return <p key={i} className="error"> {err} </p>
-    //   })
-    //   console.log(errors);
-    // }
+    let errors = null;
+    let i = 0;
+    if (this.props.auth_errors.length !== 0) {
+      errors = this.props.auth_errors.map(err => {
+        i++;
+        return (
+          <p key={i} className="error">
+            {' '}
+            {err}{' '}
+          </p>
+        );
+      });
+      console.log(errors);
+    }
 
     return (
       <Auxillary>
-        {/* {redirect} */}
+        {redirect}
         <div className="page login">
           <div className="logo">
             <img src={logo} alt="Boomtown Logo" />
@@ -189,7 +194,7 @@ class LoginContainer extends Component {
             <Paper zDepth={5}>
               <div className="formContainer">
                 <form onSubmit={this.loginHandler}>
-                  {/* {errors} */}
+                  {errors}
                   {formElements}
                   <RaisedButton
                     className="enterButton"
@@ -209,19 +214,18 @@ class LoginContainer extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.auth.auth_user_token !== null,
-//     auth_user_id: state.auth.auth_user_id,
-//     auth_errors: state.auth.auth_error
-//   };
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.auth_user_token !== null,
+    auth_user_id: state.auth.auth_user_id,
+    auth_errors: state.auth.auth_error
+  };
+};
 
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: userData => dispatch(actions.loginUser(userData))
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     registerUser: (userData) => dispatch(actions.registerUser(userData))
-//   }
-// }
-
-export default LoginContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
