@@ -58,31 +58,36 @@ router.post(
 // Login
 // ===============================================
 
-router.post('/login', (req, res) => {
-  // Backend Validation
-  User.findOne({ 'jwt.email': req.body.email })
-    .then(foundUser => {
-      if (!foundUser) {
-        res
-          .status(401)
-          .json({ messages: [`${req.body.email} is not registered`] });
-      } else if (foundUser.validPassword(req.body.password)) {
-        let token = jwt.sign({ id: foundUser._id }, jwt_secretOrKey, {
-          expiresIn: '1h'
-        });
-        let expiry = 3600; // 1hr
-        res
-          .status(200)
-          .json({ id: foundUser._id, token: token, expiry: expiry });
-      } else {
-        res.status(401).json({ messages: ['Incorrect Password'] });
-      }
-    })
-    .catch(err => {
-      console.log('Error', err);
-      res.status(401).json({ messages: ['Woops, something went wrong'] });
-    });
-});
+router.post(
+  '/login',
+  middleware.sanitizeUserInput,
+  middleware.validateRegisterationForm,
+  (req, res) => {
+    // Backend Validation
+    User.findOne({ 'jwt.email': req.body.email })
+      .then(foundUser => {
+        if (!foundUser) {
+          res
+            .status(401)
+            .json({ messages: [`${req.body.email} is not registered`] });
+        } else if (foundUser.validPassword(req.body.password)) {
+          let token = jwt.sign({ id: foundUser._id }, jwt_secretOrKey, {
+            expiresIn: '1h'
+          });
+          let expiry = 3600; // 1hr
+          res
+            .status(200)
+            .json({ id: foundUser._id, token: token, expiry: expiry });
+        } else {
+          res.status(401).json({ messages: ['Incorrect Password'] });
+        }
+      })
+      .catch(err => {
+        console.log('Error', err);
+        res.status(401).json({ messages: ['Woops, something went wrong'] });
+      });
+  }
+);
 
 // ===============================================
 // Logout
