@@ -3,5 +3,6 @@ export {
   filterItemsByTagName,
   registerUser,
   loginUser,
-  logout
+  logout,
+  authCheckState
 } from './actions.js';
