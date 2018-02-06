@@ -113,6 +113,25 @@ const loginFail = error => ({
   error: error
 });
 
+// =================== CHECK AUTH STATE =================== //
+
+export const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem('expirationDate'));
+      const userId = localStorage.getItem('userId');
+      if (expirationDate > new Date()) {
+        dispatch(logout());
+      } else {
+        dispatch(loginSuccess({ id: userId, token: token }));
+      }
+    }
+  };
+};
+
 // ==================== LOGOUT ACTIONS ==================== //
 
 const checkAuthTimeout = expirationTime => {
@@ -124,6 +143,9 @@ const checkAuthTimeout = expirationTime => {
 };
 
 export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expirationDate');
+  localStorage.removeItem('userId');
   return {
     type: actionTypes.LOGOUT
   };
@@ -136,4 +158,5 @@ const saveInLocalStorage = response => {
   );
   localStorage.setItem('token', response.data.token);
   localStorage.setItem('expirationDate', expirationDate);
+  localStorage.setItem('userId', response.data.id);
 };
