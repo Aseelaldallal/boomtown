@@ -22,8 +22,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REGISTER_FAIL:
       return updateObject(state, {
         loading: false,
-        auth_user_id: null,
-        auth_user_token: null,
         auth_error: [...action.error]
       });
     case actionTypes.LOGIN_REQUEST:
@@ -31,8 +29,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOGIN_FAIL:
       return updateObject(state, {
         loading: false,
-        auth_user_id: null,
-        auth_user_token: null,
         auth_error: [...action.error]
       });
     case actionTypes.LOGIN_SUCCESS:
@@ -41,6 +37,11 @@ const reducer = (state = initialState, action) => {
         auth_error: [],
         auth_user_id: action.id,
         auth_user_token: action.token
+      });
+    case actionTypes.LOGOUT:
+      return updateObject(state, {
+        auth_user_id: null,
+        auth_user_token: null
       });
     default:
       return state;

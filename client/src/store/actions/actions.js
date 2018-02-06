@@ -55,6 +55,7 @@ export const registerUser = formData => dispatch => {
     .post('http://localhost:3001/register', formData)
     .then(response => {
       saveInLocalStorage(response);
+      dispatch(checkAuthTimeout(response.data.expiry));
       dispatch(registerSuccess(response.data)); // response.data is user
     })
     .catch(err => {
@@ -87,6 +88,7 @@ export const loginUser = formData => dispatch => {
     .post('http://localhost:3001/login', formData)
     .then(response => {
       saveInLocalStorage(response);
+      dispatch(checkAuthTimeout(response.data.expiry));
       dispatch(loginSuccess(response.data)); // response.data is user
     })
     .catch(err => {
@@ -111,6 +113,21 @@ const loginFail = error => ({
   error: error
 });
 
+// ==================== LOGOUT ACTIONS ==================== //
+
+const checkAuthTimeout = expirationTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actionTypes.LOGOUT
+  };
+};
 // ====================== HELPER FUNCS ====================== //
 
 const saveInLocalStorage = response => {
