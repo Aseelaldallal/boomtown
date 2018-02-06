@@ -69,7 +69,7 @@ class LoginContainer extends Component {
       [inputIdentifier]: updatedFormElement
     });
     this.setState({
-      registerForm: updatedLoginForm
+      loginForm: updatedLoginForm
     });
   };
 
@@ -85,7 +85,7 @@ class LoginContainer extends Component {
         touched: true
       }
     );
-    const updatedLoginForm = updateObject(this.state.registerForm, {
+    const updatedLoginForm = updateObject(this.state.loginForm, {
       [inputIdentifier]: updatedFormElement
     });
     let formIsValid = true;
@@ -93,7 +93,7 @@ class LoginContainer extends Component {
       formIsValid = updatedLoginForm[inputIdentifier].valid && formIsValid;
     }
     this.setState({
-      registerForm: updatedLoginForm,
+      loginForm: updatedLoginForm,
       formIsValid: formIsValid
     });
   };
@@ -139,24 +139,22 @@ class LoginContainer extends Component {
   };
 
   render() {
-    const formElements = Object.entries(this.state.registerForm).map(
-      element => {
-        return (
-          <Input
-            key={element[0]}
-            elementType={element[1].elementType}
-            elementConfig={element[1].elementConfig}
-            value={element[1].value}
-            invalid={!element[1].valid}
-            shouldValidate={element[1].validation}
-            touched={element[1].touched}
-            changed={event => this.inputChangedHandler(event, element[0])}
-            blurred={event => this.inputBlurredHandler(event, element[0])}
-            validationMsg={element[1].validationMessage}
-          />
-        );
-      }
-    );
+    const formElements = Object.entries(this.state.loginForm).map(element => {
+      return (
+        <Input
+          key={element[0]}
+          elementType={element[1].elementType}
+          elementConfig={element[1].elementConfig}
+          value={element[1].value}
+          invalid={!element[1].valid}
+          shouldValidate={element[1].validation}
+          touched={element[1].touched}
+          changed={event => this.inputChangedHandler(event, element[0])}
+          blurred={event => this.inputBlurredHandler(event, element[0])}
+          validationMsg={element[1].validationMessage}
+        />
+      );
+    });
 
     // let redirect = null;
     // if (this.props.isAuthenticated) {
@@ -190,7 +188,7 @@ class LoginContainer extends Component {
           <div className="cardContainer">
             <Paper zDepth={5}>
               <div className="formContainer">
-                <form onSubmit={this.registerHandler}>
+                <form onSubmit={this.loginHandler}>
                   {/* {errors} */}
                   {formElements}
                   <RaisedButton
