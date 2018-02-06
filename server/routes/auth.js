@@ -65,8 +65,7 @@ router.post(
   middleware.sanitizeUserInput,
   middleware.validateRegisterationForm,
   (req, res) => {
-    // Backend Validation
-    User.findOne({ 'jwt.email': req.body.email })
+    User.findOne({ 'jwt.email': req.body.email.toLowerCase() })
       .then(foundUser => {
         if (!foundUser) {
           res
