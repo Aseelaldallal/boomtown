@@ -29,6 +29,18 @@ export const fetchItemsAndUsers = () => dispatch => {
     });
 };
 
+export const fetchItems = () => dispatch => {
+  dispatch(getItemsLoading());
+  axios
+    .get('http://localhost:3001/items')
+    .then(response => {
+      dispatch(getItems(response.data));
+    })
+    .catch(err => {
+      dispatch(getItemsError(err));
+    });
+};
+
 // ======================= USER ACTIONS ======================= //
 
 const getUsers = users => ({ type: actionTypes.GET_USERS, users: users });

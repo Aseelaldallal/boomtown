@@ -56,7 +56,7 @@ const ItemCard = props => {
             subtitle={<Moment fromNow>{props.data.created}</Moment>}
             avatar={
               <Gravatar
-                email={props.data.itemowner.email}
+                email={props.data.itemowner.jwt.email}
                 className="GravatarImg"
               />
             }

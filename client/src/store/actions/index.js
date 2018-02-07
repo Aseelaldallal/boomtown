@@ -1,5 +1,6 @@
 export {
   fetchItemsAndUsers,
+  fetchItems,
   filterItemsByTagName,
   registerUser,
   loginUser,
