@@ -10,13 +10,15 @@ var express = require('express'),
 // Index: Display All Items
 // ===============================================
 
-
-router.get('/', function (req, res) {
-  Item.find({}).then(foundItems => {
-    res.send(foundItems);
-  }).catch(err => {
-    res.status(400).send(err);
-  })
+router.get('/', function(req, res) {
+  Item.find({})
+    .populate('itemowner')
+    .then(foundItems => {
+      res.status(200).send(foundItems);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
 });
 
 // ===============================================
@@ -25,18 +27,19 @@ router.get('/', function (req, res) {
 
 router.post('/', (req, res) => {
   const item = new Item(req.body);
-  item.save().then(newItem => {
-    res.send(newItem); // REPLACE THIS
-  }).catch(err => {
-    res.status(400).send(err);
-  })
+  item
+    .save()
+    .then(newItem => {
+      res.send(newItem); // REPLACE THIS
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
 });
 
 // ===============================================
 // Update: Update Item - Borrower, Available
 // ===============================================
-
-
 
 // ===============================================
 // Export
