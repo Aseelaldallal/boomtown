@@ -20,19 +20,24 @@ class UserProfile extends Component {
   };
 
   componentDidMount = () => {
+    console.log('ComponentDidMount');
     this.props.fetchItemsAndUsers();
     if (this.props.users.length > 0 && this.props.items.length > 0) {
       this.setState({
         user: this.getUser(this.props.users),
         items: this.getUserItems(this.props.items),
         numItemsBorrowed: this.getNumberItemsBorrowed(this.props.items),
-        numItemsShared: this.getNumberItemsShared(this.getUserItems(this.props.items))
+        numItemsShared: this.getNumberItemsShared(
+          this.getUserItems(this.props.items)
+        )
       });
     }
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log('IM HERE, recievin props');
     if (this.props.users && this.props.items) {
+      console.log('in here');
       if (this.props.users.length !== nextProps.users.length) {
         this.setState({
           user: this.getUser(nextProps.users)
@@ -42,7 +47,9 @@ class UserProfile extends Component {
         this.setState({
           items: this.getUserItems(nextProps.items),
           numItemsBorrowed: this.getNumberItemsBorrowed(nextProps.items),
-          numItemsShared: this.getNumberItemsShared(this.getUserItems(nextProps.items))
+          numItemsShared: this.getNumberItemsShared(
+            this.getUserItems(nextProps.items)
+          )
         });
       }
     }
@@ -62,7 +69,8 @@ class UserProfile extends Component {
 
   getNumberItemsBorrowed = items => {
     let itemsBorrowed = items.filter(item => {
-      if (item.borrower) return this.props.match.params.userid === item.borrower._id;
+      if (item.borrower)
+        return this.props.match.params.userid === item.borrower._id;
     });
     return itemsBorrowed.length;
   };
@@ -75,7 +83,9 @@ class UserProfile extends Component {
   };
 
   render() {
+    console.log('render');
     let profile = null;
+    console.log('state.user: ', this.state.user);
     if (this.state.user) {
       profile = (
         <div className="userProfileContainer">
