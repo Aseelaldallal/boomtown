@@ -11,7 +11,13 @@ const UserSchema = new mongoose.Schema({
     password: String
   },
   fullname: String,
-  bio: String
+  bio: String,
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'item'
+    }
+  ]
 });
 
 // generating a hash
@@ -26,7 +32,6 @@ UserSchema.methods.validPassword = function(password) {
 
 // Lowercase emails before saving to db
 UserSchema.pre('save', function(next) {
-  console.log('previous email: ', this.jwt.email);
   this.jwt.email = this.jwt.email.toLowerCase();
   next();
 });
