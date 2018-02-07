@@ -148,6 +148,7 @@ const checkAuthTimeout = expirationTime => {
 };
 
 export const logout = () => {
+  console.log('in logout');
   localStorage.removeItem('token');
   localStorage.removeItem('expirationDate');
   localStorage.removeItem('userId');

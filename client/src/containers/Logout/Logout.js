@@ -5,11 +5,12 @@ import { Redirect } from 'react-router-dom';
 
 class Logout extends Component {
   componentDidMount() {
+    console.log('Calling logout');
     this.props.logout();
   }
 
   render() {
-    return <Redirect to="/" />;
+    return <Redirect to="/items" />;
   }
 }
 
