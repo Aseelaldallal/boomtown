@@ -48,7 +48,9 @@ router.post(
                 .json({ id: savedUser._id, token: token, expiry: expiry });
             })
             .catch(err => {
-              res.status(400).json({ messages: [err.message] });
+              let messages = [];
+              messages.push(err.message);
+              res.status(400).json({ messages: messages });
             });
         }
       }
@@ -84,7 +86,6 @@ router.post(
         }
       })
       .catch(err => {
-        console.log(err);
         res.status(401).json({ messages: ['Woops, something went wrong'] });
       });
   }
