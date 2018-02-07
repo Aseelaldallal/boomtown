@@ -11,6 +11,7 @@ import muiTheme from './config/theme';
 import './index.css';
 // Components and Containers
 import Layout from './components/Layout';
+import Logout from './containers/Logout/Logout';
 import LoginContainer from './containers/Login/LoginContainer';
 import RegisterContainer from './containers/Register/RegisterContainer';
 import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
@@ -28,6 +29,7 @@ class App extends Component {
         <MuiThemeProvider muiTheme={muiTheme}>
           <Layout>
             <Route path="/login" component={LoginContainer} />
+            <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterContainer} />
             <Route exact path="/items" component={ItemsContainer} />
             <Route exact path="/profile/:userid" component={UserProfile} />
