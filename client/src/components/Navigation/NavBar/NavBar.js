@@ -25,19 +25,27 @@ const styles = {
 
 const NavBar = props => {
   const handleAuthentication = () => {
-    console.log('handling auth');
     if (props.isAuthenticated) {
-      console.log("he's auth");
       props.history.push('/logout');
     } else {
-      console.log('shes no auth');
       props.history.push('/login');
     }
   };
 
+  const viewProfile = () => {
+    props.history.push(`/profile/${props.userId}`);
+  };
+
   const buttons = (
     <Auxillary>
-      <RaisedButton label="MY PROFILE" primary={true} style={styles.button} />
+      {props.isAuthenticated ? (
+        <RaisedButton
+          label="MY PROFILE"
+          primary={true}
+          style={styles.button}
+          onClick={viewProfile}
+        />
+      ) : null}
       <RaisedButton
         backgroundColor={grey900}
         label={props.isAuthenticated ? 'LOGOUT' : 'LOGIN'}

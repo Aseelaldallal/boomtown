@@ -38,7 +38,10 @@ class Layout extends Component {
     return (
       <div className="appContentWrapper">
         <div className="appHeader">
-          <NavBar isAuthenticated={this.props.isAuthenticated} />
+          <NavBar
+            isAuthenticated={this.props.isAuthenticated}
+            userId={this.props.userId}
+          />
         </div>
         <div className="appContent">{this.props.children}</div>
         {addItemButton}
@@ -50,7 +53,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.auth_user_token !== null
+    isAuthenticated: state.auth.auth_user_token !== null,
+    userId: state.auth.auth_user_id
   };
 };
 
