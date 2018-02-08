@@ -1,8 +1,9 @@
 # Boomtown
 
 
-** Note:  This app is still being developed! **
-** To see current version, navigate to the boomtown-backend-comm branch. **
+**Note:  This app is still being developed!**
+
+**To see current version, navigate to the boomtown-backend-comm branch.**
 
 ## Summary
 
