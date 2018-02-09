@@ -12,6 +12,8 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
   Users.find({})
+    .populate('itemsowned')
+    .populate('itemsborrowed')
     .then(foundUsers => {
       res.send(foundUsers);
     })
@@ -24,6 +26,7 @@ router.get('/', function(req, res) {
 // Show: Show specific user
 // ===============================================
 
+//Never called
 router.get('/:id', function(req, res) {
   Users.find({ _id: req.params.id })
     .populate('itemsowned')
