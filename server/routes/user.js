@@ -26,7 +26,8 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
   Users.find({ _id: req.params.id })
-    .populate('items')
+    .populate('itemsowned')
+    .populate('itemsborrowed')
     .then(foundUser => {
       res.send(foundUser);
     })
