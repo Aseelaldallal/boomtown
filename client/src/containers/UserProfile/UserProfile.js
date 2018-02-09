@@ -8,8 +8,8 @@ import axios from 'axios';
 // Gravatar
 import Gravatar from 'react-gravatar';
 // Components and Containers
-import ItemCardList from '../../components/Items/ItemCardList/ItemCardList';
 import Auxillary from '../../hoc/Auxillary/Auxillary';
+import Profile from '../../components/Profile/Profile';
 // Styling
 import './UserProfile.css';
 
@@ -24,8 +24,9 @@ class UserProfile extends Component {
       let currentUser = this.props.user.filter(user => {
         return (user._id = this.props.match.params.userId);
       });
+      profile = <Profile user={currentUser} />;
     }
-    return <div>hi</div>;
+    return <Auxillary>{profile}</Auxillary>;
   }
 }
 
