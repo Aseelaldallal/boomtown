@@ -2,20 +2,24 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 const UserSchema = new mongoose.Schema({
-  // local: {
-  //   email: String,
-  //   password: String
-  // },
   jwt: {
     email: String,
     password: String
   },
   fullname: String,
   bio: String,
-  items: [
+  itemsowned: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'item'
+      ref: 'item',
+      required: true
+    }
+  ],
+  itemsborrowed: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'item',
+      required: true
     }
   ]
 });

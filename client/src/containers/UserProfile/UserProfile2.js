@@ -1,8 +1,7 @@
 // React
 import React, { Component } from 'react';
-// Redux
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions/';
+// axios
+import axios from 'axios';
 // Gravatar
 import Gravatar from 'react-gravatar';
 // Components and Containers
@@ -19,20 +18,22 @@ class UserProfile extends Component {
     numItemsShared: 0
   };
 
-  render() {}
+  componentDidMount = () => {
+    console.log('PROPS: ', this.props);
+
+    axios
+      .get(`http://localhost:3001/users/${this.props.match.params.userId}`)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  render() {
+    return <div>hi</div>;
+  }
 }
 
-const mapStateToProps = state => {
-  return {
-    users: state.users.users,
-    items: state.items.unfilteredItems
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default UserProfile;
