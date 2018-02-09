@@ -42,7 +42,7 @@ const ItemCard = props => {
   }
 
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner._id;
-
+  console.log('PROPS. DATA: ', props.data);
   return (
     <div style={styles.itemCard}>
       <Card>

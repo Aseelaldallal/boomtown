@@ -31,3 +31,9 @@ The purpose of this app is to allow registered users to list items they own, and
 # Good things?
 
 -- Indicative library is awesome for validation
+
+# Current Status
+
+BUG.
+ItemsCardList.... ItemsCardList from Profile and from ItemsContainer.
+Need to fix.

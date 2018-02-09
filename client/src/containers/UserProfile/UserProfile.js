@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
 // Axios
 import axios from 'axios';
-// Gravatar
-import Gravatar from 'react-gravatar';
 // Components and Containers
 import Auxillary from '../../hoc/Auxillary/Auxillary';
 import Profile from '../../components/Profile/Profile';
@@ -20,10 +18,12 @@ class UserProfile extends Component {
 
   render() {
     let profile = null;
-    if (this.props.users) {
-      let currentUser = this.props.user.filter(user => {
+    if (this.props.users.length > 0) {
+      console.log('USERS: ', this.props.users);
+      let currentUser = this.props.users.filter(user => {
         return (user._id = this.props.match.params.userId);
-      });
+      })[0];
+      console.log('CurrentUser: ', currentUser);
       profile = <Profile user={currentUser} />;
     }
     return <Auxillary>{profile}</Auxillary>;
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItems: () => dispatch(actions.fetchItems())
+    fetchUsers: () => dispatch(actions.fetchUsers())
   };
 };
 
