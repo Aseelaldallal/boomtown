@@ -23,8 +23,6 @@ class ItemCardList extends Component {
 
   borrowItem = () => {
     const itemID = this.state.borrowing.item._id;
-    console.log('Burrow Button Clicked');
-    console.log('Borrowing Item: ', itemID);
     this.props.borrowItem(
       itemID,
       this.props.authUser,
@@ -37,9 +35,7 @@ class ItemCardList extends Component {
   };
 
   handleOpen = itemToBorrow => {
-    console.log('ITEM TO BORROW: ', itemToBorrow._id);
     this.setState({ borrowing: { status: true, item: itemToBorrow } });
-    console.log(this.props);
   };
 
   handleClose = () => {

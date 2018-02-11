@@ -8,7 +8,6 @@ import Gravatar from 'react-gravatar';
 import classes from './Profile.css';
 
 const Profile = props => {
-  console.log('-----------[Profile]: Props: ', props, ' ----------------');
   return (
     <div className="userProfileContainer">
       <div className="paperBox">

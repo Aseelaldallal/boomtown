@@ -38,16 +38,11 @@ const reducer = (state = initialState, action) => {
 
 const borrowItemSuccess = (state, itemID, borrowerID) => {
   const updatedUnfilteredItems = state.unfilteredItems.map(item => {
-    console.log('1: ', item._id);
-    console.log('2: ', itemID);
     if (item._id === itemID) {
-      console.log('HERE');
       item.borrower = borrowerID;
-      console.log('item: ', item);
     }
     return item;
   });
-  console.log('updated unfil: ', updatedUnfilteredItems);
   const updatedFilteredItems = state.filteredItems.map(item => {
     if (item._id === itemID) {
       item.borrower = borrowerID;
