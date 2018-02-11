@@ -1,9 +1,8 @@
+export { fetchItems, filterItemsByTagName } from './itemActions.js';
+export { fetchUsers } from './userActions.js';
 export {
-  fetchUsers,
-  fetchItems,
-  filterItemsByTagName,
   registerUser,
   loginUser,
   logout,
   authCheckState
-} from './actions.js';
+} from './authActions.js';
