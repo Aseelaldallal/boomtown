@@ -25,10 +25,10 @@ export const fetchItems = () => dispatch => {
     });
 };
 
-const borrowItemSuccess = (item, borrowerId) => ({
+const borrowItemSuccess = (itemID, borrowerID) => ({
   type: actionTypes.BORROW_ITEM_SUCCESS,
-  item: item,
-  borrowerId: borrowerId
+  itemID: itemID,
+  borrowerID: borrowerID
 });
 const borrowItemLoading = () => ({ type: actionTypes.BORROW_ITEM_LOADING });
 const borrowItemFail = error => ({
@@ -37,6 +37,8 @@ const borrowItemFail = error => ({
 });
 
 export const borrowItem = (itemId, borrowerId, token) => dispatch => {
+  console.log('Going to borrow item');
+  console.log('params: ', itemId, ' ', borrowerId, ' ', token);
   dispatch(borrowItemLoading());
   axios({
     method: 'patch',
@@ -44,9 +46,11 @@ export const borrowItem = (itemId, borrowerId, token) => dispatch => {
     headers: { Authorization: `bearer ${token}` }
   })
     .then(response => {
-      dispatch(borrowItemSuccess(response.data));
+      console.log('response: ', response.data); // response.data is actually irrelevant
+      dispatch(borrowItemSuccess(itemId, borrowerId));
     })
     .catch(err => {
+      console.log('error: ', err);
       dispatch(borrowItemFail(err));
     });
 };

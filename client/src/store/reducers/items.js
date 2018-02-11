@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.BORROW_ITEM_LOADING:
       return updateObject(state, { loading: true });
     case actionTypes.BORROW_ITEM_SUCCESS:
-      return borrowItem();
+      return borrowItemSuccess(state, action.itemID, action.borrowerID);
     case actionTypes.BORROW_ITEM_FAIL:
       return updateObject(state, { loading: false, error: action.error });
     default:
@@ -36,11 +36,30 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const borrowItem = (state, borrowedItem) => {
-  console.log('Borrowed ITEM: ', borrowedItem);
-  console.log('Borrowed Item ID: ', borrowedItem._id);
-  console.log('unfiltered items: ', state.unfilteredItems);
-  return state;
+const borrowItemSuccess = (state, itemID, borrowerID) => {
+  const updatedUnfilteredItems = state.unfilteredItems.map(item => {
+    console.log('1: ', item._id);
+    console.log('2: ', itemID);
+    if (item._id === itemID) {
+      console.log('HERE');
+      item.borrower = borrowerID;
+      console.log('item: ', item);
+    }
+    return item;
+  });
+  console.log('updated unfil: ', updatedUnfilteredItems);
+  const updatedFilteredItems = state.filteredItems.map(item => {
+    if (item._id === itemID) {
+      item.borrower = borrowerID;
+    }
+    return item;
+  });
+  return updateObject(state, {
+    loading: false,
+    error: false,
+    unfilteredItems: updatedUnfilteredItems,
+    filteredItems: updatedFilteredItems
+  });
 };
 
 const getFilteredItems = (state, tags) => {

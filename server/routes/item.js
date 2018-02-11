@@ -50,10 +50,14 @@ router.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    console.log('Im here');
     const borrowerId = req.user._id.toString();
     const itemBeingBorrowed = req.params.id;
+    console.log('Borrower ID: ', borrowerId);
+    console.log('itemBeingBorrowed:', itemBeingBorrowed);
     Item.findById({ _id: itemBeingBorrowed })
       .then(foundItem => {
+        console.log('FOUND TIEM: ', foundItem);
         checkThatUserCanBorrowItem(foundItem, borrowerId, res);
         let userCanBorrowItem = checkThatUserCanBorrowItem(
           foundItem,
@@ -68,14 +72,16 @@ router.patch(
               console.log(updatedItem);
               res.status(200).send(updatedItem);
             })
-            .catch(err =>
-              res.status(400).send({ message: 'something went wrong' })
-            );
+            .catch(err => {
+              console.log('aaaaaaa');
+              res.status(400).send({ message: 'something went wrong' });
+            });
         } else {
           res.status(400).send({ message: userCanBorrowItem.message });
         }
       })
       .catch(err => {
+        console.log('ERROR: ', err);
         res.send(err);
       });
   }
@@ -87,17 +93,21 @@ router.patch(
 
 const checkThatUserCanBorrowItem = (foundItem, borrowerId, res) => {
   if (foundItem.itemowner.toString() === borrowerId) {
+    console.log('case 1');
     return { canBorrow: false, message: "You can't borrow your own item" };
   } else if (foundItem.borrower !== null) {
     if (foundItem.borrower.toString() === borrowerId) {
+      console.log('case 2');
       return { canBorrow: false, message: 'You already borrowed this item!' };
     } else {
+      console.log('case 3');
       return {
         canBorrow: false,
         message: 'This item is currently being borrowed by someone else'
       };
     }
   }
+  console.log('can borrow');
   return { canBorrow: true };
 };
 

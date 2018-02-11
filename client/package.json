@@ -36,6 +36,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "json-server": "json-server --watch ../server/db.json --port 3001",
-    "dev": "concurrently \"react-scripts start\" \"node ../server/app.js\""
+    "dev": "concurrently \"react-scripts start\" \"nodemon ../server/app.js\""
   }
 }
