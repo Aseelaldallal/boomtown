@@ -32,6 +32,7 @@ const ItemCard = props => {
   let cardButton = null;
   if (
     props.data.borrower === null &&
+    props.authUser &&
     props.data.itemowner._id !== props.authUser
   ) {
     cardButton = (
