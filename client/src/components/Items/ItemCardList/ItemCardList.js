@@ -31,6 +31,11 @@ class ItemCardList extends Component {
   };
 
   render() {
+    console.log(
+      ' --------------- [ItemCardList]: Props: ',
+      this.props,
+      '----------------------'
+    );
     const styles = {
       masonry: {
         width: '90%',

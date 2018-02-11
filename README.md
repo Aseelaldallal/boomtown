@@ -37,3 +37,16 @@ The purpose of this app is to allow registered users to list items they own, and
 BUG.
 ItemsCardList.... ItemsCardList from Profile and from ItemsContainer.
 Need to fix.
+
+# Left to Do
+
+* Fix UserProfile, ItemCardList bugs
+* Implement Item Add
+* Implement Image Upload
+* Deploy
+
+Bonus:
+
+* Add axios interceptors ?
+* Change /profile to /user
+* Lazy loading?

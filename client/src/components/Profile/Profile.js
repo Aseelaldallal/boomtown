@@ -8,6 +8,7 @@ import Gravatar from 'react-gravatar';
 import classes from './Profile.css';
 
 const Profile = props => {
+  console.log('-----------[Profile]: Props: ', props, ' ----------------');
   return (
     <div className="userProfileContainer">
       <div className="paperBox">
@@ -27,7 +28,7 @@ const Profile = props => {
           <Gravatar className="paperGravatar" email={props.user.jwt.email} />
         </div>
       </div>
-      <ItemCardList items={props.user.itemsowned} />
+      <ItemCardList items={props.itemsowned} />
     </div>
   );
 };
