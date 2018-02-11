@@ -39,9 +39,13 @@ router.post('/', (req, res) => {
 });
 
 // ===============================================
-// Update: Update Item - Borrower, Available
+// Update: Update Item
 // ===============================================
 
+// This doesn't need to be this long. However, did 3 checks:
+// 1. User doesn't own item he/she trying to borrow
+// 2. Item is available for borrowing (and they didn't borrow it themselves)
+// The checks made method long
 router.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
