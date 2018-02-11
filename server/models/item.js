@@ -28,10 +28,6 @@ var ItemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  available: {
-    type: Boolean,
-    default: true
-  },
   borrower: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
