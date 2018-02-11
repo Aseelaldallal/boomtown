@@ -1,11 +1,12 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-// ====================== ITEMS ACTIONS ====================== //
-
-const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items });
+const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items }); // should really name this to get items success
 const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
-const getItemsError = error => ({ type: actionTypes.GET_ITEMS_ERROR });
+const getItemsError = error => ({
+  type: actionTypes.GET_ITEMS_ERROR,
+  error: error
+});
 
 export const filterItemsByTagName = tagNames => ({
   type: actionTypes.FILTER_ITEMS_BY_TAG_NAME,
@@ -21,5 +22,31 @@ export const fetchItems = () => dispatch => {
     })
     .catch(err => {
       dispatch(getItemsError(err));
+    });
+};
+
+const borrowItemSuccess = (item, borrowerId) => ({
+  type: actionTypes.BORROW_ITEM_SUCCESS,
+  item: item,
+  borrowerId: borrowerId
+});
+const borrowItemLoading = () => ({ type: actionTypes.BORROW_ITEM_LOADING });
+const borrowItemFail = error => ({
+  type: actionTypes.BORROW_ITEM_FAIL,
+  error: error
+});
+
+export const borrowItem = (itemId, borrowerId, token) => dispatch => {
+  dispatch(borrowItemLoading());
+  axios({
+    method: 'patch',
+    url: `http://localhost:3001/items/${itemId}`,
+    headers: { Authorization: `bearer ${token}` }
+  })
+    .then(response => {
+      dispatch(borrowItemSuccess(response.data));
+    })
+    .catch(err => {
+      dispatch(borrowItemFail(err));
     });
 };

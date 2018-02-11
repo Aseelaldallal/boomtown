@@ -25,9 +25,22 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         filteredItems: getFilteredItems(state, action.tags)
       });
+    case actionTypes.BORROW_ITEM_LOADING:
+      return updateObject(state, { loading: true });
+    case actionTypes.BORROW_ITEM_SUCCESS:
+      return borrowItem();
+    case actionTypes.BORROW_ITEM_FAIL:
+      return updateObject(state, { loading: false, error: action.error });
     default:
       return state;
   }
+};
+
+const borrowItem = (state, borrowedItem) => {
+  console.log('Borrowed ITEM: ', borrowedItem);
+  console.log('Borrowed Item ID: ', borrowedItem._id);
+  console.log('unfiltered items: ', state.unfilteredItems);
+  return state;
 };
 
 const getFilteredItems = (state, tags) => {
