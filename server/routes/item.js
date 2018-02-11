@@ -26,17 +26,26 @@ router.get('/', function(req, res) {
 // Create: Add Item
 // ===============================================
 
-router.post('/', (req, res) => {
-  const item = new Item(req.body);
-  item
-    .save()
-    .then(newItem => {
-      res.send(newItem); // REPLACE THIS
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    });
-});
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log('Post route');
+    const item = new Item(req.body);
+    console.log('ITEM: ', item);
+    item.created = new Date();
+    item.itemowner = req.user._id;
+    item.borrower = null;
+    item
+      .save()
+      .then(newItem => {
+        res.send(newItem); // REPLACE THIS
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  }
+);
 
 // ===============================================
 // Update: Update Item
