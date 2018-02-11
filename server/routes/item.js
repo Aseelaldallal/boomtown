@@ -39,7 +39,7 @@ router.post(
     item
       .save()
       .then(newItem => {
-        res.send(newItem); // REPLACE THIS
+        res.status(200).send(newItem); // change later?
       })
       .catch(err => {
         res.status(400).send(err);
