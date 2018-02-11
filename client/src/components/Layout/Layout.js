@@ -23,7 +23,10 @@ const styles = {
 class Layout extends Component {
   render() {
     let addItemButton = null;
-    if (this.props.location.pathname !== '/login') {
+    if (
+      this.props.location.pathname !== '/login' &&
+      this.props.isAuthenticated
+    ) {
       addItemButton = (
         <FloatingActionButton
           style={styles.floatingButton}
