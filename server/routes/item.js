@@ -46,9 +46,56 @@ router.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    res.send('Congrats, you can only see this route if authenticated!');
+    const borrowerId = req.user._id.toString();
+    const itemBeingBorrowed = req.params.id;
+    Item.findById({ _id: itemBeingBorrowed })
+      .then(foundItem => {
+        checkThatUserCanBorrowItem(foundItem, borrowerId, res);
+        let userCanBorrowItem = checkThatUserCanBorrowItem(
+          foundItem,
+          borrowerId,
+          res
+        );
+        if (userCanBorrowItem.canBorrow) {
+          foundItem.borrower = borrowerId;
+          foundItem
+            .save()
+            .then(updatedItem => {
+              console.log(updatedItem);
+              res.status(200).send(updatedItem);
+            })
+            .catch(err =>
+              res.status(400).send({ message: 'something went wrong' })
+            );
+        } else {
+          res.status(400).send({ message: userCanBorrowItem.message });
+        }
+      })
+      .catch(err => {
+        res.send(err);
+      });
   }
 );
+
+// ===============================================
+// Helper Methods
+// ===============================================
+
+const checkThatUserCanBorrowItem = (foundItem, borrowerId, res) => {
+  if (foundItem.itemowner.toString() === borrowerId) {
+    return { canBorrow: false, message: "You can't borrow your own item" };
+  } else if (foundItem.borrower !== null) {
+    if (foundItem.borrower.toString() === borrowerId) {
+      return { canBorrow: false, message: 'You already borrowed this item!' };
+    } else {
+      return {
+        canBorrow: false,
+        message: 'This item is currently being borrowed by someone else'
+      };
+    }
+  }
+  return { canBorrow: true };
+};
 
 // ===============================================
 // Export
