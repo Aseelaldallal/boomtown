@@ -1,10 +1,16 @@
+// React
 import React, { Component } from 'react';
-import Masonry from 'react-masonry-component';
+//Redux
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/';
+// Components and Containers
 import ItemCard from '../ItemCard/ItemCard';
+import Auxillary from '../../../hoc/Auxillary/Auxillary';
+// Styling: Material UI, Masonry
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { grey900, grey600, grey50 } from 'material-ui/styles/colors.js';
-import Auxillary from '../../../hoc/Auxillary/Auxillary';
+import Masonry from 'react-masonry-component';
 
 class ItemCardList extends Component {
   state = {
@@ -19,11 +25,17 @@ class ItemCardList extends Component {
     const itemID = this.state.borrowing.item._id;
     console.log('Burrow Button Clicked');
     console.log('Borrowing Item: ', itemID);
+    this.props.borrowItem(
+      itemID,
+      this.props.authUser,
+      this.props.authUserToken
+    );
   };
 
   handleOpen = itemToBorrow => {
     console.log('ITEM TO BORROW: ', itemToBorrow._id);
     this.setState({ borrowing: { status: true, item: itemToBorrow } });
+    console.log(this.props);
   };
 
   handleClose = () => {
@@ -31,11 +43,6 @@ class ItemCardList extends Component {
   };
 
   render() {
-    console.log(
-      ' --------------- [ItemCardList]: Props: ',
-      this.props,
-      '----------------------'
-    );
     const styles = {
       masonry: {
         width: '90%',
@@ -68,6 +75,7 @@ class ItemCardList extends Component {
           key={item._id}
           data={item}
           clicked={() => this.handleOpen(item)}
+          authUser={this.props.authUser}
         />
       );
     });
@@ -88,4 +96,18 @@ class ItemCardList extends Component {
   }
 }
 
-export default ItemCardList;
+const mapStateToProps = state => {
+  return {
+    authUser: state.auth.auth_user_id,
+    authUserToken: state.auth.auth_user_token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    borrowItem: (itemId, borrowerId, token) =>
+      dispatch(actions.borrowItem(itemId, borrowerId, token))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCardList);

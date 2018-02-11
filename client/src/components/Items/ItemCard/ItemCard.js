@@ -30,7 +30,10 @@ const ItemCard = props => {
   }
 
   let cardButton = null;
-  if (props.data.borrower === null) {
+  if (
+    props.data.borrower === null &&
+    props.data.itemowner._id !== props.authUser
+  ) {
     cardButton = (
       <RaisedButton
         backgroundColor={grey900}
