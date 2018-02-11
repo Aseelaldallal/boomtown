@@ -5,7 +5,7 @@ import ItemCardList from '../Items/ItemCardList/ItemCardList';
 // Gravatar
 import Gravatar from 'react-gravatar';
 // Styling
-import classes from './Profile.css';
+import './Profile.css';
 
 const Profile = props => {
   return (
