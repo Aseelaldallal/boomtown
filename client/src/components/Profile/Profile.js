@@ -20,7 +20,7 @@ const Profile = props => {
           <p>Items shared</p>
         </div>
         <div className="item-c">
-          <h3>{props.user.itemsborrowed.length}</h3>
+          <h3>{props.numItemsBorrowed}</h3>
           <p>Items borrowed</p>
         </div>
         <div className="item-d">

@@ -41,7 +41,7 @@ Need to fix.
 # Left to Do
 
 * Fix UserProfile, ItemCardList bugs -- DONE
-* Implement Borrow
+* Implement Borrow -- DONE
 * Implement Item Add
 * Implement Image Upload
 * Deploy

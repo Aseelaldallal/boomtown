@@ -42,11 +42,23 @@ class UserProfile extends Component {
     return userItems;
   }
 
+  countBorrowedItems() {
+    let borrowedItems = this.props.items.filter(item => {
+      return item.borrower === this.state.user._id;
+    });
+    return borrowedItems.length;
+  }
+
   render() {
     let profile = null;
     if (this.props.items && this.state.user) {
-      let userItems = this.getUserItems();
-      profile = <Profile user={this.state.user} itemsowned={userItems} />;
+      profile = (
+        <Profile
+          user={this.state.user}
+          itemsowned={this.getUserItems()}
+          numItemsBorrowed={this.countBorrowedItems()}
+        />
+      );
     }
 
     return <Auxillary>{profile}</Auxillary>;
