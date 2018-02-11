@@ -26,11 +26,9 @@ router.get('/', function(req, res) {
 // Show: Show specific user
 // ===============================================
 
-//Never called
+//Called in UserProfile
 router.get('/:id', function(req, res) {
   Users.find({ _id: req.params.id })
-    .populate('itemsowned')
-    .populate('itemsborrowed')
     .then(foundUser => {
       res.send(foundUser);
     })
