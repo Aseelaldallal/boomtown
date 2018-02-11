@@ -7,11 +7,9 @@ const mongoose = require('mongoose');
 const readFile = util.promisify(fs.readFile);
 
 const seedDB = () => {
-  Promise.all([User.collection.drop(), Item.collection.drop()])
-    .then(() => readFile('./db/db.json'))
+  readFile('./db/db.json')
     .then(file => {
       data = JSON.parse(file);
-      insertUsers(data.users);
       insertItems(data.items);
     })
     .catch(err => console.error(err));
