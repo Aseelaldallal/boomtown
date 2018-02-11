@@ -25,7 +25,7 @@ const ItemCard = props => {
     }
   };
   let cardOverlay = null;
-  if (props.data.available) {
+  if (!props.data.available) {
     cardOverlay = <CardTitle subtitle="UNAVAILABLE" />;
   }
 
@@ -42,7 +42,6 @@ const ItemCard = props => {
   }
 
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner._id;
-  console.log('PROPS. DATA: ', props.data);
   return (
     <div style={styles.itemCard}>
       <Card>
