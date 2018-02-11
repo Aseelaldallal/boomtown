@@ -25,12 +25,12 @@ const ItemCard = props => {
     }
   };
   let cardOverlay = null;
-  if (!props.data.available) {
+  if (props.data.borrower !== null) {
     cardOverlay = <CardTitle subtitle="UNAVAILABLE" />;
   }
 
   let cardButton = null;
-  if (props.data.available) {
+  if (props.data.borrower === null) {
     cardButton = (
       <RaisedButton
         backgroundColor={grey900}
