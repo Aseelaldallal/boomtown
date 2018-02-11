@@ -20,7 +20,6 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
-    console.log('[ComponentDidMount]: Items: ', this.props.items);
     this.props.fetchItems();
     this.fetchCurrentUser();
   }
@@ -37,22 +36,9 @@ class UserProfile extends Component {
   }
 
   getUserItems() {
-    console.log('Items owned: ', this.state.user.itemsowned);
-    // this.state.user.itemsowned.map(itemid => {
-    //   console.log('--------------------------');
-    //   console.log('itemid: ', itemid);
-    //   const item = this.props.items.find(currItem => {
-    //     console.log('-----');
-    //     console.log('currItem: ', currItem);
-    //     return currItem._id === itemid;
-    //   });
-    //   if (item) userItems.push(item);
-    // });
     let userItems = this.props.items.filter(item => {
-      console.log('itemid: ', item._id);
       return _.includes(this.state.user.itemsowned, item._id);
     });
-    console.log('UserItems: ', userItems);
     return userItems;
   }
 
