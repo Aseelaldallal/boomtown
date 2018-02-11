@@ -30,6 +30,10 @@ class ItemCardList extends Component {
       this.props.authUser,
       this.props.authUserToken
     );
+    this.setState({
+      borrowing: { status: false, item: null },
+      open: false
+    });
   };
 
   handleOpen = itemToBorrow => {
