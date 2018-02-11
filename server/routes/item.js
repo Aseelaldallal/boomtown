@@ -4,7 +4,8 @@
 
 var express = require('express'),
   Item = require('../models/item'),
-  router = express.Router();
+  passport = require('../config/passport/');
+router = express.Router();
 
 // ===============================================
 // Index: Display All Items
@@ -40,6 +41,14 @@ router.post('/', (req, res) => {
 // ===============================================
 // Update: Update Item - Borrower, Available
 // ===============================================
+
+router.patch(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.send('Congrats, you can only see this route if authenticated!');
+  }
+);
 
 // ===============================================
 // Export

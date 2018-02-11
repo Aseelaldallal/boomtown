@@ -9,11 +9,7 @@ jwtOptions.secretOrKey = 'blooper';
 
 // to access restricted routes
 const strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
-  console.log('payload recieved: ', jwt_payload);
-  if (jwt_payload.email) {
-    email = email.toLowerCase();
-  } // Use lower-case e-mails to avoid case-sensitive e-mail matching
-  User.findOne({ 'jwt.email': email }, function(err, user) {
+  User.findOne({ _id: jwt_payload.id }, function(err, user) {
     if (err) {
       next(err);
     }
