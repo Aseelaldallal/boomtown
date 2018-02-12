@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,7 +17,7 @@ class UploadDirections extends Component {
     stepIndex: 0
   };
 
-  handleNext = () => {
+  handleNext = event => {
     const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
@@ -80,6 +82,7 @@ class UploadDirections extends Component {
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
+                onClick={this.props.uploadImage}
               />
               {this.renderStepActions(0)}
             </StepContent>
@@ -137,4 +140,10 @@ class UploadDirections extends Component {
   }
 }
 
-export default UploadDirections;
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadImage: () => dispatch(actions.uploadImage())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(UploadDirections);

@@ -1,18 +1,30 @@
 import * as actionTypes from './actionTypes';
 
-const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items }); // should really name this to get items success
-
-const updateTitle = title => ({
+export const updateTitle = title => ({
   type: actionTypes.UPDATE_TITLE,
   title: title
 });
 
-const updateDescription = description => ({
+export const updateDescription = description => ({
   type: actionTypes.UPDATE_DESCRIPTION,
   description: description
 });
 
-const updateTags = tags => ({
+export const uploadImage = () => dispatch => {
+  console.log('Uploading image...');
+};
+
+export const updateTags = tags => ({
   type: actionTypes.UPDATE_TAGS,
   tags: tags
+});
+
+const uploadImageSuccess = imageURL => ({
+  type: actionTypes.UPLOAD_IMAGE_SUCCESS,
+  imageURL: imageURL
+});
+
+const uploadImageFail = error => ({
+  type: actionTypes.UPLOAD_IMAGE_FAIL,
+  error: error
 });
