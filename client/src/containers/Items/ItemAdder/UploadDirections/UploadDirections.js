@@ -11,10 +11,35 @@ import TextField from 'material-ui/TextField';
  * A basic vertical non-linear implementation
  */
 class UploadDirections extends Component {
+  file = '';
+  imagePreviewUrl = '';
   numSteps = 4;
   state = {
     finished: false,
     stepIndex: 0
+  };
+
+  // handleImageSelect = () => {
+  //   console.log('Handle Image Select');
+  //   var event = new Event('change', { bubbles: true });
+  //   this.myinput.dispatchEvent(event);
+  // };
+
+  handleImageChange = e => {
+    e.preventDefault();
+    console.log('EVENT: ', e);
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    console.log('ImagePreviewURL: ', reader.result);
+    console.log('file: ', file);
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+      this.props.uploadImage(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   handleNext = event => {
@@ -69,9 +94,12 @@ class UploadDirections extends Component {
         color: grey50
       }
     };
+    // let uploadInput = false;
+
     return (
       <div style={{ maxWidth: 500, maxHeight: 400, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
+          {/* ---------------- IMAGE STEP ---------------- */}
           <Step>
             <StepLabel>Add an Image</StepLabel>
             <StepContent>
@@ -79,11 +107,22 @@ class UploadDirections extends Component {
                 We live in a visual culture. Upload an image of the item you're
                 sharing.
               </p>
+
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
-                onClick={this.props.uploadImage}
+                onClick={() => this.myinput.click()}
               />
+
+              <input
+                style={styles.imageUploader}
+                className="fileInput"
+                type="file"
+                ref={input => (this.myinput = input)}
+                onChange={e => this.handleImageChange(e)}
+                hidden
+              />
+
               {this.renderStepActions(0)}
             </StepContent>
           </Step>
@@ -142,7 +181,7 @@ class UploadDirections extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImage: () => dispatch(actions.uploadImage())
+    uploadImage: url => dispatch(actions.uploadImage(url))
   };
 };
 

@@ -10,9 +10,14 @@ export const updateDescription = description => ({
   description: description
 });
 
-export const uploadImage = () => dispatch => {
-  console.log('Uploading image...');
-};
+// export const uploadImage = (url) => dispatch => {
+//   console.log('Uploading image...');
+// };
+
+export const uploadImage = url => ({
+  type: actionTypes.UPLOAD_IMAGE_SUCCESS,
+  url: url
+});
 
 export const updateTags = tags => ({
   type: actionTypes.UPDATE_TAGS,
