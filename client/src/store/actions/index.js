@@ -9,5 +9,6 @@ export {
 export {
   uploadImage,
   updateTitle,
-  updateDescription
+  updateDescription,
+  updateTags
 } from './itemAdderActions.js';

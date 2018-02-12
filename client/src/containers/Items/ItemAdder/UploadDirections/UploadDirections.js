@@ -1,11 +1,16 @@
+// React
 import React, { Component } from 'react';
+// Redux
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/';
+// Material UI
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
 import TextField from 'material-ui/TextField';
+// Components and Containers
+import ItemSelectField from '../../ItemSelectField/ItemSelectField';
 
 /**
  * A basic vertical non-linear implementation
@@ -139,8 +144,28 @@ class UploadDirections extends Component {
                 }
               />
               <br />
-
-              {this.renderStepActions(1)}
+              <RaisedButton
+                label="Next"
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                backgroundColor={grey100}
+                onClick={this.handleNext}
+                disabled={
+                  this.props.title === '' ||
+                  this.props.description === '' ||
+                  this.props.title === 'Enter Title' ||
+                  this.props.description === 'Enter Description'
+                }
+                style={{ marginRight: 12 }}
+              />
+              <FlatButton
+                label="Back"
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                backgroundColor={grey900}
+                labelStyle={{ color: grey50 }}
+                onClick={this.handlePrev}
+              />
             </StepContent>
           </Step>
           {/* ---------------- TAGS ---------------- */}
@@ -151,9 +176,13 @@ class UploadDirections extends Component {
                 To share an item, you'll add it to our list of categories. You
                 can select multiple categories.
               </p>
+              <ItemSelectField
+                onSelectTags={tags => this.props.updateTags(tags)}
+              />
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
+          {/* ---------------- CONFIRM ---------------- */}
           <Step>
             <StepLabel>Confirm Things!</StepLabel>
             <StepContent>
@@ -180,7 +209,10 @@ class UploadDirections extends Component {
 
 const mapStateToProps = state => {
   return {
-    imageURL: state.itemAdder.imageURL
+    imageURL: state.itemAdder.imageURL,
+    title: state.itemAdder.title,
+    description: state.itemAdder.description,
+    tags: state.itemAdder.tags
   };
 };
 
@@ -188,7 +220,8 @@ const mapDispatchToProps = dispatch => {
   return {
     uploadImage: url => dispatch(actions.uploadImage(url)),
     updateTitle: title => dispatch(actions.updateTitle(title)),
-    updateDescription: desc => dispatch(actions.updateDescription(desc))
+    updateDescription: desc => dispatch(actions.updateDescription(desc)),
+    updateTags: tags => dispatch(actions.updateTags(tags))
   };
 };
 
