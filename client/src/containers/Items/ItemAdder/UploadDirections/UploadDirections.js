@@ -111,12 +111,13 @@ class UploadDirections extends Component {
                 disableFocusRipple={true}
                 backgroundColor={grey100}
                 onClick={this.handleNext}
-                style={{ marginRight: 12 }}
+                style={{ marginLeft: '1rem' }}
                 disabled={this.props.imageURL === '' ? true : false}
               />
             </StepContent>
           </Step>
 
+          {/* ---------------- TITLE, DESC ---------------- */}
           <Step>
             <StepLabel>Add a Title & Description</StepLabel>
             <StepContent>
@@ -129,12 +130,21 @@ class UploadDirections extends Component {
                 floatingLabelText="Title"
                 floatingLabelFocusStyle={{ color: grey50 }}
                 underlineFocusStyle={{ border: '1px solid #212121' }}
+                onChange={(e, newValue) => this.props.updateTitle(newValue)}
               />
-              <TextField defaultValue="" floatingLabelText="Description" />
+              <TextField
+                defaultValue=""
+                floatingLabelText="Description"
+                onChange={(e, newValue) =>
+                  this.props.updateDescription(newValue)
+                }
+              />
               <br />
+
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
+          {/* ---------------- TAGS ---------------- */}
           <Step>
             <StepLabel>Categorize your Item</StepLabel>
             <StepContent>
@@ -145,6 +155,7 @@ class UploadDirections extends Component {
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
+
           <Step>
             <StepLabel>Confirm Things!</StepLabel>
             <StepContent>
@@ -177,7 +188,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImage: url => dispatch(actions.uploadImage(url))
+    uploadImage: url => dispatch(actions.uploadImage(url)),
+    updateTitle: title => dispatch(actions.updateTitle(title)),
+    updateDescription: desc => dispatch(actions.updateDescription(desc))
   };
 };
 
