@@ -17,6 +17,7 @@ import RegisterContainer from './containers/Register/RegisterContainer';
 import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
 import UserProfile from './containers/UserProfile/UserProfile';
 import ItemAdder from './containers/Items/ItemAdder/ItemAdder';
+//import ShareContainer from './containers/Share/ShareContainer';
 
 class App extends Component {
   componentDidMount() {
