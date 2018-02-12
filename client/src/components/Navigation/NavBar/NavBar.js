@@ -1,6 +1,9 @@
 // React
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+// Redux
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/';
 // Containers and Components
 import AppBar from 'material-ui/AppBar';
 import Logo from '../../../images/boomtown-logo.svg';
@@ -81,4 +84,11 @@ class NavBar extends Component {
   }
 }
 
-export default withRouter(NavBar);
+const mapDispatchToProps = dispatch => {
+  return {
+    filterItemsByTagName: selectedTags =>
+      dispatch(actions.filterItemsByTagName(selectedTags))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(NavBar));
