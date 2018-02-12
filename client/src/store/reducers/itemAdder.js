@@ -2,16 +2,10 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  title: 'Title',
-  description: 'Description',
+  title: 'Title!',
+  description: 'Description!',
   tags: [],
-  created: 'a few seconds ago',
-  authUser: {
-    id: '234234242',
-    jwt: {
-      email: 'aseelaldallal@gmail.com'
-    }
-  }
+  imageURL: 'http://bit.ly/2x8hlfh'
 };
 
 const reducer = (state = initialState, action) => {
