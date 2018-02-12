@@ -5,7 +5,7 @@ const initialState = {
   title: 'Title!',
   description: 'Description!',
   tags: [],
-  imageURL: 'http://bit.ly/2x8hlfh'
+  imageURL: ''
 };
 
 const reducer = (state = initialState, action) => {

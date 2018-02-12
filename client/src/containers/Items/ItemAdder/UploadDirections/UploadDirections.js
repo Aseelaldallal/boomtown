@@ -11,32 +11,18 @@ import TextField from 'material-ui/TextField';
  * A basic vertical non-linear implementation
  */
 class UploadDirections extends Component {
-  file = '';
-  imagePreviewUrl = '';
   numSteps = 4;
   state = {
     finished: false,
     stepIndex: 0
   };
 
-  // handleImageSelect = () => {
-  //   console.log('Handle Image Select');
-  //   var event = new Event('change', { bubbles: true });
-  //   this.myinput.dispatchEvent(event);
-  // };
-
   handleImageChange = e => {
     e.preventDefault();
-    console.log('EVENT: ', e);
     let reader = new FileReader();
     let file = e.target.files[0];
-    console.log('ImagePreviewURL: ', reader.result);
-    console.log('file: ', file);
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
+      // we probably need to save the file here, for form submission
       this.props.uploadImage(reader.result);
     };
     reader.readAsDataURL(file);
@@ -94,7 +80,6 @@ class UploadDirections extends Component {
         color: grey50
       }
     };
-    // let uploadInput = false;
 
     return (
       <div style={{ maxWidth: 500, maxHeight: 400, margin: 'auto' }}>
@@ -107,13 +92,11 @@ class UploadDirections extends Component {
                 We live in a visual culture. Upload an image of the item you're
                 sharing.
               </p>
-
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
                 onClick={() => this.myinput.click()}
               />
-
               <input
                 style={styles.imageUploader}
                 className="fileInput"
@@ -122,8 +105,15 @@ class UploadDirections extends Component {
                 onChange={e => this.handleImageChange(e)}
                 hidden
               />
-
-              {this.renderStepActions(0)}
+              <RaisedButton
+                label="Next"
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                backgroundColor={grey100}
+                onClick={this.handleNext}
+                style={{ marginRight: 12 }}
+                disabled={this.props.imageURL === '' ? true : false}
+              />
             </StepContent>
           </Step>
 
@@ -179,10 +169,16 @@ class UploadDirections extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    imageURL: state.itemAdder.imageURL
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     uploadImage: url => dispatch(actions.uploadImage(url))
   };
 };
 
-export default connect(null, mapDispatchToProps)(UploadDirections);
+export default connect(mapStateToProps, mapDispatchToProps)(UploadDirections);
