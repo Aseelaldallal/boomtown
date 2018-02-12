@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 // Containers and Components
 import AppBar from 'material-ui/AppBar';
@@ -23,63 +23,62 @@ const styles = {
   }
 };
 
-const NavBar = props => {
-  const handleAuthentication = () => {
-    if (props.isAuthenticated) {
-      props.history.push('/logout');
+class NavBar extends Component {
+  handleAuthentication = () => {
+    if (this.props.isAuthenticated) {
+      this.props.history.push('/logout');
     } else {
-      props.history.push('/login');
+      this.props.history.push('/login');
     }
   };
 
-  const viewProfile = () => {
-    props.history.push(`/profile/${props.userId}`);
+  viewProfile = () => {
+    this.props.history.push(`/profile/${this.props.userId}`);
   };
 
-  const buttons = (
-    <Auxillary>
-      {props.isAuthenticated ? (
+  render() {
+    let buttons = (
+      <Auxillary>
+        {this.props.isAuthenticated ? (
+          <RaisedButton
+            label="MY PROFILE"
+            primary={true}
+            style={styles.button}
+            onClick={this.viewProfile}
+          />
+        ) : null}
         <RaisedButton
-          label="MY PROFILE"
-          primary={true}
+          backgroundColor={grey900}
+          label={this.props.isAuthenticated ? 'LOGOUT' : 'LOGIN'}
+          labelColor={grey50}
           style={styles.button}
-          onClick={viewProfile}
+          onClick={this.handleAuthentication}
         />
-      ) : null}
-      <RaisedButton
-        backgroundColor={grey900}
-        label={props.isAuthenticated ? 'LOGOUT' : 'LOGIN'}
-        labelColor={grey50}
-        style={styles.button}
-        onClick={handleAuthentication}
-      />
-    </Auxillary>
-  );
-
-  let itemSelectField = null;
-  if (props.location.pathname === '/items') {
-    itemSelectField = <ItemSelectField />;
-  }
-
-  let bar = null;
-
-  if (
-    props.location.pathname !== '/login' &&
-    props.location.pathname !== '/register'
-  ) {
-    bar = (
-      <AppBar
-        style={styles.appBar}
-        title={itemSelectField}
-        iconElementLeft={
-          <img style={styles.logoHeight} src={Logo} alt="logo" />
-        }
-        iconElementRight={buttons}
-      />
+      </Auxillary>
     );
-  }
 
-  return <Auxillary>{bar} </Auxillary>;
-};
+    let itemSelectField = null;
+    if (this.props.location.pathname === '/items') {
+      itemSelectField = <ItemSelectField />;
+    }
+    let bar = null;
+    if (
+      this.props.location.pathname !== '/login' &&
+      this.props.location.pathname !== '/register'
+    ) {
+      bar = (
+        <AppBar
+          style={styles.appBar}
+          title={itemSelectField}
+          iconElementLeft={
+            <img style={styles.logoHeight} src={Logo} alt="logo" />
+          }
+          iconElementRight={buttons}
+        />
+      );
+    }
+    return <Auxillary>{bar} </Auxillary>;
+  }
+}
 
 export default withRouter(NavBar);

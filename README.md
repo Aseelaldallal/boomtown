@@ -45,6 +45,8 @@ Need to fix.
 * Implement Item Add
 * Implement Image Upload
 * Deploy
+* Make share route only available to logged in users
+* implement 404
 
 Bonus:
 
