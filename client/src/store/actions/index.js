@@ -6,3 +6,8 @@ export {
   logout,
   authCheckState
 } from './authActions.js';
+export {
+  uploadImage,
+  updateTitle,
+  updateDescription
+} from './itemAdderActions.js';

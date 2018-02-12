@@ -9,16 +9,19 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import itemsReducer from './store/reducers/items';
 import usersReducer from './store/reducers/users';
+import itemAdderReducer from './store/reducers/itemAdder';
 import authReducer from './store/reducers/auth';
-import './index.css';
 // Components and Containers
 import App from './App';
+// Styling
+import './index.css';
 // Register Service Worker
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
   users: usersReducer,
+  itemAdder: itemAdderReducer,
   auth: authReducer
 });
 

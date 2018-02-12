@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,16 +14,21 @@ class UploadDirections extends Component {
   numSteps = 4;
   state = {
     finished: false,
-    stepIndex: 0,
-    formData: {
-      image: '',
-      title: '',
-      description: '',
-      tags: []
-    }
+    stepIndex: 0
   };
 
-  handleNext = () => {
+  handleImageChange = e => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      // we probably need to save the file here, for form submission
+      this.props.uploadImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  handleNext = event => {
     const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
@@ -34,14 +41,6 @@ class UploadDirections extends Component {
     if (stepIndex > 0) {
       this.setState({ stepIndex: stepIndex - 1 });
     }
-  };
-
-  saveImage = () => {
-    console.log('Saving image...');
-    let image =
-      'https://searchengineland.com/figz/wp-content/seloads/2011/09/iStock_000011798660XSmall-300x199.jpg';
-    this.setState({ formData: { ...this.state.formData, image: image } });
-    console.log('formd ata: ', this.state.formData);
   };
 
   renderStepActions(step) {
@@ -81,9 +80,11 @@ class UploadDirections extends Component {
         color: grey50
       }
     };
+
     return (
       <div style={{ maxWidth: 500, maxHeight: 400, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
+          {/* ---------------- IMAGE STEP ---------------- */}
           <Step>
             <StepLabel>Add an Image</StepLabel>
             <StepContent>
@@ -94,12 +95,28 @@ class UploadDirections extends Component {
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
-                onClick={this.saveImage}
+                onClick={() => this.myinput.click()}
               />
-              {this.renderStepActions(0)}
+              <input
+                style={styles.imageUploader}
+                className="fileInput"
+                type="file"
+                ref={input => (this.myinput = input)}
+                onChange={e => this.handleImageChange(e)}
+                hidden
+              />
+              <RaisedButton
+                label="Next"
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                backgroundColor={grey100}
+                onClick={this.handleNext}
+                style={{ marginLeft: '1rem' }}
+                disabled={this.props.imageURL === '' ? true : false}
+              />
             </StepContent>
           </Step>
-
+          {/* ---------------- TITLE, DESC ---------------- */}
           <Step>
             <StepLabel>Add a Title & Description</StepLabel>
             <StepContent>
@@ -112,12 +129,21 @@ class UploadDirections extends Component {
                 floatingLabelText="Title"
                 floatingLabelFocusStyle={{ color: grey50 }}
                 underlineFocusStyle={{ border: '1px solid #212121' }}
+                onChange={(e, newValue) => this.props.updateTitle(newValue)}
               />
-              <TextField defaultValue="" floatingLabelText="Description" />
+              <TextField
+                defaultValue=""
+                floatingLabelText="Description"
+                onChange={(e, newValue) =>
+                  this.props.updateDescription(newValue)
+                }
+              />
               <br />
+
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
+          {/* ---------------- TAGS ---------------- */}
           <Step>
             <StepLabel>Categorize your Item</StepLabel>
             <StepContent>
@@ -152,4 +178,18 @@ class UploadDirections extends Component {
   }
 }
 
-export default UploadDirections;
+const mapStateToProps = state => {
+  return {
+    imageURL: state.itemAdder.imageURL
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadImage: url => dispatch(actions.uploadImage(url)),
+    updateTitle: title => dispatch(actions.updateTitle(title)),
+    updateDescription: desc => dispatch(actions.updateDescription(desc))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadDirections);
