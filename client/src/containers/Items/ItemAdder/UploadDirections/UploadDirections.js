@@ -12,7 +12,13 @@ class UploadDirections extends Component {
   numSteps = 4;
   state = {
     finished: false,
-    stepIndex: 0
+    stepIndex: 0,
+    formData: {
+      image: '',
+      title: '',
+      description: '',
+      tags: []
+    }
   };
 
   handleNext = () => {
@@ -28,6 +34,14 @@ class UploadDirections extends Component {
     if (stepIndex > 0) {
       this.setState({ stepIndex: stepIndex - 1 });
     }
+  };
+
+  saveImage = () => {
+    console.log('Saving image...');
+    let image =
+      'https://searchengineland.com/figz/wp-content/seloads/2011/09/iStock_000011798660XSmall-300x199.jpg';
+    this.setState({ formData: { ...this.state.formData, image: image } });
+    console.log('formd ata: ', this.state.formData);
   };
 
   renderStepActions(step) {
@@ -80,6 +94,7 @@ class UploadDirections extends Component {
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
+                onClick={this.saveImage}
               />
               {this.renderStepActions(0)}
             </StepContent>
