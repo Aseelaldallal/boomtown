@@ -17,7 +17,7 @@ class ItemSelectField extends Component {
 
   handleChange = (event, index, values) => {
     this.setState({ values });
-    this.props.filterItemsByTagName(values); // values = selectedTags
+    this.props.onSelectTags(values); // values = selectedTags
   };
 
   menuItems(values) {
@@ -33,7 +33,6 @@ class ItemSelectField extends Component {
   }
 
   render() {
-    //   console.log("MY PROPS: ", this.props);
     const { values } = this.state;
     return (
       <SelectField
@@ -48,11 +47,4 @@ class ItemSelectField extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    filterItemsByTagName: selectedTags =>
-      dispatch(actions.filterItemsByTagName(selectedTags))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(ItemSelectField));
+export default withRouter(ItemSelectField);

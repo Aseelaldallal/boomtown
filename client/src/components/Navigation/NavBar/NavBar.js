@@ -62,7 +62,11 @@ class NavBar extends Component {
 
     let itemSelectField = null;
     if (this.props.location.pathname === '/items') {
-      itemSelectField = <ItemSelectField />;
+      itemSelectField = (
+        <ItemSelectField
+          onSelectTags={tags => this.props.filterItemsByTagName(tags)}
+        />
+      );
     }
     let bar = null;
     if (
