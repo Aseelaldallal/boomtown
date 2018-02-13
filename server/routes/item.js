@@ -4,8 +4,38 @@
 
 var express = require('express'),
   Item = require('../models/item'),
-  passport = require('../config/passport/');
-router = express.Router();
+  passport = require('../config/passport/'),
+  aws = require('aws-sdk'),
+  multer = require('multer'),
+  multerS3 = require('multer-s3'),
+  router = express.Router();
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: 'ca-central-1'
+});
+
+console.log('SECRET ACCESS KEY: ', process.env.AWS_SECRET_KEY);
+
+var s3 = new aws.S3();
+
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.S3_BUCKET_NAME,
+    key: function(req, file, cb) {
+      var fileExtension = file.originalname.split('.')[1];
+      var path =
+        'uploads/' +
+        file.originalname.split('.')[0] +
+        Date.now() +
+        '.' +
+        fileExtension;
+      cb(null, path);
+    }
+  })
+});
 
 // ===============================================
 // Index: Display All Items
@@ -28,10 +58,12 @@ router.get('/', function(req, res) {
 
 router.post(
   '/',
+  upload.array('image', 1),
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     console.log('Post route');
-    console.log(req);
+    console.log('REQ BODY: ', req.body);
+    console.log('REQ FILES: ', req.files.length);
     // const item = new Item(req.body);
     // console.log('ITEM: ', item);
     // item.created = new Date();

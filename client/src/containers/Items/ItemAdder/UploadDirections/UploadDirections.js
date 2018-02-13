@@ -47,15 +47,14 @@ class UploadDirections extends Component {
   };
 
   submitItem = () => {
-    this.props.addItem(
-      {
-        title: this.props.title,
-        description: this.props.description,
-        file: this.props.file,
-        tags: this.props.tags
-      },
-      this.props.token
-    );
+    const formData = new FormData();
+    formData.append('title', this.props.title);
+    formData.append('description', this.props.description);
+    formData.append('tags', this.props.tags);
+    formData.append('image', this.props.file);
+    formData.append('userID', this.props.authUser);
+
+    this.props.addItem(formData, this.props.token);
   };
 
   render() {
@@ -232,7 +231,8 @@ const mapStateToProps = state => {
     description: state.itemAdder.description,
     tags: state.itemAdder.tags,
     file: state.itemAdder.file,
-    token: state.auth.auth_user_token
+    token: state.auth.auth_user_token,
+    authUser: state.auth.auth_user_id
   };
 };
 
