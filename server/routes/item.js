@@ -58,25 +58,27 @@ router.get('/', function(req, res) {
 
 router.post(
   '/',
-  upload.array('image', 1),
   passport.authenticate('jwt', { session: false }),
+  upload.array('image', 1),
   (req, res) => {
-    console.log('Post route');
-    console.log('REQ BODY: ', req.body);
-    console.log('REQ FILES: ', req.files.length);
-    // const item = new Item(req.body);
-    // console.log('ITEM: ', item);
-    // item.created = new Date();
-    // item.itemowner = req.user._id;
-    // item.borrower = null;
-    // item
-    //   .save()
-    //   .then(newItem => {
-    //     res.status(200).send(newItem); // change later?
-    //   })
-    //   .catch(err => {
-    //     res.status(400).send(err);
-    //   });
+    // MUST PUSH ITEM ID TO ITEM OWNED IN USER COLLECTION
+    console.log('filename: ', req.files[0].key);
+    const item = new Item();
+    item.title = req.body.title;
+    item.description = req.body.description;
+    item.tags = req.body.tags.split(',');
+    item.imageurl = req.files[0].key;
+    item.created = new Date();
+    item.itemowner = req.user._id;
+    item.borrower = null;
+    item
+      .save()
+      .then(newItem => {
+        res.status(200).send(newItem);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
   }
 );
 
