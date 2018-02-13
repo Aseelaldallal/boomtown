@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, { tags: action.tags });
     case actionTypes.UPDATE_DESCRIPTION:
       return updateObject(state, { description: action.description });
-    case actionTypes.UPLOAD_IMAGE_SUCCESS:
+    case actionTypes.UPLOAD_IMAGE:
       return updateObject(state, { imageURL: action.url, file: action.file });
     default:
       return state;

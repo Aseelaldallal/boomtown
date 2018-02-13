@@ -52,12 +52,6 @@ export const borrowItem = (itemId, borrowerId, token) => dispatch => {
     });
 };
 
-const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
-const getItemsError = error => ({
-  type: actionTypes.GET_ITEMS_ERROR,
-  error: error
-});
-
 const addItemLoading = () => ({ type: actionTypes.ADD_ITEM_LOADING });
 const addItemSuccess = newItem => ({
   type: actionTypes.ADD_ITEM_SUCCESS,
