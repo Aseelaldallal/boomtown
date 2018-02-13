@@ -15,6 +15,12 @@ class ItemSelectField extends Component {
     values: []
   };
 
+  componentDidMount() {
+    if (this.props.values) {
+      this.setState({ values: this.props.values });
+    }
+  }
+
   handleChange = (event, index, values) => {
     this.setState({ values });
     this.props.onSelectTags(values); // values = selectedTags
