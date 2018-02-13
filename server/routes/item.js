@@ -31,19 +31,20 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     console.log('Post route');
-    const item = new Item(req.body);
-    console.log('ITEM: ', item);
-    item.created = new Date();
-    item.itemowner = req.user._id;
-    item.borrower = null;
-    item
-      .save()
-      .then(newItem => {
-        res.status(200).send(newItem); // change later?
-      })
-      .catch(err => {
-        res.status(400).send(err);
-      });
+    console.log(req);
+    // const item = new Item(req.body);
+    // console.log('ITEM: ', item);
+    // item.created = new Date();
+    // item.itemowner = req.user._id;
+    // item.borrower = null;
+    // item
+    //   .save()
+    //   .then(newItem => {
+    //     res.status(200).send(newItem); // change later?
+    //   })
+    //   .catch(err => {
+    //     res.status(400).send(err);
+    //   });
   }
 );
 

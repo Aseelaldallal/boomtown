@@ -60,14 +60,13 @@ const addItemSuccess = newItem => ({
 const addItemFail = error => ({ type: actionTypes.ADD_ITEM_FAIL });
 
 export const addItem = (itemData, token) => dispatch => {
-  dispatch(addItemLoading);
+  console.log('ITEMDATA: ', itemData);
+  console.log('tokenn: ', token);
+  dispatch(addItemLoading());
   axios({
     method: 'post',
     url: `http://localhost:3001/items/`,
-    headers: {
-      Authorization: `bearer ${token}`,
-      'Content-Type': 'multipart/form-data'
-    },
+    headers: { Authorization: `bearer ${token}` },
     data: itemData
   })
     .then(response => {

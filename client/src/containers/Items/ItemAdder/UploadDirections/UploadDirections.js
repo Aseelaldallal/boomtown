@@ -51,7 +51,6 @@ class UploadDirections extends Component {
       {
         title: this.props.title,
         description: this.props.description,
-        imageURL: this.props.imageURL,
         file: this.props.file,
         tags: this.props.tags
       },
@@ -243,7 +242,7 @@ const mapDispatchToProps = dispatch => {
     updateTitle: title => dispatch(actions.updateTitle(title)),
     updateDescription: desc => dispatch(actions.updateDescription(desc)),
     updateTags: tags => dispatch(actions.updateTags(tags)),
-    addItem: formData => dispatch(actions.addItem(formData))
+    addItem: (formData, token) => dispatch(actions.addItem(formData, token))
   };
 };
 
