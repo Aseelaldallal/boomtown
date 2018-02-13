@@ -130,42 +130,41 @@ class UploadDirections extends Component {
                 adding a title & description.
               </p>
               <TextField
-                defaultValue=""
+                defaultValue={this.props.title}
                 floatingLabelText="Title"
                 floatingLabelFocusStyle={{ color: grey50 }}
                 underlineFocusStyle={{ border: '1px solid #212121' }}
                 onChange={(e, newValue) => this.props.updateTitle(newValue)}
               />
               <TextField
-                defaultValue=""
+                defaultValue={this.props.description}
                 floatingLabelText="Description"
                 onChange={(e, newValue) =>
                   this.props.updateDescription(newValue)
                 }
               />
               <br />
-              <RaisedButton
-                label="Next"
-                disableTouchRipple={true}
-                disableFocusRipple={true}
-                backgroundColor={grey100}
-                onClick={this.handleNext}
-                disabled={
-                  this.props.title === '' ||
-                  this.props.description === '' ||
-                  this.props.title === 'Enter Title' ||
-                  this.props.description === 'Enter Description'
-                }
-                style={{ marginRight: 12 }}
-              />
-              <FlatButton
-                label="Back"
-                disableTouchRipple={true}
-                disableFocusRipple={true}
-                backgroundColor={grey900}
-                labelStyle={{ color: grey50 }}
-                onClick={this.handlePrev}
-              />
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Next"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.handleNext}
+                  disabled={
+                    this.props.title === '' || this.props.description === ''
+                  }
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
           {/* ---------------- TAGS ---------------- */}
@@ -178,8 +177,27 @@ class UploadDirections extends Component {
               </p>
               <ItemSelectField
                 onSelectTags={tags => this.props.updateTags(tags)}
+                values={this.props.tags}
               />
-              {this.renderStepActions(2)}
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Next"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.handleNext}
+                  disabled={this.props.tags.length === 0}
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
           {/* ---------------- CONFIRM ---------------- */}

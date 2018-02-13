@@ -2,8 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  title: 'Enter Title',
-  description: 'Enter Description',
+  title: '',
+  description: '',
   tags: [],
   imageURL: ''
 };

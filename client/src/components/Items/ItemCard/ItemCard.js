@@ -18,8 +18,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Moment from 'react-moment';
 
 const ItemCard = props => {
-  console.log(props);
-
   const styles = {
     itemCard: {
       width: 311,
