@@ -11,10 +11,9 @@ import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
 import TextField from 'material-ui/TextField';
 // Components and Containers
 import ItemSelectField from '../../ItemSelectField/ItemSelectField';
+//axios
+import axios from 'axios';
 
-/**
- * A basic vertical non-linear implementation
- */
 class UploadDirections extends Component {
   numSteps = 4;
   state = {
@@ -27,8 +26,7 @@ class UploadDirections extends Component {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
-      // we probably need to save the file here, for form submission
-      this.props.uploadImage(reader.result);
+      this.props.uploadImage(reader.result, file);
     };
     reader.readAsDataURL(file);
   };
@@ -48,8 +46,17 @@ class UploadDirections extends Component {
     }
   };
 
-  submit = () => {
-    console.log('Will submit');
+  submitItem = () => {
+    this.props.addItem(
+      {
+        title: this.props.title,
+        description: this.props.description,
+        imageURL: this.props.imageURL,
+        file: this.props.file,
+        tags: this.props.tags
+      },
+      this.props.token
+    );
   };
 
   render() {
@@ -190,7 +197,7 @@ class UploadDirections extends Component {
                   disableTouchRipple={true}
                   disableFocusRipple={true}
                   backgroundColor={grey100}
-                  onClick={this.submit}
+                  onClick={this.submitItem}
                   style={{ marginRight: 12 }}
                 />
                 <FlatButton
@@ -224,16 +231,19 @@ const mapStateToProps = state => {
     imageURL: state.itemAdder.imageURL,
     title: state.itemAdder.title,
     description: state.itemAdder.description,
-    tags: state.itemAdder.tags
+    tags: state.itemAdder.tags,
+    file: state.itemAdder.file,
+    token: state.auth.auth_user_token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImage: url => dispatch(actions.uploadImage(url)),
+    uploadImage: (url, file) => dispatch(actions.uploadImage(url, file)),
     updateTitle: title => dispatch(actions.updateTitle(title)),
     updateDescription: desc => dispatch(actions.updateDescription(desc)),
-    updateTags: tags => dispatch(actions.updateTags(tags))
+    updateTags: tags => dispatch(actions.updateTags(tags)),
+    addItem: formData => dispatch(actions.addItem(formData))
   };
 };
 

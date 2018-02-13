@@ -51,3 +51,37 @@ export const borrowItem = (itemId, borrowerId, token) => dispatch => {
       dispatch(borrowItemFail(err));
     });
 };
+
+const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
+const getItemsError = error => ({
+  type: actionTypes.GET_ITEMS_ERROR,
+  error: error
+});
+
+const addItemLoading = () => ({ type: actionTypes.ADD_ITEM_LOADING });
+const addItemSuccess = newItem => ({
+  type: actionTypes.ADD_ITEM_SUCCESS,
+  newItem: newItem
+});
+const addItemFail = error => ({ type: actionTypes.ADD_ITEM_FAIL });
+
+export const addItem = (itemData, token) => dispatch => {
+  dispatch(addItemLoading);
+  axios({
+    method: 'post',
+    url: `http://localhost:3001/items/`,
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'multipart/form-data'
+    },
+    data: itemData
+  })
+    .then(response => {
+      console.log(response.data);
+      //dispatch addItemSuccess
+    })
+    .catch(error => {
+      console.log(error);
+      //dispatch addItemFail
+    });
+};

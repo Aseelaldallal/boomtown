@@ -1,4 +1,9 @@
-export { fetchItems, filterItemsByTagName, borrowItem } from './itemActions.js';
+export {
+  fetchItems,
+  filterItemsByTagName,
+  borrowItem,
+  addItem
+} from './itemActions.js';
 export { fetchUsers } from './userActions.js';
 export {
   registerUser,

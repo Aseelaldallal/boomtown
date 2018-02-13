@@ -14,9 +14,10 @@ export const updateDescription = description => ({
 //   console.log('Uploading image...');
 // };
 
-export const uploadImage = url => ({
-  type: actionTypes.UPLOAD_IMAGE_SUCCESS,
-  url: url
+export const uploadImage = (url, file) => ({
+  type: actionTypes.UPLOAD_IMAGE,
+  url: url,
+  file: file
 });
 
 export const updateTags = tags => ({
@@ -24,12 +25,12 @@ export const updateTags = tags => ({
   tags: tags
 });
 
-const uploadImageSuccess = imageURL => ({
-  type: actionTypes.UPLOAD_IMAGE_SUCCESS,
-  imageURL: imageURL
-});
+// const uploadImageSuccess = imageURL => ({
+//   type: actionTypes.UPLOAD_IMAGE_SUCCESS,
+//   imageURL: imageURL
+// });
 
-const uploadImageFail = error => ({
-  type: actionTypes.UPLOAD_IMAGE_FAIL,
-  error: error
-});
+// const uploadImageFail = error => ({
+//   type: actionTypes.UPLOAD_IMAGE_FAIL,
+//   error: error
+// });

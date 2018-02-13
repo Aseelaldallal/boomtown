@@ -5,7 +5,8 @@ const initialState = {
   title: '',
   description: '',
   tags: [],
-  imageURL: ''
+  imageURL: '',
+  file: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,8 +18,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.UPDATE_DESCRIPTION:
       return updateObject(state, { description: action.description });
     case actionTypes.UPLOAD_IMAGE_SUCCESS:
-      console.log('UPLOAD IMG');
-      return updateObject(state, { imageURL: action.url });
+      return updateObject(state, { imageURL: action.url, file: action.file });
     default:
       return state;
   }
