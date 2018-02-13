@@ -48,32 +48,9 @@ class UploadDirections extends Component {
     }
   };
 
-  renderStepActions(step) {
-    const { stepIndex } = this.state;
-    return (
-      <div style={{ margin: '12px 0' }}>
-        <RaisedButton
-          label={stepIndex === this.numSteps - 1 ? 'Confirm' : 'Next'}
-          disableTouchRipple={true}
-          disableFocusRipple={true}
-          backgroundColor={grey100}
-          onClick={this.handleNext}
-          style={{ marginRight: 12 }}
-        />
-        {step > 0 && (
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            backgroundColor={grey900}
-            labelStyle={{ color: grey50 }}
-            onClick={this.handlePrev}
-          />
-        )}
-      </div>
-    );
-  }
+  submit = () => {
+    console.log('Will submit');
+  };
 
   render() {
     const { finished, stepIndex } = this.state;
@@ -207,7 +184,24 @@ class UploadDirections extends Component {
               <p style={styles.white}>
                 Great! If you're happy with everything, tap the button.
               </p>
-              {this.renderStepActions(3)}
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Confirm"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.submit}
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
         </Stepper>

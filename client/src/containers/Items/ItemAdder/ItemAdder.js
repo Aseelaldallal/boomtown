@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ImageUploader from './ImageUploader/ImageUploader';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
 import UploadDirections from './UploadDirections/UploadDirections';
 import ItemCard from '../../../components/Items/ItemCard/ItemCard';

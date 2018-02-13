@@ -1,9 +1,6 @@
 // React
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-// Redux
-import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/';
 // Material-UI
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
