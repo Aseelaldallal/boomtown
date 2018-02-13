@@ -14,13 +14,6 @@ const UserSchema = new mongoose.Schema({
       ref: 'item',
       required: true
     }
-  ],
-  itemsborrowed: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'item',
-      required: true
-    }
   ]
 });
 
