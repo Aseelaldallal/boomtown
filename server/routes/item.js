@@ -4,6 +4,7 @@
 
 var express = require('express'),
   Item = require('../models/item'),
+  User = require('../models/user'),
   passport = require('../config/passport/'),
   aws = require('aws-sdk'),
   multer = require('multer'),
@@ -15,8 +16,6 @@ aws.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   region: 'ca-central-1'
 });
-
-console.log('SECRET ACCESS KEY: ', process.env.AWS_SECRET_KEY);
 
 var s3 = new aws.S3();
 
@@ -36,6 +35,8 @@ var upload = multer({
     }
   })
 });
+
+const S3_UPLOAD_PATH = 'https://s3.ca-central-1.amazonaws.com/aseelboomtown/';
 
 // ===============================================
 // Index: Display All Items
@@ -61,19 +62,24 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   upload.array('image', 1),
   (req, res) => {
-    // MUST PUSH ITEM ID TO ITEM OWNED IN USER COLLECTION
-    console.log('filename: ', req.files[0].key);
     const item = new Item();
     item.title = req.body.title;
     item.description = req.body.description;
     item.tags = req.body.tags.split(',');
-    item.imageurl = req.files[0].key;
+    item.imageurl = S3_UPLOAD_PATH + req.files[0].key;
     item.created = new Date();
     item.itemowner = req.user._id;
     item.borrower = null;
     item
       .save()
       .then(newItem => {
+        return User.findByIdAndUpdate(
+          req.user._id,
+          { $push: { itemsowned: newItem._id } },
+          { new: true }
+        );
+      })
+      .then(() => {
         res.status(200).send(newItem);
       })
       .catch(err => {
