@@ -31,6 +31,11 @@ const reducer = (state = initialState, action) => {
       return borrowItemSuccess(state, action.itemID, action.borrowerID);
     case actionTypes.BORROW_ITEM_FAIL:
       return updateObject(state, { loading: false, error: action.error });
+    case actionTypes.ADD_ITEM_SUCCESS:
+      let updatedItems = state.unfilteredItems.concat(action.newItem);
+      return updateObject(state, { unfilteredItems: updatedItems });
+    case actionTypes.ADD_ITEM_FAIL:
+      return updateObject(state, { error: action.error });
     default:
       return state;
   }
