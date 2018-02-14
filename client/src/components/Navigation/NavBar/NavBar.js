@@ -36,6 +36,7 @@ class NavBar extends Component {
   };
 
   viewProfile = () => {
+    console.log('My USER ID: ', this.props.userId);
     this.props.history.push(`/profile/${this.props.userId}`);
   };
 
@@ -95,4 +96,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(NavBar));
+export default withRouter(connect(null, mapDispatchToProps)(NavBar));
