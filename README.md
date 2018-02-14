@@ -47,10 +47,18 @@ Need to fix.
 * Deploy
 * Make share route only available to logged in users
 * implement 404
+* make logo clickable
 
 Bonus:
 
 * Add axios interceptors ?
-* Change /profile to /user
 * Lazy loading?
-* Image error handling?
+* Image error handling?\
+* Return item
+  7
+
+lots of bugs:
+--- image add another
+--- clicking my profile when viewing another user's profile does nothing
+--- this.props.history.push needs to be delayed
+--- navbar doesn't show up when you login .. fixed

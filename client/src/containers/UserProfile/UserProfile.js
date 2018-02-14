@@ -1,5 +1,6 @@
 // React
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
@@ -77,4 +78,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+);

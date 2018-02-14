@@ -37,7 +37,7 @@ class NavBar extends Component {
 
   viewProfile = () => {
     console.log('My USER ID: ', this.props.userId);
-    this.props.history.push(`/profile/${this.props.userId}`);
+    this.props.history.push(`/profile/${this.props.userId}/`);
   };
 
   render() {
