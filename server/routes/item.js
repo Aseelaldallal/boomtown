@@ -75,11 +75,9 @@ router.post(
       .then(newItem => {
         User.findByIdAndUpdate(
           req.user._id,
-          {
-            $push: { itemsowned: newItem._id }
-          },
+          { $push: { itemsowned: newItem._id } },
           { new: true }
-        );
+        ).then(updatedUser => {});
         return newItem;
       })
       .then(newItem => {
