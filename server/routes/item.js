@@ -73,13 +73,16 @@ router.post(
     item
       .save()
       .then(newItem => {
-        return User.findByIdAndUpdate(
+        User.findByIdAndUpdate(
           req.user._id,
-          { $push: { itemsowned: newItem._id } },
+          {
+            $push: { itemsowned: newItem._id }
+          },
           { new: true }
         );
+        return newItem;
       })
-      .then(() => {
+      .then(newItem => {
         res.status(200).send(newItem);
       })
       .catch(err => {
