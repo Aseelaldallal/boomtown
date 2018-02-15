@@ -43,7 +43,7 @@ Need to fix.
 * Fix UserProfile, ItemCardList bugs -- DONE
 * Implement Borrow -- DONE
 * Implement Item Add
-* Implement Image Upload
+* Implement Image Upload -- DONE
 * Deploy
 * Make share route only available to logged in users
 * implement 404
@@ -53,3 +53,7 @@ Bonus:
 * Add axios interceptors ?
 * Change /profile to /user
 * Lazy loading?
+
+
+
+# TODAY:
