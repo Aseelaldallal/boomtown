@@ -1,5 +1,6 @@
 // React
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
@@ -24,9 +25,20 @@ class UserProfile extends Component {
     this.fetchCurrentUser();
   }
 
-  fetchCurrentUser() {
+  componentWillUpdate(nextProps) {
+    if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      this.props.fetchItems();
+      this.fetchCurrentUser(nextProps);
+    }
+  }
+
+  fetchCurrentUser(nextProps) {
+    let userID = this.props.match.params.userId;
+    if (nextProps) {
+      userID = nextProps.match.params.userId;
+    }
     axios
-      .get(`http://localhost:3001/users/${this.props.match.params.userId}`)
+      .get(`http://localhost:3001/users/${userID}`)
       .then(response => {
         this.setState({ user: response.data[0] });
       })
@@ -77,4 +89,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+);

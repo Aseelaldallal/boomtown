@@ -72,10 +72,11 @@ export const addItem = (itemData, token) => dispatch => {
   })
     .then(response => {
       console.log(response.data);
-      //dispatch addItemSuccess
+      dispatch(addItemSuccess(response.data));
+      // you don't really need this
     })
     .catch(error => {
       console.log(error);
-      //dispatch addItemFail
+      dispatch(addItemFail(error));
     });
 };

@@ -1,5 +1,6 @@
 // React
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/';
@@ -11,8 +12,6 @@ import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
 import TextField from 'material-ui/TextField';
 // Components and Containers
 import ItemSelectField from '../../ItemSelectField/ItemSelectField';
-//axios
-import axios from 'axios';
 
 class UploadDirections extends Component {
   numSteps = 4;
@@ -55,6 +54,7 @@ class UploadDirections extends Component {
     formData.append('userID', this.props.authUser);
 
     this.props.addItem(formData, this.props.token);
+    this.props.history.push(`/profile/${this.props.authUser}`);
   };
 
   render() {
@@ -246,4 +246,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadDirections);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UploadDirections)
+);
