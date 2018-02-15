@@ -53,12 +53,5 @@ Bonus:
 
 * Add axios interceptors ?
 * Lazy loading?
-* Image error handling?\
-* Return item
-  7
 
-lots of bugs:
---- image add another
---- clicking my profile when viewing another user's profile does nothing
---- this.props.history.push needs to be delayed
---- navbar doesn't show up when you login .. fixed
+# TODAY:

@@ -13,8 +13,9 @@ import ItemSelectField from '../../../containers/Items/ItemSelectField/ItemSelec
 import { grey900, grey50 } from 'material-ui/styles/colors.js';
 
 const styles = {
-  logoHeight: {
-    height: 40
+  logo: {
+    height: 40,
+    cursor: 'pointer'
   },
   appBar: {
     backgroundColor: 'white',
@@ -81,7 +82,12 @@ class NavBar extends Component {
           style={styles.appBar}
           title={itemSelectField}
           iconElementLeft={
-            <img style={styles.logoHeight} src={Logo} alt="logo" />
+            <img
+              style={styles.logo}
+              src={Logo}
+              alt="logo"
+              onClick={() => this.props.history.push('/items')}
+            />
           }
           iconElementRight={buttons}
         />
