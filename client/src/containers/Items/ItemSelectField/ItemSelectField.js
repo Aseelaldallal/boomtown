@@ -1,9 +1,6 @@
 // React
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-// Redux
-import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/';
 // Material-UI
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -15,9 +12,15 @@ class ItemSelectField extends Component {
     values: []
   };
 
+  componentDidMount() {
+    if (this.props.values) {
+      this.setState({ values: this.props.values });
+    }
+  }
+
   handleChange = (event, index, values) => {
     this.setState({ values });
-    this.props.filterItemsByTagName(values); // values = selectedTags
+    this.props.onSelectTags(values); // values = selectedTags
   };
 
   menuItems(values) {
@@ -33,7 +36,6 @@ class ItemSelectField extends Component {
   }
 
   render() {
-    //   console.log("MY PROPS: ", this.props);
     const { values } = this.state;
     return (
       <SelectField
@@ -48,11 +50,4 @@ class ItemSelectField extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    filterItemsByTagName: selectedTags =>
-      dispatch(actions.filterItemsByTagName(selectedTags))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(ItemSelectField));
+export default withRouter(ItemSelectField);

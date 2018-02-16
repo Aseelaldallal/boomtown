@@ -1,13 +1,18 @@
+// React
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+// Redux
+import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/';
+// Material UI
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { grey50, grey100, grey900 } from 'material-ui/styles/colors.js';
 import TextField from 'material-ui/TextField';
+// Components and Containers
+import ItemSelectField from '../../ItemSelectField/ItemSelectField';
 
-/**
- * A basic vertical non-linear implementation
- */
 class UploadDirections extends Component {
   numSteps = 4;
   state = {
@@ -15,7 +20,17 @@ class UploadDirections extends Component {
     stepIndex: 0
   };
 
-  handleNext = () => {
+  handleImageChange = e => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      this.props.uploadImage(reader.result, file);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  handleNext = event => {
     const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
@@ -30,32 +45,23 @@ class UploadDirections extends Component {
     }
   };
 
-  renderStepActions(step) {
-    const { stepIndex } = this.state;
-    return (
-      <div style={{ margin: '12px 0' }}>
-        <RaisedButton
-          label={stepIndex === this.numSteps - 1 ? 'Confirm' : 'Next'}
-          disableTouchRipple={true}
-          disableFocusRipple={true}
-          backgroundColor={grey100}
-          onClick={this.handleNext}
-          style={{ marginRight: 12 }}
-        />
-        {step > 0 && (
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            backgroundColor={grey900}
-            labelStyle={{ color: grey50 }}
-            onClick={this.handlePrev}
-          />
-        )}
-      </div>
-    );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.itemsWereUpdated === true) {
+      this.props.resetAddItem();
+      this.props.history.push(`/profile/${this.props.authUser}`);
+    }
   }
+
+  submitItem = () => {
+    const formData = new FormData();
+    formData.append('title', this.props.title);
+    formData.append('description', this.props.description);
+    formData.append('tags', this.props.tags);
+    formData.append('image', this.props.file);
+    formData.append('userID', this.props.authUser);
+
+    this.props.addItem(formData, this.props.token);
+  };
 
   render() {
     const { finished, stepIndex } = this.state;
@@ -67,9 +73,11 @@ class UploadDirections extends Component {
         color: grey50
       }
     };
+
     return (
       <div style={{ maxWidth: 500, maxHeight: 400, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
+          {/* ---------------- IMAGE STEP ---------------- */}
           <Step>
             <StepLabel>Add an Image</StepLabel>
             <StepContent>
@@ -80,11 +88,28 @@ class UploadDirections extends Component {
               <RaisedButton
                 style={styles.imageUploader}
                 label="SELECT AN IMAGE"
+                onClick={() => this.myinput.click()}
               />
-              {this.renderStepActions(0)}
+              <input
+                style={styles.imageUploader}
+                className="fileInput"
+                type="file"
+                ref={input => (this.myinput = input)}
+                onChange={e => this.handleImageChange(e)}
+                hidden
+              />
+              <RaisedButton
+                label="Next"
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                backgroundColor={grey100}
+                onClick={this.handleNext}
+                style={{ marginLeft: '1rem' }}
+                disabled={this.props.imageURL === '' ? true : false}
+              />
             </StepContent>
           </Step>
-
+          {/* ---------------- TITLE, DESC ---------------- */}
           <Step>
             <StepLabel>Add a Title & Description</StepLabel>
             <StepContent>
@@ -93,16 +118,44 @@ class UploadDirections extends Component {
                 adding a title & description.
               </p>
               <TextField
-                defaultValue=""
+                defaultValue={this.props.title}
                 floatingLabelText="Title"
                 floatingLabelFocusStyle={{ color: grey50 }}
                 underlineFocusStyle={{ border: '1px solid #212121' }}
+                onChange={(e, newValue) => this.props.updateTitle(newValue)}
               />
-              <TextField defaultValue="" floatingLabelText="Description" />
+              <TextField
+                defaultValue={this.props.description}
+                floatingLabelText="Description"
+                onChange={(e, newValue) =>
+                  this.props.updateDescription(newValue)
+                }
+              />
               <br />
-              {this.renderStepActions(1)}
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Next"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.handleNext}
+                  disabled={
+                    this.props.title === '' || this.props.description === ''
+                  }
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
+          {/* ---------------- TAGS ---------------- */}
           <Step>
             <StepLabel>Categorize your Item</StepLabel>
             <StepContent>
@@ -110,16 +163,56 @@ class UploadDirections extends Component {
                 To share an item, you'll add it to our list of categories. You
                 can select multiple categories.
               </p>
-              {this.renderStepActions(2)}
+              <ItemSelectField
+                onSelectTags={tags => this.props.updateTags(tags)}
+                values={this.props.tags}
+              />
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Next"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.handleNext}
+                  disabled={this.props.tags.length === 0}
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
+          {/* ---------------- CONFIRM ---------------- */}
           <Step>
             <StepLabel>Confirm Things!</StepLabel>
             <StepContent>
               <p style={styles.white}>
                 Great! If you're happy with everything, tap the button.
               </p>
-              {this.renderStepActions(3)}
+              <div style={{ margin: '12px 0' }}>
+                <RaisedButton
+                  label="Confirm"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey100}
+                  onClick={this.submitItem}
+                  style={{ marginRight: 12 }}
+                />
+                <FlatButton
+                  label="Back"
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  backgroundColor={grey900}
+                  labelStyle={{ color: grey50 }}
+                  onClick={this.handlePrev}
+                />
+              </div>
             </StepContent>
           </Step>
         </Stepper>
@@ -137,4 +230,30 @@ class UploadDirections extends Component {
   }
 }
 
-export default UploadDirections;
+const mapStateToProps = state => {
+  return {
+    imageURL: state.itemAdder.imageURL,
+    title: state.itemAdder.title,
+    description: state.itemAdder.description,
+    tags: state.itemAdder.tags,
+    file: state.itemAdder.file,
+    token: state.auth.auth_user_token,
+    authUser: state.auth.auth_user_id,
+    itemsWereUpdated: state.items.addedItem
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadImage: (url, file) => dispatch(actions.uploadImage(url, file)),
+    updateTitle: title => dispatch(actions.updateTitle(title)),
+    updateDescription: desc => dispatch(actions.updateDescription(desc)),
+    updateTags: tags => dispatch(actions.updateTags(tags)),
+    addItem: (formData, token) => dispatch(actions.addItem(formData, token)),
+    resetAddItem: () => dispatch(actions.resetAfterAddItemSuccess())
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UploadDirections)
+);

@@ -9,7 +9,7 @@ import Auxillary from '../../../hoc/Auxillary/Auxillary';
 
 class ItemsContainer extends Component {
   componentDidMount = () => {
-    this.props.fetchItemsAndUsers();
+    this.props.fetchItems();
   };
 
   render() {
@@ -30,7 +30,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
+    fetchItems: () => dispatch(actions.fetchItems())
   };
 };
 

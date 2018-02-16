@@ -6,6 +6,7 @@ const initialState = {
   unfilteredItems: [],
   filteredItems: [],
   loading: false,
+  addedItem: false,
   error: ''
 };
 
@@ -25,9 +26,46 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         filteredItems: getFilteredItems(state, action.tags)
       });
+    case actionTypes.BORROW_ITEM_LOADING:
+      return updateObject(state, { loading: true });
+    case actionTypes.BORROW_ITEM_SUCCESS:
+      return borrowItemSuccess(state, action.itemID, action.borrowerID);
+    case actionTypes.BORROW_ITEM_FAIL:
+      return updateObject(state, { loading: false, error: action.error });
+    case actionTypes.ADD_ITEM_SUCCESS:
+      let updatedItems = state.unfilteredItems.concat(action.newItem);
+      return updateObject(state, {
+        unfilteredItems: updatedItems,
+        addedItem: true
+      });
+    case actionTypes.ADD_ITEM_FAIL:
+      return updateObject(state, { error: action.error });
+    case actionTypes.RESET_AFTER_ADD_ITEM_SUCCESS:
+      return updateObject(state, { addedItem: false });
     default:
       return state;
   }
+};
+
+const borrowItemSuccess = (state, itemID, borrowerID) => {
+  const updatedUnfilteredItems = state.unfilteredItems.map(item => {
+    if (item._id === itemID) {
+      item.borrower = borrowerID;
+    }
+    return item;
+  });
+  const updatedFilteredItems = state.filteredItems.map(item => {
+    if (item._id === itemID) {
+      item.borrower = borrowerID;
+    }
+    return item;
+  });
+  return updateObject(state, {
+    loading: false,
+    error: false,
+    unfilteredItems: updatedUnfilteredItems,
+    filteredItems: updatedFilteredItems
+  });
 };
 
 const getFilteredItems = (state, tags) => {

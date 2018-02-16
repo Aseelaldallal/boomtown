@@ -1,8 +1,8 @@
 // React, React Router
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-// Prop Types
-import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
 // Components and Containers
 import NavBar from '../Navigation/NavBar/NavBar';
 // Material UI
@@ -20,38 +20,45 @@ const styles = {
   }
 };
 
-const Layout = props => {
-  let addItemButton = null;
-  if (props.location.pathname !== '/login') {
-    addItemButton = (
-      <FloatingActionButton
-        style={styles.floatingButton}
-        backgroundColor={grey900}
-        onClick={() => props.history.push('/share')}
-      >
-        <ContentAdd />
-      </FloatingActionButton>
+class Layout extends Component {
+  render() {
+    let addItemButton = null;
+    if (
+      this.props.location.pathname !== '/login' &&
+      this.props.isAuthenticated
+    ) {
+      addItemButton = (
+        <FloatingActionButton
+          style={styles.floatingButton}
+          backgroundColor={grey900}
+          onClick={() => this.props.history.push('/share')}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+      );
+    }
+
+    return (
+      <div className="appContentWrapper">
+        <div className="appHeader">
+          <NavBar
+            isAuthenticated={this.props.isAuthenticated}
+            userId={this.props.userId}
+          />
+        </div>
+        <div className="appContent">{this.props.children}</div>
+        {addItemButton}
+        {/* And a footer here, but not on the login route... */}
+      </div>
     );
   }
+}
 
-  return (
-    <div className="appContentWrapper">
-      <div className="appHeader">
-        <NavBar />
-      </div>
-      <div className="appContent">{props.children}</div>
-      {addItemButton}
-      {/* And a footer here, but not on the login route... */}
-    </div>
-  );
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.auth_user_token !== null,
+    userId: state.auth.auth_user_id
+  };
 };
 
-Layout.defaultProps = {
-  children: null
-};
-
-Layout.propTypes = {
-  children: PropTypes.node
-};
-
-export default withRouter(Layout);
+export default withRouter(connect(mapStateToProps)(Layout));

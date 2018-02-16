@@ -25,12 +25,16 @@ const ItemCard = props => {
     }
   };
   let cardOverlay = null;
-  if (props.data.available) {
+  if (props.data.borrower !== null) {
     cardOverlay = <CardTitle subtitle="UNAVAILABLE" />;
   }
 
   let cardButton = null;
-  if (props.data.available) {
+  if (
+    props.data.borrower === null &&
+    props.authUser &&
+    props.data.itemowner._id !== props.authUser
+  ) {
     cardButton = (
       <RaisedButton
         backgroundColor={grey900}
@@ -41,8 +45,7 @@ const ItemCard = props => {
     );
   }
 
-  let itemOwnerProfileURL = '/profile/' + props.data.itemowner.id;
-
+  let itemOwnerProfileURL = '/profile/' + props.data.itemowner._id;
   return (
     <div style={styles.itemCard}>
       <Card>
@@ -55,10 +58,12 @@ const ItemCard = props => {
             title={props.data.itemowner.fullname}
             subtitle={<Moment fromNow>{props.data.created}</Moment>}
             avatar={
-              <Gravatar
-                email={props.data.itemowner.email}
-                className="GravatarImg"
-              />
+              props.data.itemowner.jwt ? (
+                <Gravatar
+                  email={props.data.itemowner.jwt.email}
+                  className="GravatarImg"
+                />
+              ) : null
             }
           />
         </Link>

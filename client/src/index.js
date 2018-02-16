@@ -2,29 +2,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // React Router
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 // Redux
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import itemsReducer from './store/reducers/items';
 import usersReducer from './store/reducers/users';
-// Material UI, Styling
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import muiTheme from './config/theme';
-import './index.css';
+import itemAdderReducer from './store/reducers/itemAdder';
+import authReducer from './store/reducers/auth';
 // Components and Containers
-import Layout from './components/Layout';
-import Login from './containers/Login';
-import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
-import UserProfile from './containers/UserProfile/UserProfile';
-import ItemAdder from './containers/Items/ItemAdder/ItemAdder';
+import App from './App';
+// Styling
+import './index.css';
 // Register Service Worker
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
-  users: usersReducer
+  users: usersReducer,
+  itemAdder: itemAdderReducer,
+  auth: authReducer
 });
 
 const composeEnhancers =
@@ -40,16 +38,7 @@ const store = createStore(
 const Boomtown = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Switch>
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Layout>
-            <Route path="/login" component={Login} />
-            <Route exact path="/items" component={ItemsContainer} />
-            <Route exact path="/profile/:userid" component={UserProfile} />
-            <Route exact path="/share" component={ItemAdder} />
-          </Layout>
-        </MuiThemeProvider>
-      </Switch>
+      <App />
     </BrowserRouter>
   </Provider>
 );

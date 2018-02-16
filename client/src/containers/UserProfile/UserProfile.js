@@ -1,119 +1,94 @@
 // React
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
-// Gravatar
-import Gravatar from 'react-gravatar';
+// axios
+import axios from 'axios';
 // Components and Containers
-import ItemCardList from '../../components/Items/ItemCardList/ItemCardList';
 import Auxillary from '../../hoc/Auxillary/Auxillary';
+import Profile from '../../components/Profile/Profile';
+// Utility
+import _ from 'lodash';
 // Styling
 import './UserProfile.css';
 
 class UserProfile extends Component {
   state = {
     user: null,
-    items: [],
-    numItemsBorrowed: 0,
-    numItemsShared: 0
+    error: null
   };
 
-  componentDidMount = () => {
-    this.props.fetchItemsAndUsers();
-    if (this.props.users.length > 0 && this.props.items.length > 0) {
-      this.setState({
-        user: this.getUser(this.props.users),
-        items: this.getUserItems(this.props.items)
-      });
-    }
-  };
+  componentDidMount() {
+    this.props.fetchItems();
+    this.fetchCurrentUser();
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.users && this.props.items) {
-      if (this.props.users.length !== nextProps.users.length) {
-        this.setState({
-          user: this.getUser(nextProps.users)
-        });
-      }
-      if (this.props.items.length !== nextProps.items.length) {
-        this.setState({
-          items: this.getUserItems(nextProps.items)
-        });
-      }
+    if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      this.props.fetchItems();
+      this.fetchCurrentUser(nextProps);
     }
   }
 
-  getUser = users => {
-    return users.find(user => {
-      return this.props.match.params.userid === user.id;
-    });
-  };
+  fetchCurrentUser(nextProps) {
+    let userID = this.props.match.params.userId;
+    if (nextProps) {
+      userID = nextProps.match.params.userId;
+    }
+    axios
+      .get(`http://localhost:3001/users/${userID}`)
+      .then(response => {
+        this.setState({ user: response.data[0] });
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
 
-  getUserItems = items => {
-    return items.filter(item => {
-      return this.props.match.params.userid === item.itemowner.id;
+  getUserItems() {
+    let userItems = this.props.items.filter(item => {
+      return _.includes(this.state.user.itemsowned, item._id);
     });
-  };
+    return userItems;
+  }
 
-  getNumberItemsBorrowed = items => {
-    let itemsBorrowed = items.filter(item => {
-      return this.props.match.params.userid === item.borrower;
+  countBorrowedItems() {
+    let borrowedItems = this.props.items.filter(item => {
+      return item.borrower === this.state.user._id;
     });
-    return itemsBorrowed.length;
-  };
-
-  getNumberItemsShared = items => {
-    let itemsShared = items.filter(item => {
-      return items.borrower != null;
-    });
-    return itemsShared.length;
-  };
+    return borrowedItems.length;
+  }
 
   render() {
     let profile = null;
-    if (this.state.user) {
+    if (this.props.items && this.state.user) {
       profile = (
-        <div className="userProfileContainer">
-          <div className="paperBox">
-            <div className="item-a">
-              <h1>{this.state.user.fullname}</h1>
-              <p>{this.state.user.bio}</p>
-            </div>
-            <div className="item-b">
-              <h3>{this.state.numItemsShared}</h3>
-              <p>Items shared</p>
-            </div>
-            <div className="item-c">
-              <h3>{this.state.numItemsBorrowed}</h3>
-              <p>Items borrowed</p>
-            </div>
-            <div className="item-d">
-              <Gravatar
-                className="paperGravatar"
-                email={this.state.user.email}
-              />
-            </div>
-          </div>
-          <ItemCardList items={this.state.items} />
-        </div>
+        <Profile
+          user={this.state.user}
+          itemsowned={this.getUserItems()}
+          numItemsBorrowed={this.countBorrowedItems()}
+        />
       );
     }
+
     return <Auxillary>{profile}</Auxillary>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    users: state.users.users,
     items: state.items.unfilteredItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItemsAndUsers: () => dispatch(actions.fetchItemsAndUsers())
+    fetchItems: () => dispatch(actions.fetchItems())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+);
