@@ -71,12 +71,14 @@ export const addItem = (itemData, token) => dispatch => {
     data: itemData
   })
     .then(response => {
-      console.log(response.data);
       dispatch(addItemSuccess(response.data));
       // you don't really need this
     })
     .catch(error => {
-      console.log(error);
       dispatch(addItemFail(error));
     });
 };
+
+export const resetAfterAddItemSuccess = () => ({
+  type: actionTypes.RESET_AFTER_ADD_ITEM_SUCCESS
+});

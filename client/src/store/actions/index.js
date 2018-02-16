@@ -2,7 +2,8 @@ export {
   fetchItems,
   filterItemsByTagName,
   borrowItem,
-  addItem
+  addItem,
+  resetAfterAddItemSuccess
 } from './itemActions.js';
 export { fetchUsers } from './userActions.js';
 export {

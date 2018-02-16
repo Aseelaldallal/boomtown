@@ -6,6 +6,7 @@ const initialState = {
   unfilteredItems: [],
   filteredItems: [],
   loading: false,
+  addedItem: false,
   error: ''
 };
 
@@ -33,9 +34,14 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, { loading: false, error: action.error });
     case actionTypes.ADD_ITEM_SUCCESS:
       let updatedItems = state.unfilteredItems.concat(action.newItem);
-      return updateObject(state, { unfilteredItems: updatedItems });
+      return updateObject(state, {
+        unfilteredItems: updatedItems,
+        addedItem: true
+      });
     case actionTypes.ADD_ITEM_FAIL:
       return updateObject(state, { error: action.error });
+    case actionTypes.RESET_AFTER_ADD_ITEM_SUCCESS:
+      return updateObject(state, { addedItem: false });
     default:
       return state;
   }

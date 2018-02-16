@@ -25,7 +25,7 @@ class UserProfile extends Component {
     this.fetchCurrentUser();
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
       this.props.fetchItems();
       this.fetchCurrentUser(nextProps);

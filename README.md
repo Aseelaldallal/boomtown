@@ -45,13 +45,17 @@ Need to fix.
 * Implement Item Add -- DONE
 * Implement Image Upload -- DONE
 * Deploy
-* Make share route only available to logged in users
-* implement 404
-* make logo clickable
+* Make share route only available to logged in users -- DONE
+* implement 404c-- DONE
+* make logo clickable -- DONE
 
 Bonus:
 
 * Add axios interceptors ?
 * Lazy loading?
 
-# TODAY:
+# other
+
+When user adds item, the redirect
+axios interceptors
+need to add item owner to auth

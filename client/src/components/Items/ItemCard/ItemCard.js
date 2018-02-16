@@ -58,10 +58,12 @@ const ItemCard = props => {
             title={props.data.itemowner.fullname}
             subtitle={<Moment fromNow>{props.data.created}</Moment>}
             avatar={
-              <Gravatar
-                email={props.data.itemowner.jwt.email}
-                className="GravatarImg"
-              />
+              props.data.itemowner.jwt ? (
+                <Gravatar
+                  email={props.data.itemowner.jwt.email}
+                  className="GravatarImg"
+                />
+              ) : null
             }
           />
         </Link>

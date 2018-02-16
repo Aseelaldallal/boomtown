@@ -45,6 +45,13 @@ class UploadDirections extends Component {
     }
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.itemsWereUpdated === true) {
+      this.props.resetAddItem();
+      this.props.history.push(`/profile/${this.props.authUser}`);
+    }
+  }
+
   submitItem = () => {
     const formData = new FormData();
     formData.append('title', this.props.title);
@@ -54,7 +61,6 @@ class UploadDirections extends Component {
     formData.append('userID', this.props.authUser);
 
     this.props.addItem(formData, this.props.token);
-    this.props.history.push(`/profile/${this.props.authUser}`);
   };
 
   render() {
@@ -232,7 +238,8 @@ const mapStateToProps = state => {
     tags: state.itemAdder.tags,
     file: state.itemAdder.file,
     token: state.auth.auth_user_token,
-    authUser: state.auth.auth_user_id
+    authUser: state.auth.auth_user_id,
+    itemsWereUpdated: state.items.addedItem
   };
 };
 
@@ -242,7 +249,8 @@ const mapDispatchToProps = dispatch => {
     updateTitle: title => dispatch(actions.updateTitle(title)),
     updateDescription: desc => dispatch(actions.updateDescription(desc)),
     updateTags: tags => dispatch(actions.updateTags(tags)),
-    addItem: (formData, token) => dispatch(actions.addItem(formData, token))
+    addItem: (formData, token) => dispatch(actions.addItem(formData, token)),
+    resetAddItem: () => dispatch(actions.resetAfterAddItemSuccess())
   };
 };
 
