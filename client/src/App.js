@@ -1,7 +1,7 @@
 // React
 import React, { Component } from 'react';
 // React Router
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 // Redux
 import { connect } from 'react-redux';
 import * as actions from './store/actions/';
@@ -27,18 +27,19 @@ class App extends Component {
 
   render() {
     let routes = (
-      <Auxillary>
+      <Switch>
+        <Redirect exact path="/" to="/items" />
         <Route path="/login" component={LoginContainer} />
         <Route path="/register" component={RegisterContainer} />
         <Route exact path="/items" component={ItemsContainer} />
         <Route exact path="/profile/:userId" component={UserProfile} />
-        <Route component={NotFound} />
-      </Auxillary>
+      </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
-        <Auxillary>
+        <Switch>
+          <Redirect exact path="/" to="/items" />
           <Route path="/login" component={LoginContainer} />
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={RegisterContainer} />
@@ -46,16 +47,14 @@ class App extends Component {
           <Route exact path="/profile/:userId" component={UserProfile} />
           <Route exact path="/share" component={ItemAdder} />
           <Route component={NotFound} />
-        </Auxillary>
+        </Switch>
       );
     }
 
     return (
-      <Switch>
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Layout>{routes}</Layout>
-        </MuiThemeProvider>
-      </Switch>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <Layout>{routes}</Layout>
+      </MuiThemeProvider>
     );
   }
 }
