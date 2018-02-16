@@ -54,8 +54,8 @@ Bonus:
 * Add axios interceptors ?
 * Lazy loading?
 
-# other
+# WHAT IS DEFINITELY LEFT
 
-When user adds item, the redirect
-axios interceptors
-need to add item owner to auth
+Store entire user in AUTH reducer, not just token and etc. You must do this in authActions and authReducer
+Go to items adder, remove hardcoded itemowner, get info from state.auth
+Add axios interceptors to make deployment easier
