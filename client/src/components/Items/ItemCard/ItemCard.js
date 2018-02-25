@@ -45,8 +45,10 @@ const ItemCard = props => {
     );
   }
 
+
   let itemOwnerProfileURL = '/profile/' + props.data.itemowner._id;
   return (
+
     <div style={styles.itemCard}>
       <Card>
         <CardMedia overlay={cardOverlay}>
