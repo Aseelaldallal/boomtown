@@ -51,6 +51,7 @@ Need to fix.
 * Make share route only available to logged in users -- DONE
 * implement 404c-- DONE
 * make logo clickable -- DONE
+* Add fullname, email, bio to reducer -- DONE
 * Login Register Buttons
 * Return Items
 
@@ -62,5 +63,10 @@ Bonus:
 # WHAT IS DEFINITELY LEFT
 
 Store entire user in AUTH reducer, not just token and etc. You must do this in authActions and authReducer
-Go to items adder, remove hardcoded itemowner, get info from state.auth
+Go to items adder, remove hardcoded itemowner, get info from state.auth --- DONE
 Add axios interceptors to make deployment easier
+
+
+# Things to do in the future
+
+* I never check that the user actually uploads the image, and that the image size doesn't exceed a certain size. Need to do this on both client and server. Pretty straightforward. 

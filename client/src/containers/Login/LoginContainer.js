@@ -9,6 +9,7 @@ import * as actions from '../../store/actions/';
 import Input from '../../components/UI/Input/Input';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+
 // Utility
 import { updateObject, checkValidity } from '../../shared/utility';
 // SVG Images
@@ -158,7 +159,6 @@ class LoginContainer extends Component {
 
     let redirect = null;
     if (this.props.isAuthenticated) {
-      console.log(this.props.isAuthenticated);
       redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />;
     }
 
@@ -169,12 +169,10 @@ class LoginContainer extends Component {
         i++;
         return (
           <p key={i} className="error">
-            {' '}
-            {err}{' '}
+            {err}
           </p>
         );
       });
-      console.log(errors);
     }
 
     return (
@@ -205,6 +203,16 @@ class LoginContainer extends Component {
                     Login
                   </RaisedButton>
                 </form>
+                <hr className="hr-text" data-content="Don't have an account?"/>
+                <RaisedButton
+                    className="enterButton"
+                    primary
+                    fullWidth
+                    onClick={()=>this.props.history.push('/register')}
+                    style={{marginTop:'0.5rem'}}
+                  >
+                    Register
+                  </RaisedButton>
               </div>
             </Paper>
           </div>
