@@ -52,7 +52,7 @@ Need to fix.
 * implement 404c-- DONE
 * make logo clickable -- DONE
 * Add fullname, email, bio to reducer -- DONE
-* Login Register Buttons
+* Login Register Buttons -- DONE
 * Return Items
 
 Bonus:

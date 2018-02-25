@@ -31,9 +31,9 @@ const ItemCard = props => {
 
   let cardButton = null;
   if (
-    props.data.borrower === null &&
-    props.authUser &&
-    props.data.itemowner._id !== props.authUser
+    props.data.borrower === null && // if its available
+    props.authUser && // if a user is authenticated
+    props.data.itemowner._id !== props.authUser // if authenticated user doesn't own item
   ) {
     cardButton = (
       <RaisedButton
