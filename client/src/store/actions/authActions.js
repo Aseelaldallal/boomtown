@@ -10,7 +10,6 @@ export const registerUser = formData => dispatch => {
     .then(response => {
       saveInLocalStorage(response);
       dispatch(checkAuthTimeout(response.data.expiry));
-      console.log("RESPONSE:", response.data);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
     .catch(err => {
@@ -26,7 +25,9 @@ const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
 const registerSuccess = data => ({
   type: actionTypes.REGISTER_SUCCESS,
   id: data.id,
-  token: data.token
+  token: data.token,
+  fullname: data.fullname,
+  bio: data.bio
 });
 const registerFail = error => ({
   type: actionTypes.REGISTER_FAIL,
@@ -57,7 +58,9 @@ const loginRequest = () => ({ type: actionTypes.LOGIN_REQUEST });
 const loginSuccess = data => ({
   type: actionTypes.LOGIN_SUCCESS,
   id: data.id,
-  token: data.token
+  token: data.token,  
+  fullname: data.fullname,
+  bio: data.bio
 });
 const loginFail = error => ({
   type: actionTypes.LOGIN_FAIL,
