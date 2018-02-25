@@ -7,6 +7,7 @@ const initialState = {
   auth_user_token: null,
   auth_user_fullname: null,
   auth_user_bio: null,
+  auth_user_email: null,
   auth_error: []
 };
 
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
         auth_user_id: action.id,
         auth_user_token: action.token,
         auth_user_fullname: action.fullname,
-        auth_user_bio: action.bio
+        auth_user_bio: action.bio,
+        auth_user_email: action.email
       });
     case actionTypes.REGISTER_FAIL:
       return updateObject(state, {
@@ -42,14 +44,16 @@ const reducer = (state = initialState, action) => {
         auth_user_id: action.id,
         auth_user_token: action.token,
         auth_user_fullname: action.fullname,
-        auth_user_bio: action.bio
+        auth_user_bio: action.bio,
+        auth_user_email: action.email
       });
     case actionTypes.LOGOUT:
       return updateObject(state, {
         auth_user_id: null,
         auth_user_token: null,
         auth_user_fullname: null,
-        auth_user_bio: null
+        auth_user_bio: null,
+        auth_user_email: null
       });
     default:
       return state;

@@ -27,7 +27,8 @@ const registerSuccess = data => ({
   id: data.id,
   token: data.token,
   fullname: data.fullname,
-  bio: data.bio
+  bio: data.bio,
+  email: data.email
 });
 const registerFail = error => ({
   type: actionTypes.REGISTER_FAIL,
@@ -60,7 +61,8 @@ const loginSuccess = data => ({
   id: data.id,
   token: data.token,  
   fullname: data.fullname,
-  bio: data.bio
+  bio: data.bio,
+  email: data.email
 });
 const loginFail = error => ({
   type: actionTypes.LOGIN_FAIL,

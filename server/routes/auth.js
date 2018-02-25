@@ -45,7 +45,7 @@ router.post(
               let expiry = 3600; //1hr
               res
                 .status(200)
-                .json({ id: savedUser._id, token: token, expiry: expiry, fullname: newUser.fullname, bio: newUser.bio });
+                .json({ id: savedUser._id, token: token, expiry: expiry, fullname: savedUser.fullname, bio: savedUser.bio, email: savedUser.jwt.email});
             })
             .catch(err => {
               let messages = [];
@@ -81,7 +81,7 @@ router.post(
           let expiry = 3600; // expiry
           res
             .status(200)
-            .json({ id: foundUser._id, token: token, expiry: expiry, fullname: foundUser.fullname, bio: foundUser.bio  });
+            .json({ id: foundUser._id, token: token, expiry: expiry, fullname: foundUser.fullname, bio: foundUser.bio, email: foundUser.jwt.email  });
         } else {
           res.status(401).json({ messages: ['Incorrect Password'] });
         }
