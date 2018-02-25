@@ -42,7 +42,7 @@ class LoginContainer extends Component {
       password: {
         elementType: 'input',
         elementConfig: {
-          type: 'test',
+          type: 'password',
           placeholder: 'Your Password'
         },
         value: '',

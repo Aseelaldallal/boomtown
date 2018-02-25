@@ -13,6 +13,7 @@ const input = (props) => {
     switch (props.elementType) {
         case ('input'):
             inputElement = <TextField
+                type={props.elementConfig.type}
                 hintText={props.elementConfig.placeholder}
                 floatingLabelText={props.elementConfig.placeholder}
                 value={props.value}

@@ -13,7 +13,7 @@ const Profile = props => {
       <div className="paperBox">
         <div className="item-a">
           <h1>{props.user.fullname}</h1>
-          <p>{props.user.bio}</p>
+          <p className="bio">{props.user.bio}</p>
         </div>
         <div className="item-b">
           <h3>{props.user.itemsowned.length}</h3>

@@ -57,7 +57,7 @@ class RegisterContainer extends Component {
       password: {
         elementType: 'input',
         elementConfig: {
-          type: 'test',
+          type: 'password',
           placeholder: 'Your Password'
         },
         value: '',
@@ -79,13 +79,13 @@ class RegisterContainer extends Component {
         value: '',
         validation: {
           required: true,
-          minLength: 50,
-          maxLength: 200
+          minLength: 25,
+          maxLength: 100
         },
         valid: false,
         touched: false,
         validationMessage:
-          'Your bio must be 50-200 characters long. No less, no more'
+          'Your bio must be 25-100 characters long. No less, no more'
       }
     },
     formIsValid: false
