@@ -211,7 +211,7 @@ class LoginContainer extends Component {
                     onClick={()=>this.props.history.push('/register')}
                     style={{marginTop:'0.5rem'}}
                   >
-                    Register
+                    Switch to Register
                   </RaisedButton>
               </div>
             </Paper>

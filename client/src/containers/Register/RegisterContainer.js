@@ -243,6 +243,16 @@ class RegisterContainer extends Component {
                     Register
                 </RaisedButton>
                 </form>
+                <hr className="hr-text" data-content="Already have an account?"/>
+                <RaisedButton
+                    className="enterButton"
+                    primary
+                    fullWidth
+                    onClick={()=>this.props.history.push('/login')}
+                    style={{marginTop:'0.5rem'}}
+                  >
+                    Switch to Login
+                  </RaisedButton>
               </div>
             </Paper>
           </div>
