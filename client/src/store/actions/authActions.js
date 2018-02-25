@@ -10,6 +10,7 @@ export const registerUser = formData => dispatch => {
     .then(response => {
       saveInLocalStorage(response);
       dispatch(checkAuthTimeout(response.data.expiry));
+      console.log("RESPONSE:", response.data);
       dispatch(registerSuccess(response.data)); // response.data is user
     })
     .catch(err => {

@@ -9,8 +9,6 @@
 
 The purpose of this app is to allow registered users to list items they own, and borrow items listed from others.
 
-
-
 ## Technologies
 
 * React
@@ -20,7 +18,7 @@ The purpose of this app is to allow registered users to list items they own, and
 ## Challenges (Draft)
 
 -- App Structure: Need more experience in App Design
--- Authentication: This was a headache. Started with passport local strategy. Switched to jwt strategy because needed token. After I got the flow of it though, it was okay.
+-- Authentication: This was a headache. Started with passport local strategy. Switched to jwt strategy because needed token. After I got the flow of it though, it was straightforward.
 -- I made my form dynamic, but I don't like it.
 -- Bad code: RegisterForm and LoginForm -- Repetitive Code. Need cleaner structure
 -- Repetitive login and register code in auth reducer. Could clean it up.
@@ -53,6 +51,8 @@ Need to fix.
 * Make share route only available to logged in users -- DONE
 * implement 404c-- DONE
 * make logo clickable -- DONE
+* Login Register Buttons
+* Return Items
 
 Bonus:
 

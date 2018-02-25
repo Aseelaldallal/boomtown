@@ -45,7 +45,7 @@ router.post(
               let expiry = 3600; //1hr
               res
                 .status(200)
-                .json({ id: savedUser._id, token: token, expiry: expiry });
+                .json({ id: savedUser._id, token: token, expiry: expiry, fullname: newUser.fullname, bio: newUser.bio });
             })
             .catch(err => {
               let messages = [];
