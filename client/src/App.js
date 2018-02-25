@@ -1,24 +1,24 @@
 // React
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // React Router
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 // Redux
-import { connect } from 'react-redux';
-import * as actions from './store/actions/';
+import { connect } from "react-redux";
+import * as actions from "./store/actions/";
 // Material UI, Styling
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import muiTheme from './config/theme';
-import './index.css';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import muiTheme from "./config/theme";
+import "./index.css";
 // Components and Containers
-import Layout from './components/Layout';
-import Logout from './containers/Logout/Logout';
-import LoginContainer from './containers/Login/LoginContainer';
-import RegisterContainer from './containers/Register/RegisterContainer';
-import ItemsContainer from './containers/Items/ItemsContainer/ItemsContainer';
-import UserProfile from './containers/UserProfile/UserProfile';
-import ItemAdder from './containers/Items/ItemAdder/ItemAdder';
-import Auxillary from './hoc/Auxillary/Auxillary';
-import NotFound from './components/NotFound/NotFound';
+import Layout from "./components/Layout";
+import Logout from "./containers/Logout/Logout";
+import LoginContainer from "./containers/Login/LoginContainer";
+import RegisterContainer from "./containers/Register/RegisterContainer";
+import ItemsContainer from "./containers/Items/ItemsContainer/ItemsContainer";
+import UserProfile from "./containers/UserProfile/UserProfile";
+import ItemAdder from "./containers/Items/ItemAdder/ItemAdder";
+import Auxillary from "./hoc/Auxillary/Auxillary";
+import NotFound from "./components/NotFound/NotFound";
 
 class App extends Component {
   componentDidMount() {
