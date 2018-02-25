@@ -81,7 +81,7 @@ router.post(
           let expiry = 3600; // expiry
           res
             .status(200)
-            .json({ id: foundUser._id, token: token, expiry: expiry });
+            .json({ id: foundUser._id, token: token, expiry: expiry, fullname: foundUser.fullname, bio: foundUser.bio  });
         } else {
           res.status(401).json({ messages: ['Incorrect Password'] });
         }
