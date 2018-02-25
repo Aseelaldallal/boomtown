@@ -7,6 +7,7 @@ import ItemCard from '../../../components/Items/ItemCard/ItemCard';
 import './ItemAdder.css';
 
 class ItemAdder extends Component {
+ 
   render() {
     let itemAdder = null;
 
@@ -18,9 +19,9 @@ class ItemAdder extends Component {
       borrower: null,
       created: new Date(),
       itemowner: {
-        id: '234234242',
+        id: this.props.authUserId,
         jwt: {
-          email: 'aseelaldallal@gmail.com'
+          email: this.props.authUserEmail
         }
       }
     };
@@ -42,7 +43,9 @@ const mapStateToProps = state => {
     title: state.itemAdder.title,
     description: state.itemAdder.description,
     tags: state.itemAdder.tags,
-    imageurl: state.itemAdder.imageURL
+    imageurl: state.itemAdder.imageURL,
+    authUserId: state.auth.auth_user_id,
+    authUserEmail: state.auth.auth_user_email
   };
 };
 
