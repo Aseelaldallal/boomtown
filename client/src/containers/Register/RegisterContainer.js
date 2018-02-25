@@ -177,7 +177,7 @@ class RegisterContainer extends Component {
   };
 
   render() {
-    console.log('[Render]: RegisterContainer');
+    
     const formElements = Object.entries(this.state.registerForm).map(
       element => {
         return (
@@ -199,7 +199,7 @@ class RegisterContainer extends Component {
 
     let redirect = null;
     if (this.props.isAuthenticated) {
-      console.log(this.props.isAuthenticated);
+     
       redirect = <Redirect to={`/profile/${this.props.auth_user_id}`} />
     }
 
@@ -210,7 +210,7 @@ class RegisterContainer extends Component {
         i++;
         return <p key={i} className="error"> {err} </p>
       })
-      console.log(errors);
+    
     }
 
 

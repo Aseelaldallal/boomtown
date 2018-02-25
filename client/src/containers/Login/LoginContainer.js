@@ -134,7 +134,7 @@ class LoginContainer extends Component {
         email: this.state.loginForm['email'].value,
         password: this.state.loginForm['password'].value
       };
-      console.log(formData);
+      
       this.props.loginUser(formData);
     }
   };
