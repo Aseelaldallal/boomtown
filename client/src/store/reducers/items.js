@@ -41,6 +41,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_ITEM_FAIL:
       return updateObject(state, { error: action.error });
     case actionTypes.RESET_AFTER_ADD_ITEM_SUCCESS:
+      // This is potentially unnecessary and could be a bug
       return updateObject(state, { addedItem: false });
     default:
       return state;
