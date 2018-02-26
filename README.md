@@ -32,13 +32,14 @@ Boomtown allows you to:
 
 This app could be significantly improved in terms of features and code. Unfortunately, I am pressed on time so I'm going to leave it as is for the forseable future.
 
-### Features
+#### Features
 
 * Add return item button (straightforward: code goes in itemCard and itemCardList)
 * Borrow item should be a request that needs to be approved by the item owner (for example, when a user clicks borrow item, an email is sent to the item owner with a borrow request."
 * Token Expiry: When a user's token expires, ask them to login again.
+* Authentication with Facebook and Google
 
-### Code
+#### Code
 
 * The logic dealing with registration and logging in has a lot of redundancy. Needs to be cleaned up.
 * There is a pretty obvious security bug (can you find it?). It's easy to fix (ask me)
@@ -52,40 +53,10 @@ Yes, I reflect in bullet points =)
 * React is amazing. I wish I used it for my [eventFUL](https://github.com/Aseelaldallal/Event-App) and [yelpCAMP](https://github.com/Aseelaldallal/yelpcamp) apps. It really allows for scalability, and is fun to code.
 * I actually enjoy authentication with passport.
 
--- Create MERN app that simply deals with registration: JWT, Facebook, Google, Github . Become expert in this.
--- Create MERN app that deals with forms only. The backend is simple. Practice creating dynamic forms on front end. Look into redux-forms?
 
-# Good things?
+## What lies ahead
 
--- Indicative library is awesome for validation
+* I really want to write a tutorial on passport-jwt authentication. Perhaps I create a MERN app that simply deals with registration (JWT, FB, Google, Github) and write a tutorial on it. 
+* I'd like to look into redux-forms. I need some practice with forms, I find that I waste a lot of time on them because I don't have a set way of doing them. 
+* Create another MERN app!
 
-# Current Status
-
-BUG.
-ItemsCardList.... ItemsCardList from Profile and from ItemsContainer.
-Need to fix.
-
-# Left to Do
-
-* Fix UserProfile, ItemCardList bugs -- DONE
-* Implement Borrow -- DONE
-* Implement Item Add -- DONE
-* Implement Image Upload -- DONE
-* Deploy
-* Make share route only available to logged in users -- DONE
-* implement 404c-- DONE
-* make logo clickable -- DONE
-* Add fullname, email, bio to reducer -- DONE
-* Login Register Buttons -- DONE
-
-
-Bonus:
-
-* Add axios interceptors ?
-* Lazy loading?
-
-
-# Things to do in the future (pressed for time now)
-
-* I never check that the user actually uploads the image, and that the image size doesn't exceed a certain size. Need to do this on both client and server. Pretty straightforward. 
-* Natural Addition: Ability to return item. Straightforward (Modify goes in itemCard and itemCardList.)
