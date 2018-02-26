@@ -1,21 +1,29 @@
-# Boomtown (DRAFT)
+# Boomtown
 
-
-**Note:  This app is still being developed!**
-
-**To see current version, navigate to the boomtown-backend-comm branch.**
 
 ## Summary
 
-The purpose of this app is to allow registered users to list items they own, and borrow items listed from others.
+A web app that allows registered users to list items they own, and borrow items listed from others. I built this app to gain more experience using the MERN stack. 
+
+Boomtown allows you to:
+* Create an account
+* List items you're willing to lend to others
+* Borrow items from other users
 
 ## Technologies
 
 * React
 * Redux
 * Material UI
+* Node
+* Express
+* MongoDB
+* Passport (Authentication)
+* Heroku (Backend Deployment)
+* Firebase (Frontend deployment)
+* Amazon S3 (Image Storage)
 
-## Challenges (Draft)
+## Challenges
 
 -- App Structure: Need more experience in App Design
 -- Authentication: This was a headache. Started with passport local strategy. Switched to jwt strategy because needed token. After I got the flow of it though, it was straightforward.
