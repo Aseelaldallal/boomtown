@@ -25,16 +25,28 @@ Boomtown allows you to:
 
 ## Challenges
 
--- App Structure: Need more experience in App Design
--- Authentication: This was a headache. Started with passport local strategy. Switched to jwt strategy because needed token. After I got the flow of it though, it was straightforward.
--- I made my form dynamic, but I don't like it.
--- Bad code: RegisterForm and LoginForm -- Repetitive Code. Need cleaner structure
--- Repetitive login and register code in auth reducer. Could clean it up.
--- Didn't use axios interceptors. Should use them.
--- Right now not dealing with token expiry. Should deal with it.
--- i think i like implementing backend before front end?
+* React App Structure: This was a bit of a challenge initially. My goal was to structure the app in a way that eliminated code redundancy, and allowed for scalability.
+* Authentication: This was a challenge initially because I couldn't find proper documentation on how to use passport-jwt. I looked through other people's code on github and it turned out to be quite straightforward. I actually want to do a tutorial on it to fill the gap in information.
 
-## Future
+## Future Improvements
+
+This app could be significantly improved in terms of features and code. Unfortunately, I am pressed on time so I'm going to leave it as is for the forseable future.
+
+# Features
+
+* Add return item button (straightforward: code goes in itemCard and itemCardList)
+* Borrow item should be a request that needs to be approved by the item owner (for example, when a user clicks borrow item, an email is sent to the item owner with a borrow request."
+* Token Expiry: When a user's token expires, ask them to login again.
+
+# Code
+
+* The logic dealing with registration and logging in has a lot of redundancy. Needs to be cleaned up.
+* There is a pretty obvious security bug (can you find it?). It's easy to fix (ask me)
+* Lack of image validation: When the user uploads an image, I don't actually check that it is an image, and I don't check it's size. This is really bad. It needs to be implemented on both the front and backend. It's pretty straightforward to do (see similar code in Maydu, eventFUL and yelpCAMP).
+
+
+
+## Reflection
 
 -- Create MERN app that simply deals with registration: JWT, Facebook, Google, Github . Become expert in this.
 -- Create MERN app that deals with forms only. The backend is simple. Practice creating dynamic forms on front end. Look into redux-forms?
