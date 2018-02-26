@@ -9,6 +9,9 @@ Boomtown allows you to:
 * Create an account
 * List items you're willing to lend to others
 * Borrow items from other users
+* Filter through item types
+
+You can play around with the app [here](https://aseelboomtown.firebaseapp.com/). Feel free to create an account and experiment. 
 
 ## Technologies
 
@@ -22,6 +25,9 @@ Boomtown allows you to:
 * Heroku (Backend Deployment)
 * Firebase (Frontend deployment)
 * Amazon S3 (Image Storage)
+
+![Imgur](https://i.imgur.com/lblniib.png)
+![Imgur](https://i.imgur.com/LxfaJOD.png)
 
 ## Challenges
 
