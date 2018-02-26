@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-server';
 
 // ======================= USER ACTIONS ======================= //
 
@@ -11,7 +11,7 @@ export const fetchUsers = () => dispatch => {
   console.log('Fetching Users action');
   dispatch(getUsersLoading());
   axios
-    .get('http://localhost:3001/users')
+    .get('/users')
     .then(response => {
       dispatch(getUsers(response.data));
     })

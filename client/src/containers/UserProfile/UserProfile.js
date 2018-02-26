@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/';
 // axios
-import axios from 'axios';
+import axios from '../../axios-server';
 // Components and Containers
 import Auxillary from '../../hoc/Auxillary/Auxillary';
 import Profile from '../../components/Profile/Profile';
@@ -38,7 +38,7 @@ class UserProfile extends Component {
       userID = nextProps.match.params.userId;
     }
     axios
-      .get(`http://localhost:3001/users/${userID}`)
+      .get(`/users/${userID}`)
       .then(response => {
         this.setState({ user: response.data[0] });
       })

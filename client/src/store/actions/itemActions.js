@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-server';
 
 const getItems = items => ({ type: actionTypes.GET_ITEMS, items: items }); // should really name this to get items success
 const getItemsLoading = () => ({ type: actionTypes.GET_ITEMS_LOADING });
@@ -16,7 +16,7 @@ export const filterItemsByTagName = tagNames => ({
 export const fetchItems = () => dispatch => {
   dispatch(getItemsLoading());
   axios
-    .get('http://localhost:3001/items')
+    .get('/items')
     .then(response => {
       dispatch(getItems(response.data));
     })
@@ -40,7 +40,7 @@ export const borrowItem = (itemId, borrowerId, token) => dispatch => {
   dispatch(borrowItemLoading());
   axios({
     method: 'patch',
-    url: `http://localhost:3001/items/${itemId}`,
+    url: `/items/${itemId}`,
     headers: { Authorization: `bearer ${token}` }
   })
     .then(response => {
@@ -63,7 +63,7 @@ export const addItem = (itemData, token) => dispatch => {
   dispatch(addItemLoading());
   axios({
     method: 'post',
-    url: `http://localhost:3001/items/`,
+    url: `/items/`,
     headers: {
       Authorization: `bearer ${token}`,
       'Content-Type': 'multipart/form-data'

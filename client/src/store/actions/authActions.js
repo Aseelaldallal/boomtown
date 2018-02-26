@@ -1,12 +1,12 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-server';
 
 // ==================== REGISTER ACTIONS ==================== //
 
 export const registerUser = formData => dispatch => {
   dispatch(registerRequest()); // Set Loading to true
   axios
-    .post('http://localhost:3001/register', formData)
+    .post('/register', formData)
     .then(response => {
       saveInLocalStorage(response);
       dispatch(checkAuthTimeout(response.data.expiry));
@@ -40,7 +40,7 @@ const registerFail = error => ({
 export const loginUser = formData => dispatch => {
   dispatch(loginRequest()); // Set Loading to true
   axios
-    .post('http://localhost:3001/login', formData)
+    .post('/login', formData)
     .then(response => {
       saveInLocalStorage(response);
       dispatch(checkAuthTimeout(response.data.expiry));
