@@ -36,7 +36,7 @@ class ItemCardList extends Component {
 
   handleOpen = itemToBorrow => {
     this.setState({ borrowing: { status: true, item: itemToBorrow } });
-    console.log(itemToBorrow);
+  
   };
 
   handleClose = () => {
